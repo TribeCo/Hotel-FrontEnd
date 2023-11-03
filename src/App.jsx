@@ -1,16 +1,12 @@
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
-
 import { Button } from "@mui/material";
 
-// Create theme
-const theme = createTheme({
-	direction: "rtl",
-});
+import { theme } from "./layouts/theme";
 
 // Create rtl cache
 const cacheRtl = createCache({
@@ -26,9 +22,11 @@ const App = () => {
 					<Helmet>
 						<title>Hotel Transylvania</title>
 					</Helmet>
-					<div>
-						<Button variant="contained">دکمه</Button>
-					</div>
+					<Button
+						variant="contained"
+						color="pink">
+						دکمه
+					</Button>
 				</HelmetProvider>
 			</ThemeProvider>
 		</CacheProvider>
