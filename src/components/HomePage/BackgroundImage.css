@@ -1,0 +1,15 @@
+.background-image {
+    background-image: url('../../assets/HomePage.jpeg');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%; 
+} 
+
+@media (max-width: 768px) {
+    .background-image {
+        background-size: contain;
+    }
+}
+  
