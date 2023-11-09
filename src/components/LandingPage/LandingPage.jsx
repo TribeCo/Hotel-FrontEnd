@@ -10,7 +10,6 @@ const body_TODO = () => {
     for (let i = 0; i < 100; i++) {
         res.push(<br />);
     }
-
     return res;
 }
 
@@ -21,10 +20,9 @@ const HomePage = () => {
                 <Bar />  
             </div>
             <div>
-                // TODO
                 <center>
                     {body_TODO()}
-                    <h1 style={{ fontSize: 100 }}> Footer </h1>
+                    <h1 style={{fontSize: 100, backgroundColor: 'purple'}}> Footer </h1>
                 </center>
             </div>
         </ThemeProvider>
