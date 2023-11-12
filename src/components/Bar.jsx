@@ -2,6 +2,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import { AppBar, Toolbar } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material';
+import { Link } from "react-router-dom";
 
 const font_size = 23;
 const button_padding = 13;
@@ -32,7 +33,21 @@ const Bar = () => {
             >
             <Toolbar>
                 <ThemeProvider theme={button_theme}>
-                    <Button>ورود/ثبت نام</Button>
+                    <Button 
+                        variant='contained' 
+                        sx={{
+                            bgcolor: 'purple', 
+                            marginRight: 2, 
+                            borderRadius: 4
+                        }}
+                    ><Link to="/register">ثبت نام</Link></Button>
+                    <Button 
+                        variant='contained' 
+                        sx={{
+                            bgcolor: 'purple', 
+                            borderRadius: 4
+                        }}
+                    ><Link to="/login">ورود</Link></Button>
                     <Button>تماس با ما</Button>
                     <Button>ارتباط با ما</Button>
                     <Button>اخبار</Button>

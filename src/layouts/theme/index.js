@@ -7,7 +7,9 @@ export const theme = createTheme({
 	},
 	palette: {
 		mode: "dark",
-		background: "#282A36",
+		background: {
+			main: "#282A36",
+		},
 		currentLine: {
 			main: "#44475A",
 		},
