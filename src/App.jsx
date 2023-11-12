@@ -4,9 +4,10 @@ import { CacheProvider } from "@emotion/react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
-import { Button } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
 
-import { theme } from "./layouts/theme";
+import { theme } from "./layouts/theme/index.js";
+import Router from "./routes";
 
 // Create rtl cache
 const cacheRtl = createCache({
@@ -22,11 +23,9 @@ const App = () => {
 					<Helmet>
 						<title>Hotel Transylvania</title>
 					</Helmet>
-					<Button
-						variant="contained"
-						color="pink">
-						دکمه
-					</Button>
+					<BrowserRouter>
+						<Router />
+					</BrowserRouter>
 				</HelmetProvider>
 			</ThemeProvider>
 		</CacheProvider>
