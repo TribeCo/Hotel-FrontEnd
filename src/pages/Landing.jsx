@@ -1,9 +1,7 @@
 import { ThemeProvider } from "@mui/material/styles";
-
-import { Button, colors } from "@mui/material";
-import { theme } from "../../layouts/theme";
-import "./BackgroundImage.css"
-import Bar from './Bar';
+import { theme } from "../layouts/theme";
+import "../components/BackgroundImage.css";
+import Bar from '../components/Bar';
 
 const body_TODO = () => {
     const res = []
@@ -17,7 +15,7 @@ const HomePage = () => {
     return (
         <ThemeProvider theme={theme}>
             <div className="background-image">
-                <Bar />  
+                <Bar />
             </div>
             <div>
                 <center>
