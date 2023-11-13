@@ -1,0 +1,60 @@
+
+.overlay-container {
+    position: relative;
+}
+
+.overlay-text {
+    position: absolute;
+    bottom: 20px; /* Adjust this value to your preference */
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.overlay-image {
+    width: 100%;
+    height: auto;
+}
+
+.text-purple {
+    color: #BD93F9 !important;
+}
+body {
+    background-color: #282a36;
+    color: #f8f8f2;
+}
+
+.card {
+    background-color: #44475a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #f8f8f2;
+}
+
+.card-title {
+    color: #BD93F9;
+}
+
+.card-text, .btn {
+    color: #f8f8f2;
+}
+.rounded-bottom-corners {
+    border-bottom-left-radius: 450px;
+    border-bottom-right-radius: 450px;
+}
+.enlarge-image {
+    transform: scale(1.3);
+}
+.fade-text {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+.navbar-purple {
+    background-color: "#BD93F9";
+}
+
+.bg 
+{
+    background-color: #FF79C6 !important;
+}
