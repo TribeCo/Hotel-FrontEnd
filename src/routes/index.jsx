@@ -3,13 +3,18 @@ import { Routes, Route } from "react-router-dom";
 import Landing from "../pages/Landing";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Dashboard from "../pages/Dashboard";
 
 const Router = () => {
 	return (
 		<Routes>
 			<Route
 				path="/"
-				element={<Landing />}
+				element={<Dashboard />}
+			/>
+			<Route
+				path="/dashboard"
+				element={<Dashboard />}
 			/>
 			<Route
 				path="/login"

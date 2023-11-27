@@ -14,8 +14,7 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import AuthContext from "../context/AuthContext";
+// import { useAuth, AuthProvider } from "../context/AuthContext";
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -29,14 +28,7 @@ const validationSchema = Yup.object().shape({
 const Login = () => {
 	// const { loginUser } = useContext(AuthContext);
 
-	const handleSubmit = (values) => {
-		// loginUser({ email: values.email, password: values.password });
-		// console.log({
-		// 	email: values.email,
-		// 	password: values.password,
-		// 	remember: values.remember,
-		// });
-	};
+	const handleSubmit = (values) => {};
 
 	return (
 		<Grid
