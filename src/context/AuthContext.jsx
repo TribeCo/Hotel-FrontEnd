@@ -1,32 +1,44 @@
-import { createContext, useState, useEffect } from "react";
+// import { createContext, useContext, useState } from "react";
 
-const AuthContext = createContext();
+// const AuthContext = createContext();
+// export const AuthProvider = ({ children }) => {
+// 	const [accessToken, setAccessToken] = useState(null);
+// 	const [refreshToken, setRefreshToken] = useState(null);
 
-export default AuthContext;
+// 	const login = (tokens) => {
+// 		setAccessToken(tokens.accessToken);
+// 		setRefreshToken(tokens.refreshToken);
+// 		sessionStorage.setItem("refreshToken", tokens.refreshToken);
+// 	};
 
-export const AuthProvider = ({ children }) => {
-	const [authTokens, setAuthTokens] = useState(null);
+// 	const refreshAccessToken = async (refreshToken) => {
+// 		try {
+// 			// Send a request to the server to refresh the access token
+// 			const response = await axios.post("http://your-api-url/refresh-token", {
+// 				refreshToken,
+// 			});
 
-	const [user, setUser] = useState(null);
+// 			const newAccessToken = response.data.accessToken;
 
-	let contextData = {
-		loginUser: loginUser,
-	};
+// 			// Save the new access token to state
+// 			setAccessToken(newAccessToken);
+// 		} catch (error) {
+// 			console.error("Refresh token error:", error);
+// 		}
+// 	};
 
-	const loginUser = async (e) => {
-		e.preventDefault();
-		console.log("form su");
-		let response = fetch("link", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ email: null, password: null }),
-		});
-	};
-	return (
-		<AuthContext.Provider value={{ name: "Dennis" }}>
-			{children}
-		</AuthContext.Provider>
-	);
-};
+// 	const logout = () => {
+// 		setAccessToken(null);
+// 		setRefreshToken(null);
+// 		sessionStorage.removeItem("refreshToken");
+// 	};
+
+// 	return (
+// 		<AuthContext.Provider
+// 			value={{ accessToken, refreshToken, login, refreshAccessToken, logout }}>
+// 			{children}
+// 		</AuthContext.Provider>
+// 	);
+// };
+
+// export const useAuth = () => useContext(AuthContext);

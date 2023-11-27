@@ -1,8 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 
-import Landing from "../pages/Landing";
+import Landing from "../components/landing";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Dashboard from "../pages/Dashboard";
+import AboutUs from "../components/AboutUs";
+import AllRoom from "../components/Allroom";
 
 const Router = () => {
 	return (
@@ -10,6 +13,18 @@ const Router = () => {
 			<Route
 				path="/"
 				element={<Landing />}
+			/>
+			<Route
+				path="/aboutus"
+				element={<AboutUs />}
+			/>
+			<Route
+				path="/dashboard"
+				element={<Dashboard />}
+			/>
+			<Route
+				path="/allroom"
+				element={<AllRoom />}
 			/>
 			<Route
 				path="/login"

@@ -1,60 +1,89 @@
+/* @import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities"; */
 
-.overlay-container {
-    position: relative;
+.text-color {
+	color: #c1c1c1;
+}
+.info {
+	color: #fafafb;
+	font-size: xx-large;
+	margin-bottom: 30px;
+	font-weight: bold;
+}
+.des {
+	width: 60%;
+	background-color: #353846;
+}
+.btn-link {
+	padding: 8px 16px;
+	background-color: #b4b7b7;
+	color: rgba(86, 89, 90, 255);
+	border-radius: 4px;
+	text-decoration: none;
+	transition: background-color 0.6s ease;
+}
+.btn-link2 {
+	padding: 8px 16px;
+	background-color: #1d1f29;
+	border-radius: 4px;
+	text-decoration: none;
+	color: #b3b8b8;
+	transition: background-color 0.6s ease;
 }
 
-.overlay-text {
-    position: absolute;
-    bottom: 20px; /* Adjust this value to your preference */
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-size: 2em;
-    font-weight: bold;
+.btn-link:hover {
+	background-color: #546f6f;
+}
+.btn-link2:hover {
+	background-color: #546f6f;
+}
+.nav-color {
+	background-color: #2c2d37;
+}
+.footer-color {
+	background-color: #2c2d37;
 }
 
-.overlay-image {
-    width: 100%;
-    height: auto;
-}
-
-.text-purple {
-    color: #BD93F9 !important;
-}
 body {
-    background-color: #282a36;
-    color: #f8f8f2;
+	background-color: #1d1f2c;
 }
-
 .card {
-    background-color: #44475a;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: #f8f8f2;
+	background-color: #353846;
+}
+.content {
+	padding-top: 80px; /* Adjust this value based on your header's height */
 }
 
-.card-title {
-    color: #BD93F9;
+.card-container {
+	position: relative;
+	bottom: 200px;
 }
-
-.card-text, .btn {
-    color: #f8f8f2;
+.blurry-image {
+	filter: blur(3px); /* Change the pixel value to adjust the blur effect */
 }
-.rounded-bottom-corners {
-    border-bottom-left-radius: 450px;
-    border-bottom-right-radius: 450px;
+.round-pic {
+	border-radius: 9999px;
+	position: relative;
+	right: 10%;
 }
-.enlarge-image {
-    transform: scale(1.3);
+.round-pic::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 30%; /* Adjust the width to control the fade amount */
+	height: 100%;
+	background: linear-gradient(
+		to right,
+		transparent,
+		#353846
+	); /* Adjust the color as needed */
+	pointer-events: none;
+	mask-image: linear-gradient(to left, transparent 0%, #353846 10%);
+	/* For browser compatibility, you might need vendor prefixes for mask-image */
 }
-.fade-text {
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-}
-.navbar-purple {
-    background-color: "#BD93F9";
-}
-
-.bg 
-{
-    background-color: #FF79C6 !important;
+.card:hover {
+	transform: scale(1.05);
+	transition: transform 0.6s ease;
 }

@@ -13,9 +13,8 @@ import {
 	Container,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import AuthContext from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+// import { useAuth, AuthProvider } from "../context/AuthContext";
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -29,13 +28,10 @@ const validationSchema = Yup.object().shape({
 const Login = () => {
 	// const { loginUser } = useContext(AuthContext);
 
+	const Navigate = useNavigate();
+
 	const handleSubmit = (values) => {
-		// loginUser({ email: values.email, password: values.password });
-		// console.log({
-		// 	email: values.email,
-		// 	password: values.password,
-		// 	remember: values.remember,
-		// });
+		Navigate("/dashboard");
 	};
 
 	return (
