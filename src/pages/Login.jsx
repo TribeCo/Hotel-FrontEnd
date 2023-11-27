@@ -13,7 +13,7 @@ import {
 	Container,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { useAuth, AuthProvider } from "../context/AuthContext";
 
 const validationSchema = Yup.object().shape({
@@ -28,7 +28,11 @@ const validationSchema = Yup.object().shape({
 const Login = () => {
 	// const { loginUser } = useContext(AuthContext);
 
-	const handleSubmit = (values) => {};
+	const Navigate = useNavigate();
+
+	const handleSubmit = (values) => {
+		Navigate("/dashboard");
+	};
 
 	return (
 		<Grid

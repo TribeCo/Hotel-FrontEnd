@@ -18,7 +18,7 @@ function RoomCard({ res = true }) {
 							maxWidth: { xs: 300, md: 400 },
 							borderRadius: 2,
 						}}
-						src="/src/assets/Hotelpic1.jpeg"></Box>
+						src="/src/assets/pic1.jpg"></Box>
 					<Container
 						sx={{
 							display: "flex",
