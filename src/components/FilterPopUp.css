@@ -1,0 +1,168 @@
+.card {
+    width: 470px;
+    height: 421px;
+    background-color: #37281F;
+    border: 10px solid #5B3D21;
+    border-radius: 24px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative;
+    padding: 10px;
+   }
+   
+   .close-button {
+    position: absolute;
+   }
+   
+   .small-card {
+    border: 3px solid #BEBEBE;
+    border-radius: 16px;
+    position: absolute;
+    top: 79px;
+   }
+   
+   .middle-card {
+    width: 219px;
+    height: 113px;
+    left: 205px;
+    float: right;
+   }
+   
+   .right-card {
+    width: 377px;
+    height: 113px;
+    left: 45px;
+    top: 246px;
+    display: flex; /* This line enables the flexbox layout for the right card */
+    justify-content: center; /* This line centers the slider horizontally in the right card */
+    align-items: center; /* This line centers the slider vertically in the right card */
+    flex-direction: column; /* This line stacks the elements vertically in the right card */
+   }
+   
+   .custom-button {
+    border-radius: 12px;
+    border: 2px solid #BE936A;
+    background: #5B3D21;
+    width: 102px;
+    padding: 7px 9px;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    left: 184px;
+    top: 390px;
+    color: #FFFFFF; /* This line changes the text color to white */
+   }
+
+   .left-card {
+    width: 122px;
+    height: 62px;
+    left: 45px;
+   }
+   
+   .number-input-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* This line centers the number input field inside the left card */
+    padding-top: 10px; /* This line adds space from the top part of the left card */
+   }
+   
+   .number-input {
+    border-radius: 4px;
+    border: 2px solid #BE936A;
+    background: #5B3D21;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 40px;
+    height: 31px;
+    text-align: center;
+    color: white;
+   }
+
+   .card-text {
+    position: absolute;
+    right: 0; /* This line aligns the text to the right side of the container */
+    top: -30px; /* This line positions the text above the cards */
+    color: #FFFFFF;
+    z-index: 1; /* This line ensures the text is on top of the cards */
+   }
+   
+
+   .container {
+    position: relative;
+    padding-left: 100px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #BEBEBE;
+    top: 10px;
+    left: 10px;
+    text-align: right; /* This line aligns the text to the right */
+    display: flex; /* This line enables the flexbox layout for the container */
+   }
+     
+   
+   .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+   }
+   
+   .checkmark {
+    position: absolute;
+    right: 20px;
+    top: -1px;
+    height: 24px;
+    width: 24px;
+    background-color: #eee;
+    border-radius: 50%;
+    border: 2px solid #5B3D21; /* This line adds a 2px border around the circles */
+   }
+   
+   
+   .container input:checked ~ .checkmark {
+    background-color: #BE936B;
+   }
+   
+   .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+   }
+   
+   .container input:checked ~ .checkmark:after {
+    display: block;
+   }
+   
+   .container .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+   }
+   
+   .slider {
+    color: white;
+   }
+   
+   
+   
+   
+
+   
+   
+   
+   
