@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import AboutUs from "../components/AboutUs";
+import AllRoom from "../components/Allroom";
 
 const Router = () => {
 	return (
@@ -20,6 +21,10 @@ const Router = () => {
 			<Route
 				path="/dashboard"
 				element={<Dashboard />}
+			/>
+			<Route
+				path="/allroom"
+				element={<AllRoom />}
 			/>
 			<Route
 				path="/login"
