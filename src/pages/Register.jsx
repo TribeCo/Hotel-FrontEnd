@@ -13,9 +13,9 @@ import {
 } from "@mui/material";
 import Person2Outlined from "@mui/icons-material/Person2Outlined";
 import EmailOutlined from "@mui/icons-material/EmailOutlined";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import { createUser } from "../services/auth.js";
+import { createUser, validationEmail } from "../services/auth.js";
 
 const codeSchema = Yup.object().shape({
 	code: Yup.string()
@@ -41,7 +41,9 @@ const validationSchema = Yup.object().shape({
 	),
 });
 
+let userEmail = "";
 const Register = () => {
+	const Navigate = useNavigate();
 	const [isVerification, setIsVerification] = useState(false);
 
 	const handleSubmit = async (values) => {
@@ -53,16 +55,24 @@ const Register = () => {
 				email: values.email,
 				password: values.password,
 			});
+			userEmail = values.email;
 			setIsVerification(true);
 			console.log(res);
 		} catch (error) {
 			console.log(error);
 		}
 	};
-	const handleSubmitCode = (values) => {
-		console.log({
-			code: values.code,
-		});
+	const handleSubmitCode = async (values) => {
+		try {
+			const res = await validationEmail({
+				email: userEmail,
+				code: values.code,
+			});
+			console.log(res);
+			Navigate("/login");
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	if (!isVerification) {
 		return (
@@ -319,7 +329,7 @@ const Register = () => {
 									code: "",
 								}}
 								validationSchema={codeSchema}
-								onSubmit={handleSubmit}>
+								onSubmit={handleSubmitCode}>
 								{({ errors, touched }) => (
 									<Form>
 										<Grid

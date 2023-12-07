@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link, useNavigate } from "react-router-dom";
-// import { useAuth, AuthProvider } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -26,12 +26,21 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
-	// const { loginUser } = useContext(AuthContext);
+	const { login } = useAuth();
 
 	const Navigate = useNavigate();
 
-	const handleSubmit = (values) => {
-		Navigate("/dashboard");
+	const handleSubmit = async (values) => {
+		try {
+			let res = await login({
+				email: values.email,
+				password: values.password,
+			});
+			console.log(res);
+			Navigate("/dashboard");
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	return (

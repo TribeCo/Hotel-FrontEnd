@@ -39,10 +39,7 @@ import AvatarCard from "../components/dashboard/AvatarCard";
 import RoomCard from "../components/dashboard/RoomCard";
 import AddRoom from "../components/addroom";
 import AllRoom from "../components/Allroom";
-// import { useAuth } from "../../context/AuthContext";s
-/*
-get user info from data base
-*/
+import { useAuth } from "../context/AuthContext";
 
 const user = {
 	fullname: "رضا بوذرجمهری",
@@ -98,24 +95,22 @@ const Drawer = styled(MuiDrawer, {
 
 const Dashboard = () => {
 	/* auth */
-	// const navigate = useNavigate();
-	// const { accessToken, refreshAccessToken } = useAuth();
+	const Navigate = useNavigate();
+	// const { accessToken, refreshAccessFunc } = useAuth();
 
-	// useEffect(() => {
-	// 	const checkLoginStatus = async () => {
-	// 		if (!accessToken) {
-	// 			navigate("/login");
-	// 		} else {
-	// 			try {
-	// 				await refreshAccessToken();
-	// 			} catch (error) {
-	// 				navigate("/login");
-	// 			}
+	// const checkLoginStatus = async (access) => {
+	// 	if (!access) {
+	// 		Navigate("/login");
+	// 	} else {
+	// 		try {
+	// 			await refreshAccessFunc();
+	// 		} catch (error) {
+	// 			Navigate("/login");
 	// 		}
-	// 	};
+	// 	}
+	// };
 
-	// 	checkLoginStatus();
-	// }, [accessToken, navigate, refreshAccessToken]);
+	// checkLoginStatus(accessToken);
 
 	// End Auth
 	const [open, setOpen] = useState(true);

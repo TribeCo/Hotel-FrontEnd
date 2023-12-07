@@ -9,6 +9,8 @@ import { BrowserRouter } from "react-router-dom";
 import { theme } from "./layouts/theme/index.js";
 import Router from "./routes";
 
+import { AuthProvider } from "./context/AuthContext.jsx";
+
 // Create rtl cache
 const cacheRtl = createCache({
 	key: "muirtl",
@@ -23,9 +25,11 @@ const App = () => {
 					<Helmet>
 						<title>Hotel Transylvania</title>
 					</Helmet>
-					<BrowserRouter>
-						<Router />
-					</BrowserRouter>
+					<AuthProvider>
+						<BrowserRouter>
+							<Router />
+						</BrowserRouter>
+					</AuthProvider>
 				</HelmetProvider>
 			</ThemeProvider>
 		</CacheProvider>
