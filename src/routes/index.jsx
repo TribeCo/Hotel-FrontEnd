@@ -6,6 +6,8 @@ import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import AboutUs from "../components/AboutUs";
 import AllRoom from "../components/Allroom";
+import Profile from "../pages/Profile";
+import NotFound from "../pages/NotFound";
 
 const Router = () => {
 	return (
@@ -27,6 +29,10 @@ const Router = () => {
 				element={<AllRoom />}
 			/>
 			<Route
+				path="/profile"
+				element={<Profile />}
+			/>
+			<Route
 				path="/login"
 				element={<Login />}
 			/>
@@ -36,7 +42,7 @@ const Router = () => {
 			/>
 			<Route
 				path="*"
-				element={<p>There's nothing here: 404!</p>}
+				element={<NotFound />}
 			/>
 		</Routes>
 	);

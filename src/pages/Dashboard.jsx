@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import {
@@ -299,6 +299,7 @@ function dashboardPage() {
 }
 
 function dashboardAppBar(toggleDrawer) {
+	const Navigate = useNavigate();
 	return (
 		<AppBar
 			position="absolute"
@@ -319,6 +320,7 @@ function dashboardAppBar(toggleDrawer) {
 					<MenuIcon />
 				</IconButton>
 				<Typography
+					onClick={() => Navigate("/profile")}
 					component="h1"
 					variant="h6"
 					color="inherit"
@@ -327,7 +329,7 @@ function dashboardAppBar(toggleDrawer) {
 					داشبورد
 				</Typography>
 				<Typography sx={{ paddingRight: 1 }}>{user.fullname}</Typography>
-				<IconButton>
+				<IconButton onClick={() => Navigate("/profile")}>
 					<Avatar src={user.photo}></Avatar>
 				</IconButton>
 			</Toolbar>
