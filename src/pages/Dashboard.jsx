@@ -40,6 +40,7 @@ import RoomCard from "../components/dashboard/RoomCard";
 import AddRoom from "../components/addroom";
 import AllRoom from "../components/Allroom";
 import { useAuth } from "../context/AuthContext";
+import PaymentPage from "../pages/Payment";
 
 const user = {
 	fullname: "رضا بوذرجمهری",
@@ -123,17 +124,56 @@ const Dashboard = () => {
 		setOpen(!open);
 	};
 	const pages = [
-		dashboardPage(),
-		<AllRoom />,
-		cartPage(),
-		cartPage(),
-		cartPage(),
-		<AddRoom />,
+		dashboardPage(), // محتویات داشبورد
+		<AllRoom />, // رزرو اتاق
+		tempPage(), // رزرو غذا
+		<PaymentPage />, // تسویه حساب
+		tempPage(), //پذیرش
+		<AddRoom />, //افزودن اتاق
+		tempPage(), //گزارش های مالی
+		tempPage(), //لیست کارمندان
+		tempPage(), //افزودن کارمند
+		tempPage(), // رزرو ها
+		tempPage(), // افزودن غذا
+		tempPage(), // ویرایش غذا
+		tempPage(), // گزارش رستوران
 	];
 	return (
 		<Box sx={{ display: "flex" }}>
 			<CssBaseline />
-			{dashboardAppBar(toggleDrawer)}
+			<AppBar
+				position="absolute"
+				open={open}>
+				<Toolbar
+					sx={{
+						pr: "24px",
+					}}>
+					<IconButton
+						edge="start"
+						color="inherit"
+						aria-label="open drawer"
+						onClick={toggleDrawer}
+						sx={{
+							marginRight: "36px",
+							...(open && { display: "none" }),
+						}}>
+						<MenuIcon />
+					</IconButton>
+					<Typography
+						onClick={() => Navigate("/profile")}
+						component="h1"
+						variant="h6"
+						color="inherit"
+						noWrap
+						sx={{ flexGrow: 1 }}>
+						داشبورد
+					</Typography>
+					<Typography sx={{ paddingRight: 1 }}>{user.fullname}</Typography>
+					<IconButton onClick={() => Navigate("/profile")}>
+						<Avatar src={user.photo}></Avatar>
+					</IconButton>
+				</Toolbar>
+			</AppBar>
 			<Drawer
 				variant="permanent"
 				open={open}>
@@ -298,48 +338,9 @@ function dashboardPage() {
 	);
 }
 
-function dashboardAppBar(toggleDrawer) {
-	const Navigate = useNavigate();
-	return (
-		<AppBar
-			position="absolute"
-			open={open}>
-			<Toolbar
-				sx={{
-					pr: "24px",
-				}}>
-				<IconButton
-					edge="start"
-					color="inherit"
-					aria-label="open drawer"
-					onClick={toggleDrawer}
-					sx={{
-						marginRight: "36px",
-						...(open && { display: "none" }),
-					}}>
-					<MenuIcon />
-				</IconButton>
-				<Typography
-					onClick={() => Navigate("/profile")}
-					component="h1"
-					variant="h6"
-					color="inherit"
-					noWrap
-					sx={{ flexGrow: 1 }}>
-					داشبورد
-				</Typography>
-				<Typography sx={{ paddingRight: 1 }}>{user.fullname}</Typography>
-				<IconButton onClick={() => Navigate("/profile")}>
-					<Avatar src={user.photo}></Avatar>
-				</IconButton>
-			</Toolbar>
-		</AppBar>
-	);
-}
-
 export default Dashboard;
 
-function cartPage() {
+function tempPage() {
 	return (
 		<Container
 			maxWidth="lg"
@@ -347,7 +348,7 @@ function cartPage() {
 			<Grid
 				container
 				spacing={3}>
-				<Typography>صفحه تسویه حساب</Typography>
+				<Typography>این یک صفحه تستی است</Typography>
 			</Grid>
 		</Container>
 	);
