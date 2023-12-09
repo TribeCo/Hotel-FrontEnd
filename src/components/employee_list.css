@@ -1,0 +1,62 @@
+.card-text
+{
+    color: #FFF;
+    text-align: center;
+    font-family: Vazirmatn;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: capitalize;
+}
+#cardContainer {
+    width: 846px;
+    height: 649px ;
+    overflow-y: auto;
+    scrollbar-width: none; /* Enable vertical scrolling */
+    border-color: #000000;
+    border-radius: 24px;
+    border-width: 15px;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+body
+{
+    background: #212121;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    min-height: 100vh;
+}
+.text
+{
+color: #0F0D0D;
+text-align: center;
+text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.74);
+font-family: Vazirmatn;
+font-size: 68px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+text-transform: capitalize;
+}
+.card
+{
+    width: 250px;
+    height: 241px;
+    border-radius: 24px;
+    border: 5px solid #5C5C5C;
+    background: #373737;
+}
+.fields
+{
+    display: flex;
+    width: 163px;
+    flex-direction: column;
+    justify-content: right;
+    align-items: flex-start;
+    gap: 3px;
+    
+}
