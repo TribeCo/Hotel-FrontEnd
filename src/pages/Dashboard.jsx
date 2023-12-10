@@ -35,10 +35,14 @@ import {
 	ChevronLeft,
 } from "@mui/icons-material";
 
+import AllFood from "../components/allfood";
 import AvatarCard from "../components/dashboard/AvatarCard";
 import RoomCard from "../components/dashboard/RoomCard";
-import AddRoom from "../components/addroom";
-import AllRoom from "../components/Allroom";
+import AddRoom from "../components/Addroom";
+import AllRoom from "../components/allroom";
+import Reception from "../components/reception";
+import EmployeeList from "../components/employee_list";
+
 // import { useAuth } from "../../context/AuthContext";s
 /*
 get user info from data base
@@ -130,10 +134,12 @@ const Dashboard = () => {
 	const pages = [
 		dashboardPage(),
 		<AllRoom />,
+		<AllFood />,
 		cartPage(),
-		cartPage(),
-		cartPage(),
+		<Reception />,
 		<AddRoom />,
+		cartPage(),
+		<EmployeeList />,
 	];
 	return (
 		<Box sx={{ display: "flex" }}>
