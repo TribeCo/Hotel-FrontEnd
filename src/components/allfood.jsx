@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./allfood.css"; // Import your CSS file here
+// import "./allfood.css"; // Import your CSS file here
+import styles from "./allfood.module.css";
 import "./tailwind.css";
 const cardData = [
 	{
@@ -61,7 +62,11 @@ const allfood = () => {
 	};
 
 	return (
-		<div className="bg-cover bg-center flex flex-col justify-center items-center">
+		<div
+			className={
+				("bg - cover bg-center flex flex-col justify-center items-center",
+				styles.allfood)
+			}>
 			<div className="flex flex-col justify-center items-center relative">
 				<p className="text mb-8">رزرو غذا</p>
 				<div
@@ -70,15 +75,17 @@ const allfood = () => {
 					{cardData.slice(0, 15).map((cardInfo, index) => (
 						<div
 							key={index}
-							className="bg-white rounded p-4 card flex flex-row items-center">
+							className={
+								(styles.card, "bg-white rounded p-4 flex flex-row items-center")
+							}>
 							<img
 								src={cardInfo.imageUrl}
-								className="image object-cover mb-4 mr-4"
+								className={(styles.image, " object-cover mb-4 mr-4")}
 								alt={`Image for Card ${index + 1}`}
 							/>
 							<div>
-								<p className="text-lg mb-2 card-text">نام غذا</p>
-								<p className="text-lg card-text">قیمت</p>
+								<p className={("text-lg mb-2", styles.cardText)}>نام غذا</p>
+								<p className={("text-lg", styles.cardText)}>قیمت</p>
 							</div>
 						</div>
 					))}

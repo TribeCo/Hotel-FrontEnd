@@ -91,12 +91,14 @@ const Reception = () => {
 	};
 
 	return (
-		<div className="flex flex-col justify-center items-center">
-			<button
+		<div
+			id="body"
+			className="flex flex-col justify-center items-center">
+			{/* <button
 				className="fixed top-4 right-4 return rounded-md shadow-md"
 				onClick={handleFilterButtonClick}>
 				بازگشت به داشبورد
-			</button>
+			</button> */}
 			<div className="flex flex-col justify-center items-center relative">
 				<p className="text mb-8">پذیرش</p>
 				<div
@@ -109,11 +111,11 @@ const Reception = () => {
 					id="filter"
 					onClick={handleFilterButtonClick}>
 					<img
-						src="../assets/reception_popup.png"
+						src="/src/assets/reception_popup.png"
 						alt="Circle Image"
 						width="38px"
 						height="38px"
-						className="rounded-full item-bg"
+						className="rounded-full item-bg p-1"
 					/>
 				</button>
 			</div>
@@ -132,7 +134,7 @@ const Reception = () => {
 							className="absolute rounded-full top-2 mb-4 right-2 h-6 w-6 text-gray-600 hover:text-gray-800 cursor-pointer"
 							onClick={handleFilterButtonClick}>
 							<img
-								src="../assets/x.png"
+								src="/src/assets/x.png"
 								alt="Close Icon"
 							/>
 						</div>

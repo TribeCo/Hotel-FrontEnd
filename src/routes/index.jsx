@@ -6,6 +6,8 @@ import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import AboutUs from "../components/AboutUs";
 import AllRoom from "../components/Allroom";
+import Room from "../components/eachroom";
+import Food from "../components/eachfood";
 
 const Router = () => {
 	return (
@@ -33,6 +35,14 @@ const Router = () => {
 			<Route
 				path="/register"
 				element={<Register />}
+			/>
+			<Route
+				path="/room/:id"
+				element={<Room />}
+			/>
+			<Route
+				path="/food/:id"
+				element={<Food />}
 			/>
 		</Routes>
 	);

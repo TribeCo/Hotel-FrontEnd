@@ -1,169 +1,155 @@
-.card-text
-{
-    color: #FFF;
-    text-align: center;
-    font-family: Vazirmatn;
-    font-size: 19px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-transform: capitalize;
+.card-text {
+	color: #fff;
+	text-align: center;
+	font-family: Vazirmatn;
+	font-size: 19px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	text-transform: capitalize;
 }
 #cardContainer {
-    width: 846px;
-    height: 649px ;
-    overflow-y: auto;
-    scrollbar-width: none; /* Enable vertical scrolling */
-    border-color: #000000;
-    border-radius: 24px;
-    border-width: 15px;
-
-
+	width: 846px;
+	height: 649px;
+	overflow-y: auto;
+	scrollbar-width: none; /* Enable vertical scrolling */
+	border-color: #000000;
+	border-radius: 24px;
+	border-width: 15px;
 }
 ::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
-body
-{
-    background-image: url(../assets/reception.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    justify-items: center;
-    min-height: 100vh;
-    z-index: -1;
+#body {
+	background-image: url(../assets/reception.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	justify-items: center;
+	min-height: 100vh;
+	z-index: -1;
 }
-.text
-{
-    color: #000;
-    text-align: center;
-    text-shadow: 0px 5px 0px rgba(0, 0, 0, 0.26);
-    font-family: Vazirmatn;
-    font-size: 68px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-transform: capitalize;
+.text {
+	color: #000;
+	text-align: center;
+	text-shadow: 0px 5px 0px rgba(0, 0, 0, 0.26);
+	font-family: Vazirmatn;
+	font-size: 68px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	text-transform: capitalize;
 }
-.card
-{
-    border-radius: 24px;
-    border: 5px solid #1B232D;
-    background: #262932;
-    width: 250px;
-    height: 241px;
+.card {
+	border-radius: 24px;
+	border: 5px solid #1b232d;
+	background: #262932;
+	width: 250px;
+	height: 241px;
 }
-.fields
-{
-    display: flex;
-    width: 163px;
-    flex-direction: column;
-    justify-content: right;
-    align-items: flex-start;
-    gap: 3px;
-    
+.fields {
+	display: flex;
+	width: 163px;
+	flex-direction: column;
+	justify-content: right;
+	align-items: flex-start;
+	gap: 3px;
 }
-.item-bg
-{
-  background-color: #15100d;
-  scale: 0.8;
+.item-bg {
+	background-color: #15100d;
+	scale: 0.8;
 }
-.return
-{
-    display: inline-flex;
-    padding: 10px 6px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 10px;
-    border: 4px solid #14112A;
-    background: #262932;
-    color: #FFF;
-    text-align: center;
-    font-family: Vazirmatn;
-    font-size: 19px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+.return {
+	display: inline-flex;
+	padding: 10px 6px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	border-radius: 10px;
+	border: 4px solid #14112a;
+	background: #262932;
+	color: #fff;
+	text-align: center;
+	font-family: Vazirmatn;
+	font-size: 19px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
 }
-.pop-up
-{
-    width: 272px;
-    height: 220px;
-    border-radius: 24px;
-    border: 10px solid #1B232D;
-    background: #363A47;
+.pop-up {
+	width: 272px;
+	height: 220px;
+	border-radius: 24px;
+	border: 10px solid #1b232d;
+	background: #363a47;
 }
-.change
-{
-    display: flex;
-    width: 102px;
-    height: 30.616px;
-    padding: 7px 9px;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-    border-radius: 12px;
-    border: 2px solid #1B232D;
-    background: #0C1123;
-    color: #FFF;
-    text-align: center;
-    font-family: Vazirmatn;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-transform: capitalize;
+.change {
+	display: flex;
+	width: 102px;
+	height: 30.616px;
+	padding: 7px 9px;
+	align-items: center;
+	gap: 10px;
+	flex-shrink: 0;
+	border-radius: 12px;
+	border: 2px solid #1b232d;
+	background: #0c1123;
+	color: #fff;
+	text-align: center;
+	font-family: Vazirmatn;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	text-transform: capitalize;
 }
-#close
-{
-    border: 2px solid #1B232D;
-    background: #0C1123;
+#close {
+	border: 2px solid #1b232d;
+	background: #0c1123;
 }
 /* Hide default checkbox */
 /* Hide default checkbox */
 .custom-checkbox input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-  
-  /* Style the custom checkbox */
-  .custom-checkbox .checkmark {
-    display: inline-block;
-    width: 20px; /* Replace with your image width */
-    height: 20px; /* Replace with your image height */
-    background-image: url('../assets/unchecked.png'); /* Replace with the path to your custom image */
-    background-size: contain; /* Adjust to fit your image */
-    background-repeat: no-repeat; /* Adjust if needed */
-    position: relative;
-    vertical-align: middle;
-    margin-right: 10px;
-  }
-  
-  /* Hide the default checkmark when checkbox is checked */
-  .custom-checkbox input[type="checkbox"]:checked + .checkmark {
-    background-image: url('../assets/checked.png'); /* Replace with the path to your custom image */
-    background-size: contain; /* Adjust to fit your image */
-    background-repeat: no-repeat; /* Adjust if needed */
-    position: relative;
-    vertical-align: middle;
-  }
-  
-  /* Style label text */
-  .custom-checkbox {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    text-align: center;
-    font-family: Vazirmatn;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-  
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}
+
+/* Style the custom checkbox */
+.custom-checkbox .checkmark {
+	display: inline-block;
+	width: 20px; /* Replace with your image width */
+	height: 20px; /* Replace with your image height */
+	background-image: url("../assets/unchecked.png"); /* Replace with the path to your custom image */
+	background-size: contain; /* Adjust to fit your image */
+	background-repeat: no-repeat; /* Adjust if needed */
+	position: relative;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+/* Hide the default checkmark when checkbox is checked */
+.custom-checkbox input[type="checkbox"]:checked + .checkmark {
+	background-image: url("../assets/checked.png"); /* Replace with the path to your custom image */
+	background-size: contain; /* Adjust to fit your image */
+	background-repeat: no-repeat; /* Adjust if needed */
+	position: relative;
+	vertical-align: middle;
+}
+
+/* Style label text */
+.custom-checkbox {
+	display: flex;
+	align-items: center;
+	color: #fff;
+	text-align: center;
+	font-family: Vazirmatn;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
