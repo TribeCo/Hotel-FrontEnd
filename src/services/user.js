@@ -16,6 +16,18 @@ class User {
 		return axios.get(url, config);
 	};
 
+	// @Desc upload user image
+	static uploadImage = ({ uid, data, authToken }) => {
+		const url = `${baseUrl}/upload/${uid}/`;
+		const config = {
+			headers: {
+				"Content-Type": "multipart/form-data",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.post(url, data, config);
+	};
+
 	// @Desc validate user email with email and validation code
 	static validationEmail = (data) => {
 		const url = `${baseUrl}/validation/`;

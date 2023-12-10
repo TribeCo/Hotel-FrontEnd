@@ -6,7 +6,7 @@ const baseUrl = "api/food";
 class Food {
 	// @Desc get Food info with id
 	static getOne = ({ uid, authToken }) => {
-		const url = `${baseUrl}/${uid}`;
+		const url = `${baseUrl}/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
@@ -14,6 +14,18 @@ class Food {
 			},
 		};
 		return axios.get(url, config);
+	};
+
+	// @Desc upload food image
+	static uploadImage = ({ uid, data, authToken }) => {
+		const url = `${baseUrl}/upload/${uid}/`;
+		const config = {
+			headers: {
+				"Content-Type": "multipart/form-data",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.post(url, data, config);
 	};
 
 	// @Desc get All Food
@@ -30,7 +42,7 @@ class Food {
 
 	// @Desc delete a Food with id
 	static delete = ({ uid, authToken }) => {
-		const url = `${baseUrl}/delete/${uid}`;
+		const url = `${baseUrl}/delete/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
@@ -42,7 +54,7 @@ class Food {
 
 	// @Desc edit Food info with id
 	static edit = ({ uid, data, authToken }) => {
-		const url = `${baseUrl}/update/${uid}`;
+		const url = `${baseUrl}/update/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",

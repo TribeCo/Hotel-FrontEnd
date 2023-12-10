@@ -18,8 +18,9 @@ import {
 	IconButton,
 } from "@mui/material";
 
-import { createUser } from "../services/auth.js";
+import User from "../services/user";
 import { ArrowBack } from "@mui/icons-material";
+import { useAuth } from "../context/AuthContext";
 
 const validationSchema = Yup.object().shape({
 	firstName: Yup.string().required("وارد کردن نام الزامی است"),
@@ -39,26 +40,40 @@ const validationSchema = Yup.object().shape({
 	),
 });
 
-let userEmail = "";
 const ProfilePage = () => {
-	const user = {
-		image: "https://placekitten.com/200/200",
-		firstName: "رضا",
-		lastName: "بوذرجمهری",
-		id: "1991289634",
-		email: "Rezakuix@gmail.com",
-	};
+	const { accessToken, refreshAccessFunc } = useAuth();
+	let user;
+	try {
+		const res = User.get();
+		user = res.data;
+		console.log(data);
+	} catch (error) {
+		user = {
+			id: 1,
+			image: "https://placekitten.com/200/200",
+			firstName: "رضا",
+			lastName: "بوذرجمهری",
+			nationalCode: "1991289634",
+			email: "Rezakuix@gmail.com",
+		};
+		console.log(error);
+	}
+
 	const Navigate = useNavigate();
 	const [isEditMode, setIsEditMode] = useState(false);
 
 	const handleSubmit = async (values) => {
 		try {
-			const res = await createUser({
-				firstName: values.firstName,
-				lastName: values.lastName,
-				nationalCode: values.idCard,
-				email: values.email,
-				password: values.password,
+			const res = await User.edit({
+				uid: id,
+				data: {
+					firstName: values.firstName,
+					lastName: values.lastName,
+					nationalCode: values.idCard,
+					email: values.email,
+					password: values.password,
+				},
+				accessToken,
 			});
 			Navigate("/profile");
 		} catch (error) {
@@ -66,13 +81,20 @@ const ProfilePage = () => {
 		}
 	};
 	const fileInputRef = useRef(null);
-	const handleButtonClick = () => {
+	const handleAvatarClick = () => {
 		fileInputRef.current.click();
 	};
-	const handleFileChange = (event) => {
+	const handleFileChange = async (event) => {
 		const file = event.target.files[0];
 		if (file) {
-			//
+			try {
+				const res = await User.uploadImage({
+					uid: user.id,
+					data: file,
+					authToken: authToken,
+				});
+				Navigate("/profile");
+			} catch (error) {}
 		}
 	};
 	return (
@@ -145,7 +167,7 @@ const ProfilePage = () => {
 											disabled
 											fullWidth
 											label="کد ملی"
-											defaultValue={user.id}
+											defaultValue={user.nationalCode}
 										/>
 									</Grid>
 									<Grid
@@ -213,7 +235,7 @@ const ProfilePage = () => {
 									<IconButton
 										sx={{ mb: 4 }}
 										color="primary"
-										onClick={handleButtonClick}>
+										onClick={handleAvatarClick}>
 										<Avatar
 											src={user.image}
 											sx={{ width: 150, height: 150 }}></Avatar>
@@ -221,6 +243,7 @@ const ProfilePage = () => {
 								</div>
 								<Formik
 									initialValues={{
+										id: user.id,
 										firstName: user.firstName,
 										lastName: user.lastName,
 										idCard: user.id,
@@ -377,4 +400,3 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-// export default Profile;
