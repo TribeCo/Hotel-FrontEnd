@@ -30,7 +30,7 @@ class Room {
 
 	// @Desc get All Room
 	static getAll = ({ authToken }) => {
-		const url = `${baseUrl}/`;
+		const url = `${baseUrl}/type/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",

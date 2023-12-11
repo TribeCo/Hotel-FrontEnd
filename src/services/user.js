@@ -21,15 +21,18 @@ class User {
 	};
 
 	// @Desc upload user image
-	static uploadImage = ({ uid, data, authToken }) => {
-		const url = `${baseUrl}/upload/${uid}/`;
+	static uploadImage = (uid, file) => {
+		const formData = new FormData();
+		formData.append("image", file);
+
+		const url = `${baseUrl}/update/image/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "multipart/form-data",
-				Authorization: `Bearer ${authToken}`,
+				// Authorization: `Bearer ${authToken}`,
 			},
 		};
-		return axios.post(url, data, config);
+		return axios.put(url, formData, config);
 	};
 
 	// @Desc validate user email with email and validation code
@@ -45,7 +48,7 @@ class User {
 
 	// @Desc delete user with id
 	static delete = ({ uid, authToken }) => {
-		const url = `${baseUrl}/delete/${uid}`;
+		const url = `${baseUrl}/delete/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
@@ -57,7 +60,7 @@ class User {
 
 	// @Desc edit user info with id
 	static edit = ({ uid, data, authToken }) => {
-		const url = `${baseUrl}/update/${uid}`;
+		const url = `${baseUrl}/update/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
