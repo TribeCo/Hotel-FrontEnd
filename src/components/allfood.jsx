@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 // import "./allfood.css"; // Import your CSS file here
-import styles from "./allfood.module.css";
+import "./allfood.css";
 import "./tailwind.css";
+import popup from '../assets/allfood_popup.png';
 const cardData = [
 	{
 		imageUrl: "https://via.placeholder.com/300x200",
@@ -50,7 +51,7 @@ const cardData = [
 	// Add more objects for each card as needed
 ];
 
-const allfood = () => {
+const Allfood = () => {
 	const [isCalendarOpen, setCalendarOpen] = useState(false);
 
 	const handleCalendarButtonClick = () => {
@@ -62,30 +63,25 @@ const allfood = () => {
 	};
 
 	return (
-		<div
-			className={
-				("bg - cover bg-center flex flex-col justify-center items-center",
-				styles.allfood)
-			}>
+		<div className="bg - cover bg-center flex flex-col justify-center items-center allfood">
 			<div className="flex flex-col justify-center items-center relative">
-				<p className="text mb-8">رزرو غذا</p>
+				<p className="allfoodtext mb-8">رزرو غذا</p>
 				<div
-					className="container border-8 rounded-lg grid grid-cols-1 lg:grid-cols-2 gap-4 b-5 p-4"
-					id="cardContainer">
+					className=" border-8 rounded-lg grid grid-cols-1 lg:grid-cols-2 gap-4 b-5 p-4"
+					id="allfoodcardContainer">
 					{cardData.slice(0, 15).map((cardInfo, index) => (
 						<div
 							key={index}
-							className={
-								(styles.card, "bg-white rounded p-4 flex flex-row items-center")
-							}>
+							className="allfoodcard bg-white rounded p-4 flex flex-row items-center">
 							<img
 								src={cardInfo.imageUrl}
-								className={(styles.image, " object-cover mb-4 mr-4")}
+								className="allfoodimage object-cover mb-4 mr-4"
 								alt={`Image for Card ${index + 1}`}
 							/>
 							<div>
-								<p className={("text-lg mb-2", styles.cardText)}>نام غذا</p>
-								<p className={("text-lg", styles.cardText)}>قیمت</p>
+								<p className="allfoodcard-text text-lg mb-2 mr-2">نام غذا</p>
+								<p className="allfoodcard-text text-lg mr-2">قیمت</p>
+	
 							</div>
 						</div>
 					))}
@@ -95,18 +91,18 @@ const allfood = () => {
 					id="calendarButton"
 					onClick={handleCalendarButtonClick}>
 					<img
-						src="../assets/allfood_popup.png"
+						src={popup}
 						alt="Circle Image"
 						width="24px"
 						height="24px"
-						className="item-bg object-contain"
+						className="allfooditem-bg  object-contain"
 					/>
 				</button>
 			</div>
 
 			{isCalendarOpen && (
 				<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-					<div className="relative p-4 rounded-lg shadow-xl w-72 pop-up flex flex-col items-center justify-center gap-4">
+					<div className="relative p-4 rounded-lg shadow-xl w-72 allfoodpop-up flex flex-col items-center justify-center gap-4">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="25"
@@ -133,9 +129,9 @@ const allfood = () => {
 						</svg>
 						<input
 							type="date"
-							className="date border border-gray-300 mt-6 rounded w-full px-3 py-2 focus:outline-none focus:border-blue-500"
+							className="allfooddate border border-gray-300 mt-6 rounded w-full px-3 py-2 focus:outline-none focus:border-blue-500"
 						/>
-						<button className="change">اعمال تغییرات</button>
+						<button className="allfoodchange">اعمال تغییرات</button>
 					</div>
 				</div>
 			)}
@@ -143,4 +139,4 @@ const allfood = () => {
 	);
 };
 
-export default allfood;
+export default Allfood;

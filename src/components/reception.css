@@ -1,4 +1,4 @@
-.card-text {
+.receptioncard-text {
 	color: #fff;
 	text-align: center;
 	font-family: Vazirmatn;
@@ -8,7 +8,7 @@
 	line-height: normal;
 	text-transform: capitalize;
 }
-#cardContainer {
+#receptioncardContainer {
 	width: 846px;
 	height: 649px;
 	overflow-y: auto;
@@ -20,7 +20,7 @@
 ::-webkit-scrollbar {
 	display: none;
 }
-#body {
+#receptionbody {
 	background-image: url(../assets/reception.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -33,7 +33,7 @@
 	min-height: 100vh;
 	z-index: -1;
 }
-.text {
+.receptiontext {
 	color: #000;
 	text-align: center;
 	text-shadow: 0px 5px 0px rgba(0, 0, 0, 0.26);
@@ -44,14 +44,14 @@
 	line-height: normal;
 	text-transform: capitalize;
 }
-.card {
+.receptioncard {
 	border-radius: 24px;
 	border: 5px solid #1b232d;
 	background: #262932;
 	width: 250px;
 	height: 241px;
 }
-.fields {
+.receptionfields {
 	display: flex;
 	width: 163px;
 	flex-direction: column;
@@ -59,11 +59,11 @@
 	align-items: flex-start;
 	gap: 3px;
 }
-.item-bg {
+.receptionitem-bg {
 	background-color: #15100d;
 	scale: 0.8;
 }
-.return {
+.receptionreturn {
 	display: inline-flex;
 	padding: 10px 6px;
 	justify-content: center;
@@ -80,14 +80,14 @@
 	font-weight: 400;
 	line-height: normal;
 }
-.pop-up {
+.receptionpop-up {
 	width: 272px;
 	height: 220px;
 	border-radius: 24px;
 	border: 10px solid #1b232d;
 	background: #363a47;
 }
-.change {
+.receptionchange {
 	display: flex;
 	width: 102px;
 	height: 30.616px;
@@ -107,20 +107,20 @@
 	line-height: normal;
 	text-transform: capitalize;
 }
-#close {
+#receptionclose {
 	border: 2px solid #1b232d;
 	background: #0c1123;
 }
 /* Hide default checkbox */
 /* Hide default checkbox */
-.custom-checkbox input[type="checkbox"] {
+.receptioncustom-checkbox input[type="checkbox"] {
 	position: absolute;
 	opacity: 0;
 	cursor: pointer;
 }
 
-/* Style the custom checkbox */
-.custom-checkbox .checkmark {
+/*Style the custom checkbox */
+.receptioncustom-checkbox .checkmark {
 	display: inline-block;
 	width: 20px; /* Replace with your image width */
 	height: 20px; /* Replace with your image height */
@@ -133,7 +133,7 @@
 }
 
 /* Hide the default checkmark when checkbox is checked */
-.custom-checkbox input[type="checkbox"]:checked + .checkmark {
+.receptioncustom-checkbox input[type="checkbox"]:checked + .checkmark {
 	background-image: url("../assets/checked.png"); /* Replace with the path to your custom image */
 	background-size: contain; /* Adjust to fit your image */
 	background-repeat: no-repeat; /* Adjust if needed */
@@ -142,7 +142,7 @@
 }
 
 /* Style label text */
-.custom-checkbox {
+.receptioncustom-checkbox {
 	display: flex;
 	align-items: center;
 	color: #fff;

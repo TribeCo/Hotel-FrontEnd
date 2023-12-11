@@ -1,18 +1,19 @@
-.image
+.eachfoodimage
 {
     width: 843px;
     height: 1024px;
     flex-shrink: 0;
 }
-.container
+.eachfoodcontainer
 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 48px;
+    background: #F8F8F2;
 }
-.room-info
+.eachfoodroom-info
 {
     color: #000;
     text-align: center;
@@ -23,13 +24,13 @@
     font-weight: 400;
     line-height: normal;
 }
-.row
+.eachfoodrow
 {
     display: flex;
     align-items: center;
     gap: 17px;
 }
-.item
+.eachfooditem
 {
 
     width: 95px;
@@ -45,7 +46,7 @@
     line-height: normal;
 
 }
-.item2
+.eachfooditem2
 {
     display: inline-flex;
     width: 274px;
@@ -63,7 +64,7 @@
     font-weight: 400;
     line-height: normal;
 }
-.label
+.eachfoodlabel
 {
     color: #000;
     text-align: center;
@@ -76,7 +77,7 @@
     padding-left: 2px;
     padding-right: 2px;
 }
-.text
+.eachfoodtext
 {
     display: flex;
     width: 356px;
@@ -95,7 +96,7 @@
     font-weight: 400;
     line-height: normal;
 }
-.button
+.eachfoodbutton
 {
 
     width: 146px;
@@ -113,7 +114,7 @@
     font-weight: 400;
     line-height: normal;
 }
-.button:hover
+.eachfoodbutton:hover
 {
     background: #323546;
 }

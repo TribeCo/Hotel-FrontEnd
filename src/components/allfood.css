@@ -1,4 +1,4 @@
-.card-text {
+.allfoodcard-text {
 	display: flex;
 	padding: 12px 59px;
 	justify-content: center;
@@ -15,9 +15,9 @@
 	line-height: normal;
 	text-transform: capitalize;
 }
-#cardContainer {
-	width: auto;
-	height: auto;
+#allfoodcardContainer {
+	width: 924px;
+	height: 600px;
 	overflow-y: auto;
 	scrollbar-width: none; /* Enable vertical scrolling */
 	border-color: #271c15;
@@ -38,7 +38,7 @@
 	filter: blur(3px); /* Adjust the blur amount as needed */
 	z-index: -1; /* Place the pseudo-element behind content */
 }
-.text {
+.allfoodtext {
 	color: #0f0d0d;
 	text-align: center;
 	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.74);
@@ -49,13 +49,13 @@
 	line-height: normal;
 	text-transform: capitalize;
 }
-.card {
+.allfoodcard {
 	border-radius: 24px;
 	background: #271c15;
 	width: 438px;
 	height: 198px;
 }
-.card-header-text {
+.allfoodcard-header-text {
 	color: #bebebe;
 	text-align: center;
 	font-family: Vazirmatn;
@@ -65,25 +65,22 @@
 	line-height: normal;
 	text-transform: capitalize;
 }
-.item-bg {
+.allfooditem-bg {
 	background-color: #271c15;
 }
-.blur-background {
-	filter: blur(5px);
-}
-.image {
+.allfoodimage {
 	width: 185px;
 	height: 162px;
 	border-radius: 25px;
 	border: 8px solid #352d2d;
 }
-.pop-up {
+.allfoodpop-up {
 	border-radius: 16px;
 	border: 4px solid #5f5c58;
 	background: #1e0f0f;
 }
 
-.date {
+.allfooddate {
 	border-radius: 8px;
 
 	background: radial-gradient(
@@ -97,7 +94,7 @@
 	backdrop-filter: blur(40px);
 	color: azure;
 }
-.change {
+.allfoodchange {
 	display: flex;
 	width: 102px;
 	padding: 7px;
