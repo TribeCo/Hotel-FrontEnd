@@ -2,20 +2,20 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities"; */
 
-.text-color {
+.landingtext-color {
 	color: #c1c1c1;
 }
-.info {
+.landinginfo {
 	color: #fafafb;
 	font-size: xx-large;
 	margin-bottom: 30px;
 	font-weight: bold;
 }
-.des {
+.landingdes {
 	width: 60%;
 	background-color: #353846;
 }
-.btn-link {
+.landingbtn-link {
 	padding: 8px 16px;
 	background-color: #b4b7b7;
 	color: rgba(86, 89, 90, 255);
@@ -23,7 +23,7 @@
 	text-decoration: none;
 	transition: background-color 0.6s ease;
 }
-.btn-link2 {
+.landingbtn-link2 {
 	padding: 8px 16px;
 	background-color: #1d1f29;
 	border-radius: 4px;
@@ -32,42 +32,42 @@
 	transition: background-color 0.6s ease;
 }
 
-.btn-link:hover {
+.landingbtn-link:hover {
 	background-color: #546f6f;
 }
-.btn-link2:hover {
+.landingbtn-link2:hover {
 	background-color: #546f6f;
 }
-.nav-color {
+.landingnav-color {
 	background-color: #2c2d37;
 }
-.footer-color {
+.landingfooter-color {
 	background-color: #2c2d37;
 }
 
-body {
+.landingbody {
 	background-color: #1d1f2c;
 }
-.card {
+.landingcard {
 	background-color: #353846;
 }
-.content {
+.landingcontent {
 	padding-top: 80px; /* Adjust this value based on your header's height */
 }
 
-.card-container {
+.landingcard-container {
 	position: relative;
 	bottom: 200px;
 }
-.blurry-image {
+.landingblurry-image {
 	filter: blur(3px); /* Change the pixel value to adjust the blur effect */
 }
-.round-pic {
+.landinground-pic {
 	border-radius: 9999px;
 	position: relative;
 	right: 10%;
 }
-.round-pic::after {
+.landinground-pic::after {
 	content: "";
 	position: absolute;
 	top: 0;
@@ -83,7 +83,7 @@ body {
 	mask-image: linear-gradient(to left, transparent 0%, #353846 10%);
 	/* For browser compatibility, you might need vendor prefixes for mask-image */
 }
-.card:hover {
+.landingcard:hover {
 	transform: scale(1.05);
 	transition: transform 0.6s ease;
 }
