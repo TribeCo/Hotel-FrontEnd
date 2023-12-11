@@ -16,6 +16,18 @@ class Room {
 		return axios.get(url, config);
 	};
 
+	// @Desc get Room info with id
+	static getUserRoom = ({ authToken }) => {
+		const url = `${baseUrl}/reservation/user/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.get(url, config);
+	};
+
 	// @Desc upload user image
 	static uploadImage = ({ uid, data, authToken }) => {
 		const url = `${baseUrl}/upload/${uid}/`;

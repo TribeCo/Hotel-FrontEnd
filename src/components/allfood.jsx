@@ -6,6 +6,7 @@ import popup from "../assets/allfood_popup.png";
 
 import Food from "../services/food";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Allfood = () => {
 	const [cardData, setCardData] = useState([]);
@@ -44,23 +45,25 @@ const Allfood = () => {
 						className=" border-8 rounded-lg grid grid-cols-1 lg:grid-cols-2 gap-4 b-5 p-4"
 						id="allfoodcardContainer">
 						{cardData.map((cardInfo, index) => (
-							<div
-								key={index}
-								className="allfoodcard bg-white rounded p-4 flex flex-row items-center">
-								<img
-									src={cardInfo.image}
-									className="allfoodimage object-cover mb-4 mr-4"
-									alt={`Image for Card ${index + 1}`}
-								/>
-								<div>
-									<p className="allfoodcard-text text-lg mb-2 mr-2">
-										{cardInfo.name}
-									</p>
-									<p className="allfoodcard-text text-lg mr-2">
-										{cardInfo.price}
-									</p>
+							<Link to={`/food/${cardInfo.id}`}>
+								<div
+									key={index}
+									className="allfoodcard bg-white rounded p-4 flex flex-row items-center">
+									<img
+										src={cardInfo.image}
+										className="allfoodimage object-cover mb-4 mr-4"
+										alt={`Image for Card ${index + 1}`}
+									/>
+									<div>
+										<p className="allfoodcard-text text-lg mb-2 mr-2">
+											{cardInfo.name}
+										</p>
+										<p className="allfoodcard-text text-lg mr-2">
+											{cardInfo.price}
+										</p>
+									</div>
 								</div>
-							</div>
+							</Link>
 						))}
 					</div>
 					<button

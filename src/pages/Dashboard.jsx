@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Box,
 	Divider,
@@ -9,13 +9,31 @@ import {
 	Container,
 } from "@mui/material";
 import { AttachMoneyOutlined } from "@mui/icons-material";
-
+import { useAuth } from "../context/AuthContext";
 import AvatarCard from "../components/dashboard/AvatarCard";
 import RoomCard from "../components/dashboard/RoomCard";
+import Room from "../services/room";
 
 const baseUrl = "https://hotelback.iran.liara.run";
 
 const DashboardPage = (props) => {
+	const [room, setRoom] = useState([]);
+	const { accessToken } = useAuth();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const res = await Room.getUserRoom({ authToken: accessToken });
+				console.log(res.data);
+				if (res.status === 200) {
+					setRoom(res.data);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchData();
+	}, [accessToken]);
 	const user = props.user;
 	console.log(user);
 	if (user) {
@@ -31,7 +49,7 @@ const DashboardPage = (props) => {
 						xs={12}
 						md={8}
 						lg={9}>
-						<RoomCard />
+						<RoomCard res={room ? true : false} />
 					</Grid>
 					<Grid
 						item
