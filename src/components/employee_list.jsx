@@ -1,77 +1,27 @@
-import React from "react";
-import "./employee_list.css"; // Import your CSS file here
+import React, { useState, useEffect } from "react";
+import "./employee_list.css";
 import "./tailwind.css";
+import Admin from "../services/admin";
+import { useAuth } from "../context/AuthContext";
 
 const EmployeeList = () => {
-	const cardData = [
-		{
-			name: "---",
-			jobname: "---",
-			id: "---",
-			email: "---",
-		},
-		{
-			name: "---",
-			jobname: "---",
-			id: "---",
-			email: "---",
-		},
-		{
-			name: "---",
-			jobname: "---",
-			id: "---",
-			email: "---",
-		},
-		{
-			name: "---",
-			jobname: "---",
-			id: "---",
-			email: "---",
-		},
-		{
-			name: "---",
-			jobname: "---",
-			id: "---",
-			email: "---",
-		},
-		{
-			name: "---",
-			jobname: "---",
-			id: "---",
-			email: "---",
-		},
-		{
-			name: "---",
-			jobname: "---",
-			id: "---",
-			email: "---",
-		},
-		{
-			name: "---",
-			jobname: "---",
-			id: "---",
-			email: "---",
-		},
-		{
-			name: "---",
-			jobname: "---",
-			id: "---",
-			email: "---",
-		},
-		{
-			name: "---",
-			jobname: "---",
-			id: "---",
-			email: "---",
-		},
-		{
-			name: "---",
-			jobname: "---",
-			id: "---",
-			email: "---",
-		},
-		// Add more objects for each card as needed
-	];
+	const [cardData, setCardData] = useState([]);
+	const { accessToken } = useAuth();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const res = await Admin.getAll({ authToken: accessToken });
+				console.log(res);
+				if (res.status === 200) {
+					setCardData(res.data);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchData();
+	}, [accessToken]);
 
 	return (
 		<div
@@ -87,8 +37,12 @@ const EmployeeList = () => {
 						<div
 							// dir="rtl"
 							className="my-fields">
-							<p className="employeemy-card-text">نام کارمند: {cardInfo.name}</p>
-							<p className="employeemy-card-text">عنوان شغلی: {cardInfo.jobname}</p>
+							<p className="employeemy-card-text">
+								نام کارمند: {cardInfo.firstName + " " + cardInfo.lastName}
+							</p>
+							<p className="employeemy-card-text">
+								عنوان شغلی: {Role(cardInfo.role)}
+							</p>
 							<p className="employeemy-card-text">کدملی: {cardInfo.id}</p>
 							<p className="employeemy-card-text">ایمیل: {cardInfo.email}</p>
 						</div>
@@ -97,6 +51,18 @@ const EmployeeList = () => {
 			</div>
 		</div>
 	);
+};
+
+const Role = (role) => {
+	if (role === "m") {
+		return "مدیر هتل";
+	} else if (role === "d") {
+		return "معاون هتل";
+	} else if (role === "a") {
+		return "پذیرش هتل";
+	} else {
+		return "مدیر رستوران";
+	}
 };
 
 export default EmployeeList;

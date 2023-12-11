@@ -23,19 +23,14 @@ import User from "../services/user";
 import { ArrowBack } from "@mui/icons-material";
 import { useAuth } from "../context/AuthContext";
 import Loading from "../components/utils/Loading";
+const baseUrl = "https://hotelback.iran.liara.run";
 
 const validationSchema = Yup.object().shape({
-	firstName: Yup.string().required("وارد کردن نام الزامی است"),
-	lastName: Yup.string().required("وارد کردن نام خانوادگی الزامی است"),
-	idCard: Yup.string()
-		.required("وارد کردن کد ملی الزامی است")
-		.matches(/^\d{10}$/, "کد ملی باید ۱۰ رقم باشد"),
-	email: Yup.string()
-		.email("آدرس ایمیل معتبر نیست")
-		.required("وارد کردن آدرس ایمیل الزامی است"),
-	password: Yup.string()
-		.required("وارد کردن کلمه عبور الزامی است")
-		.min(8, "کلمه عبور باید بیشتر از 8 کاراکتر باشد."),
+	firstName: Yup.string(),
+	lastName: Yup.string(),
+	idCard: Yup.string().matches(/^\d{10}$/, "کد ملی باید ۱۰ رقم باشد"),
+	email: Yup.string().email("آدرس ایمیل معتبر نیست"),
+	password: Yup.string().min(8, "کلمه عبور باید بیشتر از 8 کاراکتر باشد."),
 	confirmPassword: Yup.string().oneOf(
 		[Yup.ref("password"), null],
 		"تکرار کلمه عبور باید مطابقت داشته باشد",
@@ -43,7 +38,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const ProfilePage = () => {
-	const { accessToken, refreshAccessFunc } = useAuth();
+	const { accessToken } = useAuth();
 	const [user, setUser] = useState(null);
 	const [image, setImage] = useState(null);
 	const Navigate = useNavigate();
@@ -55,13 +50,13 @@ const ProfilePage = () => {
 				const response = await User.getOne({ accessToken: accessToken });
 				console.log(response.data);
 				setUser(response.data);
-				setImage(response.data.image);
+				setImage(baseUrl + response.data.image);
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			}
 		};
 		fetchData();
-	}, []);
+	}, [accessToken]);
 
 	const handleSubmit = async (values) => {
 		try {
@@ -74,10 +69,10 @@ const ProfilePage = () => {
 					email: values.email,
 					password: values.password,
 				},
-				accessToken,
+				authToken: accessToken,
 			});
+			setIsEditMode(false);
 			console.log(res);
-			Navigate("/profile");
 		} catch (error) {
 			console.log(error);
 		}
@@ -88,16 +83,12 @@ const ProfilePage = () => {
 	};
 	const handleFileChange = async (event) => {
 		const file = event.target.files[0];
+		console.log(1);
 		if (file) {
 			try {
-				const res = await User.uploadImage({
-					uid: user.id,
-					data: file,
-					authToken: authToken,
-				});
-				setImage(res.data.src);
+				const res = await User.uploadImage(user.id, file);
 				console.log(res);
-				Navigate("/profile");
+				setImage(res.data.link);
 			} catch (error) {
 				console.log(error);
 			}
@@ -152,7 +143,7 @@ const ProfilePage = () => {
 										alignItems: "center",
 									}}>
 									<Avatar
-										src={user.image}
+										src={baseUrl + user.image}
 										sx={{ width: 150, height: 150, mb: 4 }}></Avatar>
 									<Grid
 										container
@@ -253,7 +244,7 @@ const ProfilePage = () => {
 											id: user.id,
 											firstName: user.firstName,
 											lastName: user.lastName,
-											idCard: user.id,
+											idCard: user.nationalCode,
 											email: user.email,
 											password: "",
 											confirmPassword: "",
@@ -409,27 +400,7 @@ const ProfilePage = () => {
 			</>
 		);
 	} else {
-		return (
-			<Loading />
-
-			// <Grid
-			// 	container
-			// 	component="main"
-			// 	sx={{
-			// 		height: "100vh",
-			// 		backgroundColor: "#141A20",
-			// 		display: "flex",
-			// 		justifyContent: "center",
-			// 		alignItems: "center",
-			// 		flexDirection: "column",
-			// 	}}>
-			// 	<CircularProgress
-			// 		color="primary"
-			// 		fourColor
-			// 		variant="indeterminate"
-			// 	/>
-			// </Grid>
-		);
+		return <Loading />;
 	}
 };
 

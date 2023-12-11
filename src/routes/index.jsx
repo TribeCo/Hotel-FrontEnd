@@ -29,6 +29,10 @@ const Router = () => {
 				element={<Login />}
 			/>
 			<Route
+				path="/logout"
+				element={<Login />}
+			/>
+			<Route
 				path="/register"
 				element={<Register />}
 			/>

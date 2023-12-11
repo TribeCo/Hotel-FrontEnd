@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import {
@@ -35,16 +35,20 @@ import {
 	ChevronLeft,
 } from "@mui/icons-material";
 
-import AvatarCard from "../components/dashboard/AvatarCard";
-import RoomCard from "../components/dashboard/RoomCard";
 import AddRoom from "../components/addroom";
 import AllRoom from "../components/Allroom";
 import { useAuth } from "../context/AuthContext";
 import PaymentPage from "../pages/Payment";
 import User from "../services/user";
 import Loading from "../components/utils/Loading";
+import Reception from "../components/reception";
+import Allfood from "../components/allfood";
+import EmployeeList from "../components/employee_list";
+import Dashboard from "../pages/Dashboard";
 
 const drawerWidth = 240;
+
+const baseUrl = "https://hotelback.iran.liara.run";
 
 const AppBar = styled(MuiAppBar, {
 	shouldForwardProp: (prop) => prop !== "open",
@@ -89,33 +93,9 @@ const Drawer = styled(MuiDrawer, {
 		}),
 	},
 }));
-
-// const getUser = async (accessToken) => {
-// 	try {
-// 		const res = await User.getOne({ accessToken: accessToken });
-// 		return res.data;
-// 	} catch (error) {
-// 		console.log(error);
-// 	}
-// };
-
-const Dashboard = () => {
+const DashboardLayout = () => {
 	const Navigate = useNavigate();
-	/* auth */
-	// const { accessToken, refreshAccessFunc } = useAuth();
-	// const checkLoginStatus = async (access) => {
-	// 	if (!access) {
-	// 		Navigate("/login");
-	// 	} else {
-	// 		try {
-	// 			await refreshAccessFunc();
-	// 		} catch (error) {
-	// 			Navigate("/login");
-	// 		}
-	// 	}
-	// };
-	// checkLoginStatus(accessToken);
-	// End Auth
+	const { accessToken } = useAuth();
 
 	const [user, setUser] = useState(null);
 	const [open, setOpen] = useState(false);
@@ -128,31 +108,39 @@ const Dashboard = () => {
 		setOpen(!open);
 	};
 
-	// const user = getUser(accessToken);
-	const { accessToken } = useAuth();
-
 	useEffect(() => {
+		const checkLoginStatus = async (access) => {
+			if (!access) {
+				Navigate("/login");
+			}
+		};
+
 		const fetchData = async () => {
 			try {
 				const response = await User.getOne({ accessToken: accessToken });
 				console.log(response.data);
-				setUser(response.data);
+				if (response.status === 200) {
+					setUser(response.data);
+				} else {
+					Navigate("/login");
+				}
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			}
 		};
+		// checkLoginStatus(accessToken);
 		fetchData();
 	}, [accessToken]);
 
 	const pages = [
-		dashboardPage(user), // محتویات داشبورد
+		<Dashboard user={user} />, // محتویات داشبورد
 		<AllRoom />, // رزرو اتاق
-		tempPage(), // رزرو غذا
+		<Allfood />, // رزرو غذا
 		<PaymentPage />, // تسویه حساب
-		tempPage(), //پذیرش
+		<Reception />, //پذیرش
 		<AddRoom />, //افزودن اتاق
 		tempPage(), //گزارش های مالی
-		tempPage(), //لیست کارمندان
+		<EmployeeList />, //لیست کارمندان
 		tempPage(), //افزودن کارمند
 		tempPage(), // رزرو ها
 		tempPage(), // افزودن غذا
@@ -194,7 +182,7 @@ const Dashboard = () => {
 							{user.firstName + " " + user.lastName}
 						</Typography>
 						<IconButton onClick={() => Navigate("/profile")}>
-							<Avatar src={user.image}></Avatar>
+							<Avatar src={baseUrl + user.image}></Avatar>
 						</IconButton>
 					</Toolbar>
 				</AppBar>
@@ -344,42 +332,7 @@ const Dashboard = () => {
 	}
 };
 
-function dashboardPage(user) {
-	if (user) {
-		return (
-			<Container
-				maxWidth="lg"
-				sx={{ mt: 4, mb: 4 }}>
-				<Grid
-					container
-					spacing={3}>
-					<Grid
-						item
-						xs={12}
-						md={8}
-						lg={9}>
-						<RoomCard />
-					</Grid>
-					<Grid
-						item
-						xs={12}
-						md={4}
-						lg={3}>
-						<AvatarCard
-							fullname={user.firstName + " " + user.lastName}
-							Photo={user.image}
-						/>
-					</Grid>
-					<Grid
-						item
-						xs={12}></Grid>
-				</Grid>
-			</Container>
-		);
-	}
-}
-
-export default Dashboard;
+export default DashboardLayout;
 
 function tempPage() {
 	return (
