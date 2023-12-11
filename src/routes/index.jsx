@@ -8,6 +8,8 @@ import AboutUs from "../components/AboutUs";
 import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
 import ContactUs from "../pages/ContactUs";
+import Eachroom from "../components/eachroom";
+import Eachfood from "../components/eachfood";
 
 const Router = () => {
 	return (
@@ -43,6 +45,14 @@ const Router = () => {
 			<Route
 				path="/profile"
 				element={<Profile />}
+			/>
+			<Route
+				path="/room/:id"
+				element={<Eachroom />}
+			/>
+			<Route
+				path="/food/:id"
+				element={<Eachfood />}
 			/>
 			<Route
 				path="*"

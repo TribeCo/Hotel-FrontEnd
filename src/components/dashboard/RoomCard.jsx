@@ -1,7 +1,8 @@
 import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 
-function RoomCard({ res = true }) {
+function RoomCard(props) {
+	const res = props.res;
 	if (res) {
 		return (
 			<>
@@ -20,7 +21,7 @@ function RoomCard({ res = true }) {
 							<Typography
 								variant="h4"
 								mb={2}>
-								شماره اتاق 111
+								شماره اتاق {111}
 							</Typography>
 							<Typography>
 								شما این اتاق را از تاریخ 01/01/1403 تا تاریخ 07/01/1403 رزرو
