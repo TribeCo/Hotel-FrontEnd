@@ -3,11 +3,11 @@ import { Routes, Route } from "react-router-dom";
 import Landing from "../components/landing";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "../layouts/DashboardLayout";
 import AboutUs from "../components/AboutUs";
-import AllRoom from "../components/Allroom";
 import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
+import ContactUs from "../pages/ContactUs";
 
 const Router = () => {
 	return (
@@ -21,16 +21,8 @@ const Router = () => {
 				element={<AboutUs />}
 			/>
 			<Route
-				path="/dashboard"
-				element={<Dashboard />}
-			/>
-			<Route
-				path="/allroom"
-				element={<AllRoom />}
-			/>
-			<Route
-				path="/profile"
-				element={<Profile />}
+				path="/contactus"
+				element={<ContactUs />}
 			/>
 			<Route
 				path="/login"
@@ -39,6 +31,14 @@ const Router = () => {
 			<Route
 				path="/register"
 				element={<Register />}
+			/>
+			<Route
+				path="/dashboard"
+				element={<Dashboard />}
+			/>
+			<Route
+				path="/profile"
+				element={<Profile />}
 			/>
 			<Route
 				path="*"

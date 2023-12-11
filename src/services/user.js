@@ -5,15 +5,19 @@ const baseUrl = "api/accounts/users";
 //? User Api
 class User {
 	// @Desc get user with id
-	static getOne = ({ uid, authToken }) => {
-		const url = `${baseUrl}/detail/${uid}`;
+	static getOne = async ({ accessToken }) => {
+		const url = `${baseUrl}/detail/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${authToken}`,
+				Authorization: `Bearer ${accessToken}`,
 			},
 		};
-		return axios.get(url, config);
+		try {
+			return await axios.get(url, config);
+		} catch (error) {
+			console.log(error.message);
+		}
 	};
 
 	// @Desc upload user image

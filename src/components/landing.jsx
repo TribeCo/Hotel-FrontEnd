@@ -82,10 +82,10 @@ function HotelComponent() {
 							با دکوراسیون مدرن و امکانات راحتی همچون تلویزیون، دسترسی به
 							اینترنت بی‌سیم، میز کار و کمد لباس مجهز شده است.{" "}
 						</p>
-            <Link
+						{/* <Link
 									to="/allroom" className="absolute bottom-2 left-2  btn-link2 font-bold py-2 px-4 mt-4 rounded mt-2"
 									>بیشتر
-								</Link>
+								</Link>*/}
 					</div>
 				</div>
 
@@ -112,10 +112,10 @@ function HotelComponent() {
 							آرامش‌بخش است. دید از پنجره‌های این اتاق نیز بسیار دل‌انگیز و
 							آرامبخش است.
 						</p>
-            <Link
+						{/* <Link
 									to="/allroom" className="absolute bottom-2 left-2  btn-link2 font-bold py-2 px-4 mt-4 rounded mt-2"
 									>بیشتر
-								</Link>
+								</Link> */}
 					</div>
 				</div>
 
@@ -142,10 +142,11 @@ function HotelComponent() {
 							ویژه تجربه‌ای منحصر به فرد از رفاه و آسایش را برای مسافران فراهم
 							می‌کند.
 						</p>
-            <Link
-									to="/allroom" className="absolute bottom-2 left-2  btn-link2 font-bold py-2 px-4 mt-4 rounded mt-2"
-									>بیشتر
-								</Link>
+						{/* <Link
+							to="/allroom"
+							className="absolute bottom-2 left-2  btn-link2 font-bold py-2 px-4 mt-4 rounded mt-2">
+							بیشتر
+						</Link> */}
 					</div>
 				</div>
 			</div>
