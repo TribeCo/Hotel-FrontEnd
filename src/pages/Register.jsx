@@ -15,7 +15,7 @@ import Person2Outlined from "@mui/icons-material/Person2Outlined";
 import EmailOutlined from "@mui/icons-material/EmailOutlined";
 import { Link, useNavigate } from "react-router-dom";
 
-import { createUser, validationEmail } from "../services/auth.js";
+import User from "../services/user.js";
 
 const codeSchema = Yup.object().shape({
 	code: Yup.string()
@@ -48,7 +48,7 @@ const Register = () => {
 
 	const handleSubmit = async (values) => {
 		try {
-			const res = await createUser({
+			const res = await User.create({
 				firstName: values.firstName,
 				lastName: values.lastName,
 				nationalCode: values.idCard,
@@ -64,7 +64,7 @@ const Register = () => {
 	};
 	const handleSubmitCode = async (values) => {
 		try {
-			const res = await validationEmail({
+			const res = await User.validationEmail({
 				email: userEmail,
 				code: values.code,
 			});
