@@ -43,7 +43,13 @@ const Login = () => {
 			console.log(res);
 			Navigate("/dashboard");
 		} catch (error) {
-			alert("خطایی رخ داد لطفا دوباره تلاش کنید");
+			if ((error = "No active account found with the given credentials")) {
+				alert("ایمیل یا پسورد اشتباه میباشد!");
+				setLoading(false);
+			} else {
+				alert("خطایی رخ داد لطفا دوباره تلاش کنید");
+				setLoading(false);
+			}
 			console.error(error);
 		}
 	};
@@ -124,6 +130,9 @@ const Login = () => {
 										/>
 										<div />
 										<FormControlLabel
+											sx={{
+												display: "none",
+											}}
 											control={
 												<Field
 													as={Checkbox}
@@ -144,6 +153,7 @@ const Login = () => {
 										</Button>
 										<Grid container>
 											<Grid
+												display="none"
 												xs
 												item>
 												<Link to="/forget-password">
