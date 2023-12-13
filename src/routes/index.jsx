@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import Landing from "../components/landing";
+
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../layouts/DashboardLayout";
@@ -10,6 +10,7 @@ import NotFound from "../pages/NotFound";
 import ContactUs from "../pages/ContactUs";
 import Eachroom from "../components/eachroom";
 import Eachfood from "../components/eachfood";
+import Landing from "../components/landing";
 
 const Router = () => {
 	return (
