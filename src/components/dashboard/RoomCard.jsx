@@ -1,7 +1,8 @@
-import { Box, Container, Paper, Typography } from "@mui/material";
+import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 
-function RoomCard({ res = true }) {
+function RoomCard(props) {
+	const res = props.res;
 	if (res) {
 		return (
 			<>
@@ -9,25 +10,32 @@ function RoomCard({ res = true }) {
 					sx={{
 						p: 2,
 						display: "flex",
-						height: 240,
 					}}>
-					<Box
-						component="img"
-						sx={{
-							maxHeight: { xs: 300, md: 400 },
-							maxWidth: { xs: 300, md: 400 },
-							borderRadius: 2,
-						}}
-						src="/src/assets/pic1.jpg"></Box>
-					<Container
-						sx={{
-							display: "flex",
-							flexDirection: "column",
-						}}>
-						<Typography m="10">شماره اتاق 111</Typography>
-						<Typography>تاریخ رزرو : 11/01/1402</Typography>
-						<Typography>تاریخ پایان : 13/01/1402</Typography>
-					</Container>
+					<Grid>
+						<Container
+							sx={{
+								display: "flex",
+								flexDirection: "column",
+								mb: 2,
+							}}>
+							<Typography
+								variant="h4"
+								mb={2}>
+								شماره اتاق {111}
+							</Typography>
+							<Typography>
+								شما این اتاق را از تاریخ 01/01/1403 تا تاریخ 07/01/1403 رزرو
+								کرده اید
+							</Typography>
+						</Container>
+						<Box
+							mb={2}
+							component="img"
+							sx={{
+								borderRadius: 2,
+							}}
+							src="/src/assets/pic1.jpg"></Box>
+					</Grid>
 				</Paper>
 			</>
 		);

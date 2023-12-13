@@ -54,14 +54,14 @@ const FilterPopUP = ({ children }) => {
 	};
 
 	return (
-		<div className="card">
+		<div className="Filtercard">
 			<IconButton
-				className="close-button"
+				className="Filterclose-button"
 				onClick={() => window.close()}>
 				<CloseIcon sx={{ color: "#BE936A" }} />
 			</IconButton>
-			<div className="small-card left-card">
-				<div className="number-input-wrapper">
+			<div className="Filtersmall-card Filterleft-card">
+				<div className="Filternumber-input-wrapper">
 					<IconButton
 						onClick={handleDecrement}
 						sx={{
@@ -75,7 +75,7 @@ const FilterPopUP = ({ children }) => {
 						<ArrowDownward />
 					</IconButton>
 					<input
-						className="number-input"
+						className="Filternumber-input"
 						type="text"
 						value={value}
 						onChange={handleInputChange}
@@ -93,40 +93,40 @@ const FilterPopUP = ({ children }) => {
 						<ArrowUpward />
 					</IconButton>
 				</div>
-				<div className="card-text">تعداد تخت ها</div>
+				<div className="Filtercard-text">تعداد تخت ها</div>
 			</div>
-			<div className="small-card middle-card">
-				<div className="card-text">نوع اتاق</div>
-				<label className="container">
+			<div className="Filtersmall-card Filtermiddle-card">
+				<div className="Filtercard-text">نوع اتاق</div>
+				<label className="Filtercontainer">
 					<input
 						type="radio"
 						checked={Checkedvalue === 1}
 						onChange={() => setCheckedValue(1)}
 					/>
-					<span className="checkmark"></span>
+					<span className="Filtercheckmark"></span>
 					وی آی پی
 				</label>
-				<label className="container">
+				<label className="Filtercontainer">
 					عادی
 					<input
 						type="radio"
 						checked={Checkedvalue === 2}
 						onChange={() => setCheckedValue(2)}
 					/>
-					<span className="checkmark"></span>
+					<span className="Filtercheckmark"></span>
 				</label>
-				<label className="container">
+				<label className="Filtercontainer">
 					بدون فیلتر
 					<input
 						type="radio"
 						checked={Checkedvalue === 3}
 						onChange={() => setCheckedValue(3)}
 					/>
-					<span className="checkmark"></span>
+					<span className="Filtercheckmark"></span>
 				</label>
 			</div>
-			<div className="small-card right-card">
-				<div className="card-text">قیمت</div>
+			<div className="Filtersmall-card Filterright-card">
+				<div className="Filtercard-text">قیمت</div>
 				<ThemeProvider theme={theme}>
 					<Slider
 						defaultValue={1500000}
@@ -162,9 +162,9 @@ const FilterPopUP = ({ children }) => {
 						}}
 					/>
 				</ThemeProvider>
-				<div className="slider">تومان {sliderValue}</div>
+				<div className="Filterslider">تومان {sliderValue}</div>
 			</div>
-			<button className="custom-button">اعمال تغییرات</button>
+			<button className="Filtercustom-button">اعمال تغییرات</button>
 		</div>
 	);
 };
