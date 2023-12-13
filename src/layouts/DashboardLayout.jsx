@@ -143,8 +143,8 @@ const DashboardLayout = () => {
 		<EmployeeList />, //لیست کارمندان
 		tempPage(), //افزودن کارمند
 		tempPage(), // رزرو ها
-		tempPage(), // افزودن غذا
-		tempPage(), // ویرایش غذا
+		// tempPage(), // افزودن غذا
+		// tempPage(), // ویرایش غذا
 		tempPage(), // گزارش رستوران
 	];
 	if (user) {
@@ -213,13 +213,13 @@ const DashboardLayout = () => {
 							<ListItemIcon>
 								<RoomPreferences />
 							</ListItemIcon>
-							<ListItemText primary="رزرو اتاق" />
+							<ListItemText primary="لیست اتاق ها" />
 						</ListItemButton>
 						<ListItemButton onClick={() => togglePage(2)}>
 							<ListItemIcon>
 								<RoomService />
 							</ListItemIcon>
-							<ListItemText primary="رزور غذا" />
+							<ListItemText primary="لیست غذا ها" />
 						</ListItemButton>
 						<ListItemButton onClick={() => togglePage(3)}>
 							<ListItemIcon>
@@ -245,12 +245,12 @@ const DashboardLayout = () => {
 											</ListItemIcon>
 											<ListItemText primary="پذیرش" />
 										</ListItemButton>
-										<ListItemButton onClick={() => togglePage(5)}>
+										{/* <ListItemButton onClick={() => togglePage(5)}>
 											<ListItemIcon>
 												<RoomPreferences />
 											</ListItemIcon>
 											<ListItemText primary="افزودن اتاق" />
-										</ListItemButton>
+										</ListItemButton> */}
 										<ListItemButton onClick={() => togglePage(6)}>
 											<ListItemIcon>
 												<Assignment />
@@ -263,12 +263,12 @@ const DashboardLayout = () => {
 											</ListItemIcon>
 											<ListItemText primary="لیست کارمندان" />
 										</ListItemButton>
-										<ListItemButton onClick={() => togglePage(8)}>
+										{/* <ListItemButton onClick={() => togglePage(8)}>
 											<ListItemIcon>
 												<People />
 											</ListItemIcon>
 											<ListItemText primary="افزودن کارمند" />
-										</ListItemButton>
+										</ListItemButton> */}
 									</>
 								)}
 								{(user.role === "r" ||
@@ -287,7 +287,7 @@ const DashboardLayout = () => {
 											</ListItemIcon>
 											<ListItemText primary="رزرو ها" />
 										</ListItemButton>
-										<ListItemButton onClick={() => togglePage(10)}>
+										{/* <ListItemButton onClick={() => togglePage(10)}>
 											<ListItemIcon>
 												<FoodBankOutlined />
 											</ListItemIcon>
@@ -298,7 +298,7 @@ const DashboardLayout = () => {
 												<FoodBankOutlined />
 											</ListItemIcon>
 											<ListItemText primary="ویرایش غذا" />
-										</ListItemButton>
+										</ListItemButton> */}
 										<ListItemButton onClick={() => togglePage(12)}>
 											<ListItemIcon>
 												<Assignment />
