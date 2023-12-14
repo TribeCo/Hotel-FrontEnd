@@ -111,7 +111,7 @@ const ProfilePage = () => {
 							left: 0,
 							margin: "16px",
 						}}>
-						بازگشت به داشبورد
+						<Typography>بازگشت به داشبورد</Typography>
 						<ArrowBack sx={{ mr: 1 }} />
 					</Fab>
 					<Grid
