@@ -14,19 +14,15 @@ import {
 	Table,
 	Fab,
 	Container,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogContentText,
-	DialogTitle,
 } from "@mui/material";
 
 import Admin from "../services/admin";
 import { useAuth } from "../context/AuthContext";
 import { AddCircle, CleaningServices } from "@mui/icons-material";
-import AddEmployeeDialog from "../components/utils/AddEmployeeDialog";
-import EditEmployeeDialog from "../components/utils/EditEmployeeDialog";
-import DeleteEmployeeDialog from "../components/utils/DeleteEmployeeDialog";
+import AddEmployeeDialog from "../components/employee/AddEmployeeDialog";
+import EditEmployeeDialog from "../components/employee/EditEmployeeDialog";
+import DeleteEmployeeDialog from "../components/employee/DeleteEmployeeDialog";
+import EmployeeInfoDialog from "../components/employee/EmployeeInfoDialog";
 
 const EmployeeList = () => {
 	const [empList, setEmpList] = useState([]);
@@ -47,36 +43,48 @@ const EmployeeList = () => {
 		fetchData();
 	}, [accessToken]);
 
-	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-	const [openEditDialog, setOpenEditDialog] = useState(false);
-	const [openAddDialog, setOpenAddDialog] = useState(false);
 	const [selectedEmployee, setSelectedEmployee] = useState({});
 
-	const handleDeleteBtnClick = async (emp) => {
-		setSelectedEmployee(emp);
-		setOpenDeleteDialog(true);
+	//? CRUD Dialogs
+	const [openAddDialog, setOpenAddDialog] = useState(false); // Ceate
+	const [openInfoDialog, setOpenInfoDialog] = useState(false); // Read
+	const [openEditDialog, setOpenEditDialog] = useState(false); // Update
+	const [openDeleteDialog, setOpenDeleteDialog] = useState(false); // Delete
+
+	//? CRUD BTN open dialogs
+	const handleAddBtnClick = () => {
+		setOpenAddDialog(true);
 	};
-	const handleEditBtnClick = async (emp) => {
+	const handleInfoBtnClick = (emp) => {
+		setSelectedEmployee(emp);
+		setOpenInfoDialog(true);
+	};
+	const handleEditBtnClick = (emp) => {
 		console.log(emp);
 		setSelectedEmployee(emp);
 		setOpenEditDialog(true);
 	};
-	const handleAddBtnClick = async () => {
-		setOpenAddDialog(true);
-	};
-	const handleClose = () => {
-		setOpenDeleteDialog(false);
-		setOpenEditDialog(false);
-		setOpenAddDialog(false);
+	const handleDeleteBtnClick = (emp) => {
+		setSelectedEmployee(emp);
+		setOpenDeleteDialog(true);
 	};
 
-	const handleAdd = () => {
-		console.log("add");
+	//? Close all dialogs
+	const handleClose = () => {
+		setOpenAddDialog(false);
+		setOpenInfoDialog(false);
+		setOpenEditDialog(false);
+		setOpenDeleteDialog(false);
 	};
-	const handleEdit = () => {
+
+	//? handle submit functions
+	const handleAddEmployee = () => {
+		setTimeout(() => console.log("add"), 1000);
+	};
+	const handleEditEmployee = () => {
 		console.log("edit");
 	};
-	const handleDelete = () => {
+	const handleDeleteEmployee = () => {
 		console.log("delete");
 	};
 
@@ -124,9 +132,9 @@ const EmployeeList = () => {
 									<TableCell align="center">
 										<Typography variant="h6">مقام</Typography>
 									</TableCell>
-									<TableCell align="center">
+									{/* <TableCell align="center">
 										<Typography variant="h6">ایمیل</Typography>
-									</TableCell>
+									</TableCell> */}
 									<TableCell align="center">
 										{/* <Typography variant="h6">عملیات ها</Typography> */}
 									</TableCell>
@@ -146,17 +154,28 @@ const EmployeeList = () => {
 										<TableCell align="center">
 											<Typography>{Role(emp.role)}</Typography>
 										</TableCell>
-										<TableCell align="center">
+										{/* <TableCell align="center">
 											<Typography>{emp.email}</Typography>
-										</TableCell>
+										</TableCell> */}
 
 										<TableCell align="right">
+											<Button
+												onClick={() => handleInfoBtnClick(emp)}
+												variant="contained"
+												sx={{
+													m: 1,
+													minWidth: 100,
+													bgcolor: "	#0096FF",
+													color: "#FFFFFF",
+												}}>
+												<Typography variant="h6">اطلاعات</Typography>
+											</Button>
 											<Button
 												onClick={() => handleEditBtnClick(emp)}
 												variant="contained"
 												sx={{
 													m: 1,
-													minWidth: 90,
+													minWidth: 100,
 													bgcolor: "#ff6600",
 													color: "#FFFFFF",
 												}}>
@@ -166,7 +185,7 @@ const EmployeeList = () => {
 												onClick={() => handleDeleteBtnClick(emp)}
 												variant="contained"
 												sx={{
-													minWidth: 90,
+													minWidth: 100,
 													m: 1,
 													bgcolor: "#ff0000",
 													color: "#FFFFFF",
@@ -179,27 +198,36 @@ const EmployeeList = () => {
 							</TableBody>
 						</Table>
 					</TableContainer>
-					<AddEmployeeDialog
-						open={openAddDialog}
-						handleClose={handleClose}
-						handleAdd={() => {
-							console.log("add");
-						}}
-					/>
-					<EditEmployeeDialog
-						open={openEditDialog}
-						handleClose={handleClose}
-						handleDelete={() => {
-							console.log("Edit");
-						}}
-						employeeData={selectedEmployee}
-					/>
-					<DeleteEmployeeDialog
-						open={openDeleteDialog}
-						employeeData={selectedEmployee}
-						handleClose={handleClose}
-						handleDeleteEmployee={() => console.log("Delete")}
-					/>
+					{openAddDialog && (
+						<AddEmployeeDialog
+							open={openAddDialog}
+							handleClose={handleClose}
+							handleAddEmployee={handleAddEmployee}
+						/>
+					)}
+					{openInfoDialog && (
+						<EmployeeInfoDialog
+							open={openInfoDialog}
+							handleClose={handleClose}
+							employeeData={selectedEmployee}
+						/>
+					)}
+					{openEditDialog && (
+						<EditEmployeeDialog
+							employeeData={selectedEmployee}
+							open={openEditDialog}
+							handleClose={handleClose}
+							handleEditEmployee={handleEditEmployee}
+						/>
+					)}
+					{openDeleteDialog && (
+						<DeleteEmployeeDialog
+							open={openDeleteDialog}
+							employeeData={selectedEmployee}
+							handleClose={handleClose}
+							handleDeleteEmployee={handleDeleteEmployee}
+						/>
+					)}
 				</Grid>
 			</Paper>
 			{/* </Grid> */}
