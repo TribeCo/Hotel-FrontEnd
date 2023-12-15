@@ -43,7 +43,7 @@ import User from "../services/user";
 import Loading from "../components/utils/Loading";
 import Reception from "../components/reception";
 import Allfood from "../components/allfood";
-import EmployeeList from "../components/employee_list";
+import EmployeeList from "../pages/EmployeeList";
 import Dashboard from "../pages/Dashboard";
 
 const drawerWidth = 240;
