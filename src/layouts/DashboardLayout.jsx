@@ -41,7 +41,7 @@ import { useAuth } from "../context/AuthContext";
 import PaymentPage from "../pages/Payment";
 import User from "../services/user";
 import Loading from "../components/utils/Loading";
-import Reception from "../components/reception";
+import Reception from "../pages/Reception";
 import Allfood from "../components/allfood";
 import EmployeeList from "../pages/EmployeeList";
 import Dashboard from "../pages/Dashboard";
