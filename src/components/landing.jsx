@@ -1,16 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
-
+import icon from "../assets/icon.png";
 import "./tailwind.css";
 import "./landing.css"; // Import your CSS file
 import mainpicture from "../assets/mainpicture.png";
 import pic1 from "../assets/pic1.jpg";
 import pic2 from "../assets/pic2.jpg";
 import pic3 from "../assets/pic3.jpg";
-import des from "../assets/des.jpg";
+import GroupIcon from '@material-ui/icons/Group';
 
-function HotelComponent() {
+function Landing() {
 	return (
 		<div
 			className="flex flex-col min-h-screen justify-center items-center"
@@ -162,24 +162,37 @@ function HotelComponent() {
 					</p>
 				</div>
 			</div>
-			<footer
-				className="landingfooter-color text-white py-4 w-full mt-8"
-				dir="rtl">
-				<div className=" mx-auto flex items-center px-4">
-					<Link
-						to="/contactus"
-						className="hover:text-gray-300 ml-4">
-						تماس با ما
-					</Link>
-					<Link
-						to="/aboutus"
-						className="hover:text-gray-300">
-						درباره ما
-					</Link>
+			<footer className="landingfooter-color items-center text-white py-4 w-full mt-8" dir="rtl">
+				<div className="mx-auto flex items-center px-4" style={{ justifyContent: 'space-between' }}>
+					<div className="column-1">
+						<Link to="/contactus" className="hover:text-gray-300 ml-4">تماس با ما</Link>
+						<Link to="/aboutus" className="hover:text-gray-300">درباره ما</Link>
+					</div>
+					<div className="column-2">
+						<a href="https://github.com/link1">
+							<img src={icon} alt="Avatar 1" width="64" height="64" />
+						</a>
+						<a href="https://github.com/link2">
+							<img src={icon} alt="Avatar 2" width="64" height="64" />
+						</a>
+						<a href="https://github.com/link3">
+							<img src={icon} alt="Avatar 3" width="64" height="64" />
+						</a>
+						<a href="https://github.com/link4">
+							<img src={icon} alt="Avatar 4" width="64" height="64" />
+						</a>
+						<a href="https://github.com/link5">
+							<img src={icon} alt="Avatar 5" width="64" height="64" />
+						</a>
+					</div>
+				</div>
+				<div style={{textAlign: 'center', color: 'Highlight'}}>
+				<GroupIcon/>
+					<h2 style={{}}>Designed by The FivePlusOne </h2>
 				</div>
 			</footer>
 		</div>
 	);
 }
 
-export default HotelComponent;
+export default Landing;
