@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
     Box,
     Divider,
@@ -12,39 +12,11 @@ import {
     TableCell,
     TableBody,
     Table,
-    Fab,
     Container,
     Checkbox,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
 } from "@mui/material";
 
 const Reservations = () => {
-
-    const [openDialog, setOpenDialog] = useState(false);
-    const [selectedFoodId, setSelectedFoodId] = useState(null);
-
-    const handleOpenDialog = (foodId) => {
-        setOpenDialog(true);
-        setSelectedFoodId(foodId);
-    };
-
-    const handleCloseDialog = () => {
-        setOpenDialog(false);
-        setSelectedFoodId(null);
-    };
-
-    const handleStatusChange = (foodId) => {
-        setOpenDialog(false);
-        setSelectedFoodId(null);
-        // Logic to change the status of the selected food item
-        console.log(`Status change confirmed for food ${foodId}`);
-    };
-
-
     const initialFoodList = [
         { id: 1, foodName: 'Burger', foodPrice: '10$', delivered: true },
         { id: 2, foodName: 'Pizza', foodPrice: '15$', delivered: false },
@@ -52,30 +24,14 @@ const Reservations = () => {
     ];
 
     const [foodList, setFoodList] = useState(initialFoodList);
-    const [checkedRows, setCheckedRows] = useState({});
 
-    // Update the checkedRows state based on the delivered status of the food items
-    useState(() => {
-        const updatedCheckedRows = {};
-        initialFoodList.forEach((food) => {
-            if (food.delivered) {
-                updatedCheckedRows[food.id] = true;
-            }
-        });
-        setCheckedRows(updatedCheckedRows);
-    }, []);
-
-    const handleCheckboxChange = (foodId) => {
-        setCheckedRows({ ...checkedRows, [foodId]: !checkedRows[foodId] });
-        handleOpenDialog(foodId);
-        // Update the 'delivered' status of the food item
+    const handleButtonClick = (foodId) => {
         const updatedFoodList = foodList.map((food) =>
             food.id === foodId ? { ...food, delivered: !food.delivered } : food
         );
-
-        // Update the foodList state with the modified delivered status
         setFoodList(updatedFoodList);
     };
+
     return (
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Paper sx={{ padding: 2 }}>
@@ -112,8 +68,8 @@ const Reservations = () => {
                                     <TableRow key={food.id}>
                                         <TableCell component="th" scope="row">
                                             <Checkbox
-                                                checked={checkedRows[food.id] || false}
-                                                onChange={() => handleCheckboxChange(food.id)}
+                                                checked={food.delivered}
+                                                disabled
                                             />
                                         </TableCell>
                                         <TableCell align="center">{food.foodName}</TableCell>
@@ -121,33 +77,15 @@ const Reservations = () => {
                                         <TableCell align="center">
                                             <Button
                                                 variant="contained"
-                                                color="primary"
-                                                disabled={!checkedRows[food.id]}
-                                                sx={{ width: 150 }}
+                                                color={food.delivered ? 'success' : 'primary'}
+                                                onClick={() => handleButtonClick(food.id)}
+                                                sx={{
+                                                    width: 150,
+                                                    color: food.delivered ? 'white' : 'inherit',
+                                                }}
                                             >
-                                                {food.delivered ? 'تحویل داده شده' : 'تحویل داده نشده'}
+                                                {food.delivered ? 'تحویل داده شده' : 'تحویل'}
                                             </Button>
-                                            <Dialog
-                                                open={openDialog && selectedFoodId === food.id}
-                                                onClose={handleCloseDialog}
-                                            >
-                                                <DialogTitle>تغییر وضعیت</DialogTitle>
-                                                <DialogContent>
-                                                    <DialogContentText>
-                                                        آیا مطمئن هستید که می‌خواهید وضعیت را تغییر دهید؟
-                                                    </DialogContentText>
-                                                </DialogContent>
-                                                <DialogActions>
-                                                    <Button onClick={handleCloseDialog}>انصراف</Button>
-                                                    <Button
-                                                        onClick={() => handleStatusChange(food.id)}
-                                                        autoFocus
-                                                        color="primary"
-                                                    >
-                                                        تایید
-                                                    </Button>
-                                                </DialogActions>
-                                            </Dialog>
                                         </TableCell>
                                     </TableRow>
                                 ))}
@@ -161,3 +99,4 @@ const Reservations = () => {
 };
 
 export default Reservations;
+
