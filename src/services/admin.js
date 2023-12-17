@@ -28,29 +28,17 @@ class Admin {
 		return axios.get(url, config);
 	};
 
-	// @Desc upload Admin image
-	static uploadImage = ({ uid, data, authToken }) => {
-		const url = `${baseUrl}/upload/${uid}/`;
-		const config = {
-			headers: {
-				"Content-Type": "multipart/form-data",
-				Authorization: `Bearer ${authToken}`,
-			},
-		};
-		return axios.post(url, data, config);
-	};
-
-	// @Desc delete user with id
-	static delete = ({ uid, authToken }) => {
-		const url = `${baseUrl}/delete/${uid}`;
-		const config = {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${authToken}`,
-			},
-		};
-		return axios.delete(url, config);
-	};
+	// // @Desc delete user with id
+	// static delete = ({ uid, authToken }) => {
+	// 	const url = `${baseUrl}/delete/${uid}`;
+	// 	const config = {
+	// 		headers: {
+	// 			"Content-Type": "application/json",
+	// 			Authorization: `Bearer ${authToken}`,
+	// 		},
+	// 	};
+	// 	return axios.delete(url, config);
+	// };
 
 	// @Desc edit user info with id
 	static edit = ({ uid, data, authToken }) => {
@@ -65,11 +53,12 @@ class Admin {
 	};
 
 	// @Desc create user account
-	static create = (data) => {
+	static create = ({ data, authToken }) => {
 		const url = `${baseUrl}/create/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
 			},
 		};
 		return axios.post(url, data, config);
