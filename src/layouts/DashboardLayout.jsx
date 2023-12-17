@@ -45,6 +45,8 @@ import Reception from "../pages/Reception";
 import Allfood from "../components/allfood";
 import EmployeeList from "../pages/EmployeeList";
 import Dashboard from "../pages/Dashboard";
+import Reservations from "../pages/Reservations";
+import FoodReports from "../pages/FoodReports";
 
 const drawerWidth = 240;
 
@@ -138,14 +140,12 @@ const DashboardLayout = () => {
 		<Allfood />, // رزرو غذا
 		<PaymentPage />, // تسویه حساب
 		<Reception />, //پذیرش
-		<AddRoom />, //افزودن اتاق
 		tempPage(), //گزارش های مالی
 		<EmployeeList />, //لیست کارمندان
-		tempPage(), //افزودن کارمند
-		tempPage(), // رزرو ها
+		<Reservations />, // رزرو ها
 		// tempPage(), // افزودن غذا
 		// tempPage(), // ویرایش غذا
-		tempPage(), // گزارش رستوران
+		<FoodReports />, // گزارش رستوران
 	];
 	if (user) {
 		return (
@@ -245,30 +245,18 @@ const DashboardLayout = () => {
 											</ListItemIcon>
 											<ListItemText primary="پذیرش" />
 										</ListItemButton>
-										{/* <ListItemButton onClick={() => togglePage(5)}>
-											<ListItemIcon>
-												<RoomPreferences />
-											</ListItemIcon>
-											<ListItemText primary="افزودن اتاق" />
-										</ListItemButton> */}
-										<ListItemButton onClick={() => togglePage(6)}>
+										<ListItemButton onClick={() => togglePage(5)}>
 											<ListItemIcon>
 												<Assignment />
 											</ListItemIcon>
 											<ListItemText primary="گزارش های مالی" />
 										</ListItemButton>
-										<ListItemButton onClick={() => togglePage(7)}>
+										<ListItemButton onClick={() => togglePage(6)}>
 											<ListItemIcon>
 												<People />
 											</ListItemIcon>
 											<ListItemText primary="لیست کارمندان" />
 										</ListItemButton>
-										{/* <ListItemButton onClick={() => togglePage(8)}>
-											<ListItemIcon>
-												<People />
-											</ListItemIcon>
-											<ListItemText primary="افزودن کارمند" />
-										</ListItemButton> */}
 									</>
 								)}
 								{(user.role === "r" ||
@@ -281,13 +269,13 @@ const DashboardLayout = () => {
 											inset>
 											گزارش های رستوران
 										</ListSubheader>
-										<ListItemButton onClick={() => togglePage(9)}>
+										<ListItemButton onClick={() => togglePage(7)}>
 											<ListItemIcon>
 												<FoodBank />
 											</ListItemIcon>
 											<ListItemText primary="رزرو ها" />
 										</ListItemButton>
-										{/* <ListItemButton onClick={() => togglePage(10)}>
+										{/* <ListItemButton onClick={() => togglePage(8)}>
 											<ListItemIcon>
 												<FoodBankOutlined />
 											</ListItemIcon>
@@ -299,7 +287,7 @@ const DashboardLayout = () => {
 											</ListItemIcon>
 											<ListItemText primary="ویرایش غذا" />
 										</ListItemButton> */}
-										<ListItemButton onClick={() => togglePage(12)}>
+										<ListItemButton onClick={() => togglePage(8)}>
 											<ListItemIcon>
 												<Assignment />
 											</ListItemIcon>
