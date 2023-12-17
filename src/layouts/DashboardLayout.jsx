@@ -45,6 +45,7 @@ import Reception from "../components/reception";
 import Allfood from "../components/allfood";
 import EmployeeList from "../pages/EmployeeList";
 import Dashboard from "../pages/Dashboard";
+import Reservations from "../pages/Reservations";
 
 const drawerWidth = 240;
 
@@ -142,7 +143,7 @@ const DashboardLayout = () => {
 		tempPage(), //گزارش های مالی
 		<EmployeeList />, //لیست کارمندان
 		tempPage(), //افزودن کارمند
-		tempPage(), // رزرو ها
+		<Reservations />, // رزرو ها
 		// tempPage(), // افزودن غذا
 		// tempPage(), // ویرایش غذا
 		tempPage(), // گزارش رستوران
