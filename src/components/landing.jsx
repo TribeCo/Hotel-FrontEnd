@@ -9,6 +9,8 @@ import pic1 from "../assets/pic1.jpg";
 import pic2 from "../assets/pic2.jpg";
 import pic3 from "../assets/pic3.jpg";
 import GroupIcon from '@material-ui/icons/Group';
+import { Typography } from "@mui/material";
+import des from '../assets/des.jpg';
 
 function Landing() {
 	return (
@@ -169,26 +171,28 @@ function Landing() {
 						<Link to="/aboutus" className="hover:text-gray-300">درباره ما</Link>
 					</div>
 					<div className="column-2">
-						<a href="https://github.com/link1">
-							<img src={icon} alt="Avatar 1" width="64" height="64" />
+						<a href="https://github.com/Parsavazifeh">
+							<img src="https://avatars.githubusercontent.com/Parsavazifeh" alt="Avatar 1" width="40" height="40" style={{ borderRadius: '50%', margin: '0 5px' }} />
 						</a>
-						<a href="https://github.com/link2">
-							<img src={icon} alt="Avatar 2" width="64" height="64" />
+						<a href="https://github.com/pouryape">
+							<img src="https://avatars.githubusercontent.com/pouryape" alt="Avatar 2" width="40" height="40" style={{ borderRadius: '50%', margin: '0 5px' }} />
 						</a>
-						<a href="https://github.com/link3">
-							<img src={icon} alt="Avatar 3" width="64" height="64" />
+						<a href="https://github.com/TahaM8000">
+							<img src="https://avatars.githubusercontent.com/TahaM8000" alt="Avatar 3" width="40" height="40" style={{ borderRadius: '50%', margin: '0 5px' }} />
 						</a>
-						<a href="https://github.com/link4">
-							<img src={icon} alt="Avatar 4" width="64" height="64" />
+						<a href="https://github.com/pourya22334415">
+							<img src="https://avatars.githubusercontent.com/pourya22334415" alt="Avatar 4" width="40" height="40" style={{ borderRadius: '50%', margin: '0 5px' }} />
 						</a>
-						<a href="https://github.com/link5">
-							<img src={icon} alt="Avatar 5" width="64" height="64" />
+						<a href="https://github.com/Reza-B">
+							<img src="https://avatars.githubusercontent.com/Reza-B" alt="Avatar 5" width="40" height="40" style={{ borderRadius: '50%', margin: '0 5px' }} />
 						</a>
 					</div>
 				</div>
-				<div style={{textAlign: 'center', color: 'Highlight'}}>
-				<GroupIcon/>
-					<h2 style={{}}>Designed by The FivePlusOne </h2>
+				<div style={{ textAlign: 'center', color: 'Highlight', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+					<GroupIcon fontSize="small" style={{ marginLeft: '8px' }} />
+					<Typography variant="body1" style={{ margin: '0' }}>
+						طراحی شده توسط گروه پنج‌ بعلاوه یک
+					</Typography>
 				</div>
 			</footer>
 		</div>
