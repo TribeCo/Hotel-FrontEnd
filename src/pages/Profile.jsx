@@ -12,11 +12,7 @@ import {
 	Typography,
 	Container,
 	Fab,
-	Card,
-	CardContent,
-	CardMedia,
 	IconButton,
-	CircularProgress,
 } from "@mui/material";
 
 import User from "../services/user";
@@ -144,13 +140,19 @@ const ProfilePage = () => {
 									}}>
 									<Avatar
 										src={baseUrl + user.image}
-										sx={{ width: 150, height: 150, mb: 4 }}></Avatar>
+										sx={{
+											width: 200,
+											height: 200,
+											mb: 5,
+											mt: 3,
+										}}></Avatar>
 									<Grid
 										container
 										spacing={2}>
 										<Grid
 											item
-											xs={12}>
+											xs={12}
+											mt={1}>
 											<TextField
 												disabled
 												fullWidth
@@ -160,7 +162,8 @@ const ProfilePage = () => {
 										</Grid>
 										<Grid
 											item
-											xs={12}>
+											xs={12}
+											mt={1}>
 											<TextField
 												disabled
 												fullWidth
@@ -170,7 +173,8 @@ const ProfilePage = () => {
 										</Grid>
 										<Grid
 											item
-											xs={12}>
+											xs={12}
+											mt={1}>
 											<TextField
 												disabled
 												fullWidth
@@ -184,23 +188,31 @@ const ProfilePage = () => {
 										fullWidth
 										variant="contained"
 										sx={{
-											mt: 3,
-											borderRadius: 15,
+											mt: 7,
+											mb: 1,
+											borderRadius: 10,
 											bgcolor: "secondary.main",
 										}}>
-										ویرایش اطلاعات
+										<Typography
+											color="#FFFFFF"
+											variant="h6">
+											ویرایش اطلاعات
+										</Typography>
 									</Button>
 									<Button
 										onClick={() => Navigate("/logout")}
 										fullWidth
 										variant="contained"
 										sx={{
-											mt: 3,
-											mb: 2,
-											borderRadius: 15,
+											mt: 1,
+											borderRadius: 5,
 											bgcolor: "#FF0000",
 										}}>
-										خروج
+										<Typography
+											color="#FFFFFF"
+											variant="h6">
+											خروج
+										</Typography>
 									</Button>
 								</Box>
 							</Container>
@@ -236,7 +248,7 @@ const ProfilePage = () => {
 											onClick={handleAvatarClick}>
 											<Avatar
 												src={image}
-												sx={{ width: 150, height: 150 }}></Avatar>
+												sx={{ width: 200, height: 200 }}></Avatar>
 										</IconButton>
 									</div>
 									<Formik
@@ -257,6 +269,7 @@ const ProfilePage = () => {
 													container
 													spacing={2}>
 													<Grid
+														mt={1}
 														item
 														xs={12}
 														sm={6}>
@@ -278,6 +291,7 @@ const ProfilePage = () => {
 														/>
 													</Grid>
 													<Grid
+														mt={1}
 														item
 														xs={12}
 														sm={6}>
@@ -299,6 +313,7 @@ const ProfilePage = () => {
 														/>
 													</Grid>
 													<Grid
+														mt={1}
 														item
 														xs={12}>
 														<Field
@@ -317,6 +332,7 @@ const ProfilePage = () => {
 														/>
 													</Grid>
 													<Grid
+														mt={1}
 														item
 														xs={12}>
 														<Field
@@ -335,6 +351,7 @@ const ProfilePage = () => {
 														/>
 													</Grid>
 													<Grid
+														mt={1}
 														item
 														xs={12}>
 														<Field
@@ -356,6 +373,7 @@ const ProfilePage = () => {
 														/>
 													</Grid>
 													<Grid
+														mt={1}
 														item
 														xs={12}>
 														<Field
@@ -383,11 +401,15 @@ const ProfilePage = () => {
 													fullWidth
 													variant="contained"
 													sx={{
-														mt: 3,
+														mt: 5,
 														borderRadius: 15,
 														bgcolor: "secondary.main",
 													}}>
-													ثبت تغییرات
+													<Typography
+														variant="h6"
+														color="#FFFFFF">
+														ثبت تغییرات
+													</Typography>
 												</Button>
 											</Form>
 										)}

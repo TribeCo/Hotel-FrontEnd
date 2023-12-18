@@ -11,10 +11,8 @@ import {
 	Divider,
 	IconButton,
 	Avatar,
-	Badge,
 	Container,
 	Grid,
-	Paper,
 	ListItemButton,
 	ListItemIcon,
 	ListItemText,
@@ -26,7 +24,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {
 	RoomPreferences,
 	RoomService,
-	FoodBankOutlined,
 	FoodBank,
 	Assignment,
 	People,
@@ -35,21 +32,28 @@ import {
 	ChevronLeft,
 } from "@mui/icons-material";
 
-import AddRoom from "../components/addroom";
-import AllRoom from "../components/Allroom";
-import { useAuth } from "../context/AuthContext";
-import PaymentPage from "../pages/Payment";
-import User from "../services/user";
+// Components
 import Loading from "../components/utils/Loading";
-import Reception from "../components/reception";
-import Allfood from "../components/allfood";
-import EmployeeList from "../components/employee_list";
+
+// Pages
 import Dashboard from "../pages/Dashboard";
+import Allfood from "../components/allfood";
+import AllRoom from "../components/Allroom";
+import PaymentPage from "../pages/Payment";
+import Reception from "../pages/Reception";
+import EmployeeList from "../pages/EmployeeList";
 import Reports from "../pages/Reports";
+import Reservations from "../pages/Reservations";
+import FoodReports from "../pages/FoodReports";
+
+// Context
+import { useAuth } from "../context/AuthContext";
+
+// Services
+import User from "../services/user";
+const baseUrl = "https://hotelback.iran.liara.run";
 
 const drawerWidth = 240;
-
-const baseUrl = "https://hotelback.iran.liara.run";
 
 const AppBar = styled(MuiAppBar, {
 	shouldForwardProp: (prop) => prop !== "open",
@@ -139,14 +143,10 @@ const DashboardLayout = () => {
 		<Allfood />, // رزرو غذا
 		<PaymentPage />, // تسویه حساب
 		<Reception />, //پذیرش
-		<AddRoom />, //افزودن اتاق
 		<Reports />, //گزارش های مالی
 		<EmployeeList />, //لیست کارمندان
-		tempPage(), //افزودن کارمند
-		tempPage(), // رزرو ها
-		tempPage(), // افزودن غذا
-		tempPage(), // ویرایش غذا
-		tempPage(), // گزارش رستوران
+		<Reservations />, // رزرو ها
+		<FoodReports />, // گزارش رستوران
 	];
 	if (user) {
 		return (
@@ -248,27 +248,15 @@ const DashboardLayout = () => {
 										</ListItemButton>
 										<ListItemButton onClick={() => togglePage(5)}>
 											<ListItemIcon>
-												<RoomPreferences />
-											</ListItemIcon>
-											<ListItemText primary="افزودن اتاق" />
-										</ListItemButton>
-										<ListItemButton onClick={() => togglePage(6)}>
-											<ListItemIcon>
 												<Assignment />
 											</ListItemIcon>
 											<ListItemText primary="گزارش های مالی" />
 										</ListItemButton>
-										<ListItemButton onClick={() => togglePage(7)}>
+										<ListItemButton onClick={() => togglePage(6)}>
 											<ListItemIcon>
 												<People />
 											</ListItemIcon>
 											<ListItemText primary="لیست کارمندان" />
-										</ListItemButton>
-										<ListItemButton onClick={() => togglePage(8)}>
-											<ListItemIcon>
-												<People />
-											</ListItemIcon>
-											<ListItemText primary="افزودن کارمند" />
 										</ListItemButton>
 									</>
 								)}
@@ -282,25 +270,13 @@ const DashboardLayout = () => {
 											inset>
 											گزارش های رستوران
 										</ListSubheader>
-										<ListItemButton onClick={() => togglePage(9)}>
+										<ListItemButton onClick={() => togglePage(7)}>
 											<ListItemIcon>
 												<FoodBank />
 											</ListItemIcon>
 											<ListItemText primary="رزرو ها" />
 										</ListItemButton>
-										<ListItemButton onClick={() => togglePage(10)}>
-											<ListItemIcon>
-												<FoodBankOutlined />
-											</ListItemIcon>
-											<ListItemText primary="افزودن غذا" />
-										</ListItemButton>
-										<ListItemButton onClick={() => togglePage(11)}>
-											<ListItemIcon>
-												<FoodBankOutlined />
-											</ListItemIcon>
-											<ListItemText primary="ویرایش غذا" />
-										</ListItemButton>
-										<ListItemButton onClick={() => togglePage(12)}>
+										<ListItemButton onClick={() => togglePage(8)}>
 											<ListItemIcon>
 												<Assignment />
 											</ListItemIcon>

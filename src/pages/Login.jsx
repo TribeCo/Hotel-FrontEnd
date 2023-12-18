@@ -149,7 +149,7 @@ const Login = () => {
 											fullWidth
 											variant="contained"
 											sx={{ mt: 3, mb: 2, borderRadius: 25 }}>
-											ورود
+											<Typography variant="h6">ورود</Typography>
 										</Button>
 										<Grid container>
 											<Grid
@@ -157,12 +157,18 @@ const Login = () => {
 												xs
 												item>
 												<Link to="/forget-password">
-													<Button>فراموشی رمز عبور</Button>
+													<Button>
+														<Typography>فراموشی رمز عبور</Typography>
+													</Button>
 												</Link>
 											</Grid>
 											<Grid item>
 												<Link to="/register">
-													<Button>{"حساب کاربری ندارید؟ ثبت نام کنید."}</Button>
+													<Button>
+														<Typography>
+															{"حساب کاربری ندارید؟ ثبت نام کنید."}
+														</Typography>
+													</Button>
 												</Link>
 											</Grid>
 										</Grid>
