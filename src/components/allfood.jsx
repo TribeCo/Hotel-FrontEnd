@@ -38,27 +38,27 @@ const Allfood = () => {
 
 	if (cardData.length > 0) {
 		return (
-			<div className="bg - cover bg-center flex flex-col justify-center items-center allfood">
+			<div className=" bg-cover  flex flex-col justify-center items-center allfoodbody">
 				<div className="flex flex-col justify-center items-center relative">
 					<p className="allfoodtext mb-8">رزرو غذا</p>
 					<div
-						className=" border-8 rounded-lg grid grid-cols-1 lg:grid-cols-2 gap-4 b-5 p-4"
+						className="  grid grid-cols-1 lg:grid-cols-2 gap-4  p-6"
 						id="allfoodcardContainer">
 						{cardData.map((cardInfo, index) => (
 							<Link to={`/food/${cardInfo.id}`}>
 								<div
 									key={index}
-									className="allfoodcard bg-white rounded p-4 flex flex-row items-center">
+									className="allfoodcard bg-white rounded p-2 flex flex-row items-center">
 									<img
 										src={cardInfo.image}
-										className="allfoodimage object-cover mb-4 mr-4"
+										className="allfoodimage object-cover  ml-1"
 										alt={`Image for Card ${index + 1}`}
 									/>
 									<div>
-										<p className="allfoodcard-text text-lg mb-2 mr-2">
+										<p className="allfoodcard-text  mb-2 mr-2">
 											{cardInfo.name}
 										</p>
-										<p className="allfoodcard-text text-lg mr-2">
+										<p className="allfoodcard-text  mr-2">
 											{cardInfo.price}
 										</p>
 									</div>
@@ -67,15 +67,15 @@ const Allfood = () => {
 						))}
 					</div>
 					<button
-						className="absolute top-20 right-4 -mt-3 -mr-3"
+						className="absolute top-24 right-2 -mt-3 -mr-3  "
 						id="calendarButton"
 						onClick={handleCalendarButtonClick}>
 						<img
 							src={popup}
 							alt="Circle Image"
-							width="24px"
-							height="24px"
-							className="allfooditem-bg  object-contain"
+							width="40px"
+							height="40px"
+							className="allfooditem-bg   p-2"
 						/>
 					</button>
 				</div>
