@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../components/utils/Loading";
+import Loading from "./utils/Loading";
 import "./allfood.css";
 import "./tailwind.css";
 import popup from "../assets/allfood_popup.png";
@@ -58,9 +58,7 @@ const Allfood = () => {
 										<p className="allfoodcard-text  mb-2 mr-2">
 											{cardInfo.name}
 										</p>
-										<p className="allfoodcard-text  mr-2">
-											{cardInfo.price}
-										</p>
+										<p className="allfoodcard-text  mr-2">{cardInfo.price}</p>
 									</div>
 								</div>
 							</Link>

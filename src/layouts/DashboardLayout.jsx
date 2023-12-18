@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { styled } from "@mui/material/styles";
 import {
 	CssBaseline,
@@ -17,6 +16,7 @@ import {
 	ListItemIcon,
 	ListItemText,
 	ListSubheader,
+	Button,
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -37,7 +37,7 @@ import Loading from "../components/utils/Loading";
 
 // Pages
 import Dashboard from "../pages/Dashboard";
-import Allfood from "../components/allfood";
+import Allfood from "../components/Allfood";
 import AllRoom from "../components/Allroom";
 import PaymentPage from "../pages/Payment";
 import Reception from "../pages/Reception";
@@ -54,7 +54,6 @@ import User from "../services/user";
 const baseUrl = "https://hotelback.iran.liara.run";
 
 const drawerWidth = 240;
-
 const AppBar = styled(MuiAppBar, {
 	shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -72,7 +71,6 @@ const AppBar = styled(MuiAppBar, {
 		}),
 	}),
 }));
-
 const Drawer = styled(MuiDrawer, {
 	shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -98,6 +96,7 @@ const Drawer = styled(MuiDrawer, {
 		}),
 	},
 }));
+
 const DashboardLayout = () => {
 	const Navigate = useNavigate();
 	const { accessToken } = useAuth();
@@ -133,7 +132,6 @@ const DashboardLayout = () => {
 				console.error("Error fetching data:", error);
 			}
 		};
-		// checkLoginStatus(accessToken);
 		fetchData();
 	}, [accessToken]);
 
@@ -171,7 +169,6 @@ const DashboardLayout = () => {
 							<MenuIcon />
 						</IconButton>
 						<Typography
-							onClick={() => Navigate("/profile")}
 							component="h1"
 							variant="h6"
 							color="inherit"
@@ -179,12 +176,12 @@ const DashboardLayout = () => {
 							sx={{ flexGrow: 1 }}>
 							داشبورد
 						</Typography>
-						<Typography sx={{ paddingRight: 1 }}>
-							{user.firstName + " " + user.lastName}
-						</Typography>
-						<IconButton onClick={() => Navigate("/profile")}>
+						<Button onClick={() => Navigate("/profile")}>
+							<Typography sx={{ paddingRight: 1, color: "#FFFFFF", mr: 1 }}>
+								{user.firstName + " " + user.lastName}
+							</Typography>
 							<Avatar src={baseUrl + user.image}></Avatar>
-						</IconButton>
+						</Button>
 					</Toolbar>
 				</AppBar>
 				<Drawer
@@ -310,17 +307,3 @@ const DashboardLayout = () => {
 };
 
 export default DashboardLayout;
-
-function tempPage() {
-	return (
-		<Container
-			maxWidth="lg"
-			sx={{ mt: 4, mb: 4 }}>
-			<Grid
-				container
-				spacing={3}>
-				<Typography>این یک صفحه تستی است</Typography>
-			</Grid>
-		</Container>
-	);
-}
