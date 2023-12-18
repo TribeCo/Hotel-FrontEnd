@@ -143,9 +143,9 @@ const DashboardLayout = () => {
 		<Allfood />, // رزرو غذا
 		<PaymentPage />, // تسویه حساب
 		<Reception />, //پذیرش
-		<Reports />, //گزارش های مالی
 		<EmployeeList />, //لیست کارمندان
-		<Reservations />, // رزرو ها
+		<Reports />, //گزارش کل
+		<Reservations />, // لیست رزرو های غذا
 		<FoodReports />, // گزارش رستوران
 	];
 	if (user) {
@@ -220,7 +220,7 @@ const DashboardLayout = () => {
 							<ListItemIcon>
 								<RoomService />
 							</ListItemIcon>
-							<ListItemText primary="رزور غذا" />
+							<ListItemText primary="رزرو غذا" />
 						</ListItemButton>
 						<ListItemButton onClick={() => togglePage(3)}>
 							<ListItemIcon>
@@ -248,15 +248,15 @@ const DashboardLayout = () => {
 										</ListItemButton>
 										<ListItemButton onClick={() => togglePage(5)}>
 											<ListItemIcon>
-												<Assignment />
-											</ListItemIcon>
-											<ListItemText primary="گزارش های مالی" />
-										</ListItemButton>
-										<ListItemButton onClick={() => togglePage(6)}>
-											<ListItemIcon>
 												<People />
 											</ListItemIcon>
 											<ListItemText primary="لیست کارمندان" />
+										</ListItemButton>
+										<ListItemButton onClick={() => togglePage(6)}>
+											<ListItemIcon>
+												<Assignment />
+											</ListItemIcon>
+											<ListItemText primary="گزارش کل" />
 										</ListItemButton>
 									</>
 								)}
@@ -274,13 +274,13 @@ const DashboardLayout = () => {
 											<ListItemIcon>
 												<FoodBank />
 											</ListItemIcon>
-											<ListItemText primary="رزرو ها" />
+											<ListItemText primary="لیست رزرو ها" />
 										</ListItemButton>
 										<ListItemButton onClick={() => togglePage(8)}>
 											<ListItemIcon>
 												<Assignment />
 											</ListItemIcon>
-											<ListItemText primary="گزارش" />
+											<ListItemText primary="گزارش رستوران" />
 										</ListItemButton>
 									</>
 								)}
