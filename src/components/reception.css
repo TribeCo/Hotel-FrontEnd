@@ -1,7 +1,6 @@
 .receptioncard-text {
 	color: #fff;
 	text-align: center;
-	font-family: Vazirmatn;
 	font-size: 19px;
 	font-style: normal;
 	font-weight: 400;
@@ -10,12 +9,12 @@
 }
 #receptioncardContainer {
 	width: 846px;
-	height: 649px;
+	max-height: 550px;
 	overflow-y: auto;
 	scrollbar-width: none; /* Enable vertical scrolling */
-	border-color: #000000;
 	border-radius: 24px;
-	border-width: 15px;
+	background-color: rgba(0, 0, 0, 0.3);
+
 }
 ::-webkit-scrollbar {
 	display: none;
@@ -30,15 +29,14 @@
 	flex-direction: column;
 	justify-content: center;
 	justify-items: center;
-	min-height: 100vh;
+	min-height: 92vh;
 	z-index: -1;
 }
 .receptiontext {
 	color: #000;
 	text-align: center;
 	text-shadow: 0px 5px 0px rgba(0, 0, 0, 0.26);
-	font-family: Vazirmatn;
-	font-size: 68px;
+	font-size: 58px;
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
@@ -60,7 +58,7 @@
 	gap: 3px;
 }
 .receptionitem-bg {
-	background-color: #15100d;
+	background-color: rgba(0, 0, 0, 0.3);;
 	scale: 0.8;
 }
 .receptionreturn {
@@ -74,7 +72,6 @@
 	background: #262932;
 	color: #fff;
 	text-align: center;
-	font-family: Vazirmatn;
 	font-size: 19px;
 	font-style: normal;
 	font-weight: 400;
@@ -91,7 +88,6 @@
 	display: flex;
 	width: 102px;
 	height: 30.616px;
-	padding: 7px 9px;
 	align-items: center;
 	gap: 10px;
 	flex-shrink: 0;
@@ -100,7 +96,6 @@
 	background: #0c1123;
 	color: #fff;
 	text-align: center;
-	font-family: Vazirmatn;
 	font-size: 15px;
 	font-style: normal;
 	font-weight: 400;
@@ -147,7 +142,6 @@
 	align-items: center;
 	color: #fff;
 	text-align: center;
-	font-family: Vazirmatn;
 	font-size: 13px;
 	font-style: normal;
 	font-weight: 400;

@@ -93,16 +93,12 @@ const Reception = () => {
 	return (
 		<div
 			id="receptionbody"
-			className="flex flex-col justify-center items-center">
-			<button
-				className="fixed top-4 right-4 receptionreturn rounded-md shadow-md"
-				onClick={handleFilterButtonClick}>
-				بازگشت به داشبورد
-			</button>
+			className="bg-cover flex flex-col justify-center items-center">
+
 			<div className="flex flex-col justify-center items-center relative">
 				<p className="receptiontext mb-8">پذیرش</p>
 				<div
-					className="container border-8 rounded-lg grid grid-cols-2 lg:grid-cols-3 gap-4 b-5 p-4"
+					className=" grid grid-cols-2 lg:grid-cols-3 gap-4  pr-4 py-4"
 					id="receptioncardContainer">
 					{cardData.slice(0, 15).map((cardInfo, index) => (
 						<div key={index} className="rounded receptioncard flex flex-row items-center justify-center">
@@ -117,14 +113,14 @@ const Reception = () => {
 					))}
 				</div>
 				<button
-					className="absolute top-20 right-4 -mt-3 -mr-3"
+					className="absolute top-24  -right-4 -mt-3 -mr-3"
 					id="filter"
 					onClick={handleFilterButtonClick}>
 					<img
 						src="/src/assets/reception_popup.png"
 						alt="Circle Image"
-						width="38px"
-						height="38px"
+						width="42px"
+						height="42px"
 						className="rounded-full receptionitem-bg p-1"
 					/>
 				</button>
@@ -164,7 +160,7 @@ const Reception = () => {
 								وی آی پی
 							</label>
 						</div>
-						<button className="receptionchange">اعمال تغییرات</button>
+						<button className="receptionchange p-1">اعمال تغییرات</button>
 					</div>
 				</div>
 			)}
