@@ -1,63 +1,50 @@
+.text-color {
+	color: #c1c1c1;
+}
+.icon:hover {
+	transform: scale(1.05);
+}
 
-    .text-color
-    {
-      color: #c1c1c1;
-    }
-    .icon:hover
-    {
-      transform: scale(1.05);
-    }
+.btn-link {
+	padding: 8px 16px;
+	background-color: #b4b7b7;
+	color: rgba(86, 89, 90, 255);
+	border-radius: 4px;
+	text-decoration: none;
+	transition: background-color 0.6s ease;
+}
 
-    .btn-link {
-      padding: 8px 16px;
-      background-color: #b4b7b7;
-      color: rgba(86,89,90,255);
-      border-radius: 4px;
-      text-decoration: none;
-      transition: background-color 0.6s ease;
-    }
+.btn-link:hover {
+	background-color: #546f6f;
+}
 
-  
-    .btn-link:hover {
-      background-color: #546f6f;
-    }
+.nav-color {
+	background-color: #2c2d37;
+}
+.footer-color {
+	background-color: #2c2d37;
+}
 
-    .nav-color {
-      background-color: #2c2d37;
-    }
-    .footer-color
-    {
-        background-color: #2c2d37;
-    }
-
-    body
-    {
-        background-color: #1d1d1d;
-    }
-    .image
-    {
-        width: 863px;
-        height: 419px;
-        border-radius: 24px;
-        
-
-
-    }
-    .info
-    {
-        color: #fafafb;
-        font-size: xx-large;
-        margin-bottom: 30px;
-        font-weight: bold;
-
-    }
-    .name
-    {
-        color: #FFF;
-        font-family: Vazirmatn;
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        text-transform: capitalize;
-    }
+body {
+	background-color: #1d1d1d;
+}
+.image {
+	width: 863px;
+	height: 419px;
+	border-radius: 24px;
+}
+.info {
+	color: #fafafb;
+	font-size: xx-large;
+	margin-bottom: 30px;
+	font-weight: bold;
+}
+.name {
+	color: #fff;
+	font-family: Vazirmatn;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	text-transform: capitalize;
+}

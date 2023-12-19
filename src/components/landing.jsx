@@ -1,14 +1,14 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
-import icon from "../assets/icon.png";
 import "./tailwind.css";
-import "./landing.css"; // Import your CSS file
+// import "./landing.css"; // Import your CSS file
 import mainpicture from "../assets/mainpicture.png";
 import pic1 from "../assets/pic1.jpg";
 import pic2 from "../assets/pic2.jpg";
 import pic3 from "../assets/pic3.jpg";
-import GroupIcon from '@material-ui/icons/Group';
+import { Group } from "@mui/icons-material";
+import { Typography } from "@mui/material";
+import des from "../assets/des.jpg";
 
 function Landing() {
 	return (
@@ -22,13 +22,13 @@ function Landing() {
 					<h1 className="text-2xl font-bold">Transylvania</h1>
 					<nav>
 						<ul className="flex space-x-4">
-							<li>
+							{/* <li>
 								<Link
 									to="news"
 									className="hover:text-gray-300">
-									اخبار
+									<Typography>اخبار</Typography>
 								</Link>
-							</li>
+							</li> */}
 							<li>
 								<Link
 									to="/login"
@@ -53,11 +53,7 @@ function Landing() {
 				alt="Background Image"
 			/>
 			<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-centet">
-				<h1
-					className="font-bold"
-					style={{ fontSize: "70px" }}>
-					هتل ترانسیلوانیا
-				</h1>
+				<Typography variant="h1">هتل ترانسیلوانیا</Typography>
 			</div>
 			<div className=" landingcard-container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 				{/* Card 1 */}
@@ -71,16 +67,18 @@ function Landing() {
 						<h2
 							className="font-bold text-xl mb-2 landingtext-color"
 							dir="rtl">
-							اتاق تک خوابه
+							<Typography variant="h5">اتاق تک خوابه</Typography>
 						</h2>
 						<p
 							className="landingtext-color text-base mb-4"
 							dir="rtl">
-							اتاق یکخوابه، فضای راحت و شیکی را برای اقامت به مسافران ارائه
-							می‌دهد. این اتاق دارای یک اتاق خواب با تخت دو نفره، یک حمام شخصی
-							با امکانات بهداشتی مدرن و یک سالن نشیمن آرام و دل‌پذیر است. اتاق
-							با دکوراسیون مدرن و امکانات راحتی همچون تلویزیون، دسترسی به
-							اینترنت بی‌سیم، میز کار و کمد لباس مجهز شده است.{" "}
+							<Typography>
+								اتاق یکخوابه، فضای راحت و شیکی را برای اقامت به مسافران ارائه
+								می‌دهد. این اتاق دارای یک اتاق خواب با تخت دو نفره، یک حمام شخصی
+								با امکانات بهداشتی مدرن و یک سالن نشیمن آرام و دل‌پذیر است. اتاق
+								با دکوراسیون مدرن و امکانات راحتی همچون تلویزیون، دسترسی به
+								اینترنت بی‌سیم، میز کار و کمد لباس مجهز شده است.{" "}
+							</Typography>
 						</p>
 					</div>
 				</div>
@@ -96,17 +94,19 @@ function Landing() {
 						<h2
 							className="font-bold text-xl mb-2 landingtext-color"
 							dir="rtl">
-							اتاق دوخوابه
+							<Typography variant="h5">اتاق دوخوابه</Typography>
 						</h2>
 						<p
 							className="landingtext-color text-base mb-4"
 							dir="rtl">
-							.اتاق دوخوابه، یک فضای فراگیر و راحت برای اقامت دوستانه یا
-							خانوادگی ارائه می‌دهد. این اتاق شامل دو اتاق خواب با تخت دو نفره،
-							دو حمام شخصی مدرن و یک سالن نشیمن فضیلت‌آمیز است. اتاق دارای تمامی
-							امکانات رفاهی مانند تلویزیون، اینترنت بی‌سیم، کمد لباس و نشیمنی
-							آرامش‌بخش است. دید از پنجره‌های این اتاق نیز بسیار دل‌انگیز و
-							آرامبخش است.
+							<Typography>
+								.اتاق دوخوابه، یک فضای فراگیر و راحت برای اقامت دوستانه یا
+								خانوادگی ارائه می‌دهد. این اتاق شامل دو اتاق خواب با تخت دو
+								نفره، دو حمام شخصی مدرن و یک سالن نشیمن فضیلت‌آمیز است. اتاق
+								دارای تمامی امکانات رفاهی مانند تلویزیون، اینترنت بی‌سیم، کمد
+								لباس و نشیمنی آرامش‌بخش است. دید از پنجره‌های این اتاق نیز بسیار
+								دل‌انگیز و آرامبخش است.
+							</Typography>
 						</p>
 					</div>
 				</div>
@@ -122,17 +122,19 @@ function Landing() {
 						<h2
 							className="font-bold text-xl mb-2 landingtext-color"
 							dir="rtl">
-							اتاق ویژه
+							<Typography variant="h5">اتاق ویژه</Typography>
 						</h2>
 						<p
 							className="landingtext-color text-base"
 							dir="rtl">
-							اتاق ویژه، فضایی ارگونومیک و لوکس با امکانات بی‌نظیر ارائه می‌دهد.
-							این اتاق دارای دکوراسیون شیک و منحصر به فردی است که همراه با
-							چشم‌اندازهای دل‌انگیز، امکانات رفاهی از جمله وان حمام و خدمات
-							اختصاصی مثل خدمه را فراهم می‌کند. با این فضای آرام و دل‌پذیر، اتاق
-							ویژه تجربه‌ای منحصر به فرد از رفاه و آسایش را برای مسافران فراهم
-							می‌کند.
+							<Typography>
+								اتاق ویژه، فضایی ارگونومیک و لوکس با امکانات بی‌نظیر ارائه
+								می‌دهد. این اتاق دارای دکوراسیون شیک و منحصر به فردی است که
+								همراه با چشم‌اندازهای دل‌انگیز، امکانات رفاهی از جمله وان حمام و
+								خدمات اختصاصی مثل خدمه را فراهم می‌کند. با این فضای آرام و
+								دل‌پذیر، اتاق ویژه تجربه‌ای منحصر به فرد از رفاه و آسایش را برای
+								مسافران فراهم می‌کند.
+							</Typography>
 						</p>
 					</div>
 				</div>
@@ -162,33 +164,89 @@ function Landing() {
 					</p>
 				</div>
 			</div>
-			<footer className="landingfooter-color items-center text-white py-4 w-full mt-8" dir="rtl">
-				<div className="mx-auto flex items-center px-4" style={{ justifyContent: 'space-between' }}>
+			<footer
+				className="landingfooter-color items-center text-white py-4 w-full mt-8"
+				dir="rtl">
+				<div
+					className="mx-auto flex items-center px-4"
+					style={{ justifyContent: "space-between" }}>
 					<div className="column-1">
-						<Link to="/contactus" className="hover:text-gray-300 ml-4">تماس با ما</Link>
-						<Link to="/aboutus" className="hover:text-gray-300">درباره ما</Link>
+						<Link
+							to="/contactus"
+							className="hover:text-gray-300 ml-4">
+							<Typography>تماس با ما</Typography>
+						</Link>
+						<Link
+							to="/aboutus"
+							className="hover:text-gray-300">
+							<Typography>درباره ما</Typography>
+						</Link>
 					</div>
 					<div className="column-2">
-						<a href="https://github.com/link1">
-							<img src={icon} alt="Avatar 1" width="64" height="64" />
+						<a href="https://github.com/Parsavazifeh">
+							<img
+								src="https://avatars.githubusercontent.com/Parsavazifeh"
+								alt="Avatar 1"
+								width="40"
+								height="40"
+								style={{ borderRadius: "50%", margin: "0 5px" }}
+							/>
 						</a>
-						<a href="https://github.com/link2">
-							<img src={icon} alt="Avatar 2" width="64" height="64" />
+						<a href="https://github.com/pouryape">
+							<img
+								src="https://avatars.githubusercontent.com/pouryape"
+								alt="Avatar 2"
+								width="40"
+								height="40"
+								style={{ borderRadius: "50%", margin: "0 5px" }}
+							/>
 						</a>
-						<a href="https://github.com/link3">
-							<img src={icon} alt="Avatar 3" width="64" height="64" />
+						<a href="https://github.com/TahaM8000">
+							<img
+								src="https://avatars.githubusercontent.com/TahaM8000"
+								alt="Avatar 3"
+								width="40"
+								height="40"
+								style={{ borderRadius: "50%", margin: "0 5px" }}
+							/>
 						</a>
-						<a href="https://github.com/link4">
-							<img src={icon} alt="Avatar 4" width="64" height="64" />
+						<a href="https://github.com/pourya22334415">
+							<img
+								src="https://avatars.githubusercontent.com/pourya22334415"
+								alt="Avatar 4"
+								width="40"
+								height="40"
+								style={{ borderRadius: "50%", margin: "0 5px" }}
+							/>
 						</a>
-						<a href="https://github.com/link5">
-							<img src={icon} alt="Avatar 5" width="64" height="64" />
+						<a href="https://github.com/Reza-B">
+							<img
+								src="https://avatars.githubusercontent.com/Reza-B"
+								alt="Avatar 5"
+								width="40"
+								height="40"
+								style={{ borderRadius: "50%", margin: "0 5px" }}
+							/>
 						</a>
 					</div>
 				</div>
-				<div style={{textAlign: 'center', color: 'Highlight'}}>
-				<GroupIcon/>
-					<h2 style={{}}>Designed by The FivePlusOne </h2>
+				<div
+					style={{
+						textAlign: "center",
+						color: "Highlight",
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+					}}>
+					<Group
+						fontSize="small"
+						style={{ marginLeft: "8px" }}
+					/>
+					<Typography
+						variant="body1"
+						style={{ margin: "0" }}>
+						طراحی شده توسط گروه پنج‌ بعلاوه یک
+					</Typography>
 				</div>
 			</footer>
 		</div>

@@ -273,7 +273,7 @@ const Register = () => {
 													borderRadius: 15,
 													bgcolor: "secondary.main",
 												}}>
-												ثبت نام
+												<Typography variant="h6">ثبت نام</Typography>
 											</Button>
 											<Grid
 												container
@@ -281,7 +281,9 @@ const Register = () => {
 												<Grid item>
 													<Link to="/login">
 														<Button sx={{ color: "secondary.main" }}>
-															حساب کاربری دارید؟ وارد شوید.
+															<Typography>
+																حساب کاربری دارید؟ وارد شوید.
+															</Typography>
 														</Button>
 													</Link>
 												</Grid>

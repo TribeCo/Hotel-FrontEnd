@@ -8,8 +8,8 @@ import AboutUs from "../components/AboutUs";
 import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
 import ContactUs from "../pages/ContactUs";
-import Eachroom from "../components/eachroom";
-import Eachfood from "../components/eachfood";
+import Eachroom from "../pages/EachRoom";
+import Eachfood from "../pages/EachFood";
 import Landing from "../components/landing";
 
 const Router = () => {

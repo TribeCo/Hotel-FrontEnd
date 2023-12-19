@@ -1,62 +1,231 @@
-.card-text {
+.allroomcard-text {
 	color: #9b8c68;
 	text-align: center;
-	font-family: Vazirmatn;
 	font-size: 21px;
 	font-style: normal;
 	font-weight: 700;
 	line-height: normal;
 	text-transform: capitalize;
 }
-#cardContainer {
+#allroomcardContainer {
+	max-height: 700px;
 	overflow-y: auto;
 	scrollbar-width: none; /* Enable vertical scrolling */
 	border-color: #271c15;
+	background-color: rgba(0, 0, 0, 0.25);
+	border-radius: 50px;
 }
 ::-webkit-scrollbar {
 	display: none;
 }
-#mainc::before {
-	content: "";
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-image: url("../assets/background.jpg");
+#mainc {
+	background-image: url(../assets/Allroom.jpg);
 	background-size: cover;
-	background-position: center;
-	filter: blur(3px); /* Adjust the blur amount as needed */
-	z-index: -1; /* Place the pseudo-element behind content */
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	justify-items: center;
+	min-height: 92vh;
+	z-index: -1;
+	overflow: hidden;
 }
-.text {
-	color: #bebebe;
+.allroomtext {
+	color: #0f0d0d;
 	text-align: center;
-	text-shadow: 0px 5px 0px rgba(0, 0, 0, 0.26);
-	font-family: Vazirmatn;
+	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.74);
 	font-size: 68px;
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
 	text-transform: capitalize;
 }
-.card {
+.allroomcard {
+	width: 250px;
+	height: 252px;
+	flex-shrink: 0;
+	border-radius: 24px;
+
 	border-radius: 24px;
 	background: #271c15;
 }
-.card-header-text {
+.allroomcard-header-text {
 	color: #bebebe;
 	text-align: center;
-	font-family: Vazirmatn;
 	font-size: 21px;
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
 	text-transform: capitalize;
 }
-.item-bg {
-	background-color: #271c15;
+.allroomitem-bg {
+	background-color: rgba(0, 0, 0, 0.3);
 }
-.blur-background {
-	filter: blur(5px);
+
+.allroomimage {
+	border-radius: 24px 24px 10px 10px;
+}
+.allroompopupcard {
+	width: 470px;
+	height: 470px;
+	background-color: #37281f;
+	border: 10px solid #5b3d21;
+	border-radius: 24px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	position: relative;
+	padding: 10px;
+}
+
+.close-button {
+	position: absolute;
+}
+
+.small-card {
+	border: 3px solid #bebebe;
+	border-radius: 16px;
+	position: absolute;
+	top: 79px;
+}
+
+.middle-card {
+	width: 219px;
+	height: 113px;
+	left: 205px;
+	float: right;
+}
+
+.right-card {
+	width: 377px;
+	height: 113px;
+	left: 45px;
+	top: 246px;
+	display: flex; /* This line enables the flexbox layout for the right card */
+	justify-content: center; /* This line centers the slider horizontally in the right card */
+	align-items: center; /* This line centers the slider vertically in the right card */
+	flex-direction: column; /* This line stacks the elements vertically in the right card */
+}
+
+.custom-button {
+	border-radius: 12px;
+	border: 2px solid #be936a;
+	background: #5b3d21;
+	width: 102px;
+	height: 37px;
+	justify-content: space-between;
+	align-items: center;
+	position: absolute;
+	left: 184px;
+	top: 390px;
+	color: #ffffff; /* This line changes the text color to white */
+}
+
+.left-card {
+	width: 122px;
+	height: 62px;
+	left: 45px;
+}
+
+.number-input-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(
+		-50%,
+		-50%
+	); /* This line centers the number input field inside the left card */
+	padding-top: 10px; /* This line adds space from the top part of the left card */
+}
+
+.number-input {
+	border-radius: 4px;
+	border: 2px solid #be936a;
+	background: #5b3d21;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	width: 40px;
+	height: 31px;
+	text-align: center;
+	color: white;
+}
+
+.card-text {
+	position: absolute;
+	right: 0; /* This line aligns the text to the right side of the container */
+	top: -30px; /* This line positions the text above the cards */
+	color: #ffffff;
+	z-index: 1; /* This line ensures the text is on top of the cards */
+}
+
+.container {
+	position: relative;
+	padding-left: 100px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	color: #bebebe;
+	top: 10px;
+	left: 10px;
+	text-align: right; /* This line aligns the text to the right */
+	display: flex; /* This line enables the flexbox layout for the container */
+}
+
+.container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+
+.checkmark {
+	position: absolute;
+	right: 20px;
+	top: -1px;
+	height: 24px;
+	width: 24px;
+	background-color: #eee;
+	border-radius: 50%;
+	border: 2px solid #5b3d21; /* This line adds a 2px border around the circles */
+}
+
+.container input:checked ~ .checkmark {
+	background-color: #be936b;
+}
+
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+	display: block;
+}
+
+.container .checkmark:after {
+	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+}
+
+.slider {
+	color: white;
+}
+.slider {
+	accent-color: #5b3d21;
 }

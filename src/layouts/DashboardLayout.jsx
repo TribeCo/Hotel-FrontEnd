@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { styled } from "@mui/material/styles";
 import {
 	CssBaseline,
@@ -11,14 +10,13 @@ import {
 	Divider,
 	IconButton,
 	Avatar,
-	Badge,
 	Container,
 	Grid,
-	Paper,
 	ListItemButton,
 	ListItemIcon,
 	ListItemText,
 	ListSubheader,
+	Button,
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -26,7 +24,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {
 	RoomPreferences,
 	RoomService,
-	FoodBankOutlined,
 	FoodBank,
 	Assignment,
 	People,
@@ -35,21 +32,28 @@ import {
 	ChevronLeft,
 } from "@mui/icons-material";
 
-import AddRoom from "../components/addroom";
-import AllRoom from "../components/Allroom";
-import { useAuth } from "../context/AuthContext";
-import PaymentPage from "../pages/Payment";
-import User from "../services/user";
+// Components
 import Loading from "../components/utils/Loading";
-import Reception from "../components/reception";
-import Allfood from "../components/allfood";
-import EmployeeList from "../components/employee_list";
+
+// Pages
 import Dashboard from "../pages/Dashboard";
+import Allfood from "../components/Allfood";
+import AllRoom from "../components/Allroom";
+import PaymentPage from "../pages/Payment";
+import Reception from "../pages/Reception";
+import EmployeeList from "../pages/EmployeeList";
+import Reports from "../pages/Reports";
+import Reservations from "../pages/Reservations";
+import FoodReports from "../pages/FoodReports";
 
-const drawerWidth = 240;
+// Context
+import { useAuth } from "../context/AuthContext";
 
+// Services
+import User from "../services/user";
 const baseUrl = "https://hotelback.iran.liara.run";
 
+const drawerWidth = 240;
 const AppBar = styled(MuiAppBar, {
 	shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -67,7 +71,6 @@ const AppBar = styled(MuiAppBar, {
 		}),
 	}),
 }));
-
 const Drawer = styled(MuiDrawer, {
 	shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -93,6 +96,7 @@ const Drawer = styled(MuiDrawer, {
 		}),
 	},
 }));
+
 const DashboardLayout = () => {
 	const Navigate = useNavigate();
 	const { accessToken } = useAuth();
@@ -128,7 +132,6 @@ const DashboardLayout = () => {
 				console.error("Error fetching data:", error);
 			}
 		};
-		// checkLoginStatus(accessToken);
 		fetchData();
 	}, [accessToken]);
 
@@ -138,14 +141,10 @@ const DashboardLayout = () => {
 		<Allfood />, // رزرو غذا
 		<PaymentPage />, // تسویه حساب
 		<Reception />, //پذیرش
-		<AddRoom />, //افزودن اتاق
-		tempPage(), //گزارش های مالی
 		<EmployeeList />, //لیست کارمندان
-		tempPage(), //افزودن کارمند
-		tempPage(), // رزرو ها
-		// tempPage(), // افزودن غذا
-		// tempPage(), // ویرایش غذا
-		tempPage(), // گزارش رستوران
+		<Reports />, //گزارش کل
+		<Reservations />, // لیست رزرو های غذا
+		<FoodReports />, // گزارش رستوران
 	];
 	if (user) {
 		return (
@@ -170,7 +169,6 @@ const DashboardLayout = () => {
 							<MenuIcon />
 						</IconButton>
 						<Typography
-							onClick={() => Navigate("/profile")}
 							component="h1"
 							variant="h6"
 							color="inherit"
@@ -178,12 +176,12 @@ const DashboardLayout = () => {
 							sx={{ flexGrow: 1 }}>
 							داشبورد
 						</Typography>
-						<Typography sx={{ paddingRight: 1 }}>
-							{user.firstName + " " + user.lastName}
-						</Typography>
-						<IconButton onClick={() => Navigate("/profile")}>
+						<Button onClick={() => Navigate("/profile")}>
+							<Typography sx={{ paddingRight: 1, color: "#FFFFFF", mr: 1 }}>
+								{user.firstName + " " + user.lastName}
+							</Typography>
 							<Avatar src={baseUrl + user.image}></Avatar>
-						</IconButton>
+						</Button>
 					</Toolbar>
 				</AppBar>
 				<Drawer
@@ -213,13 +211,13 @@ const DashboardLayout = () => {
 							<ListItemIcon>
 								<RoomPreferences />
 							</ListItemIcon>
-							<ListItemText primary="لیست اتاق ها" />
+							<ListItemText primary="رزرو اتاق" />
 						</ListItemButton>
 						<ListItemButton onClick={() => togglePage(2)}>
 							<ListItemIcon>
 								<RoomService />
 							</ListItemIcon>
-							<ListItemText primary="لیست غذا ها" />
+							<ListItemText primary="رزرو غذا" />
 						</ListItemButton>
 						<ListItemButton onClick={() => togglePage(3)}>
 							<ListItemIcon>
@@ -245,30 +243,18 @@ const DashboardLayout = () => {
 											</ListItemIcon>
 											<ListItemText primary="پذیرش" />
 										</ListItemButton>
-										{/* <ListItemButton onClick={() => togglePage(5)}>
-											<ListItemIcon>
-												<RoomPreferences />
-											</ListItemIcon>
-											<ListItemText primary="افزودن اتاق" />
-										</ListItemButton> */}
-										<ListItemButton onClick={() => togglePage(6)}>
-											<ListItemIcon>
-												<Assignment />
-											</ListItemIcon>
-											<ListItemText primary="گزارش های مالی" />
-										</ListItemButton>
-										<ListItemButton onClick={() => togglePage(7)}>
+										<ListItemButton onClick={() => togglePage(5)}>
 											<ListItemIcon>
 												<People />
 											</ListItemIcon>
 											<ListItemText primary="لیست کارمندان" />
 										</ListItemButton>
-										{/* <ListItemButton onClick={() => togglePage(8)}>
+										<ListItemButton onClick={() => togglePage(6)}>
 											<ListItemIcon>
-												<People />
+												<Assignment />
 											</ListItemIcon>
-											<ListItemText primary="افزودن کارمند" />
-										</ListItemButton> */}
+											<ListItemText primary="گزارش کل" />
+										</ListItemButton>
 									</>
 								)}
 								{(user.role === "r" ||
@@ -281,29 +267,17 @@ const DashboardLayout = () => {
 											inset>
 											گزارش های رستوران
 										</ListSubheader>
-										<ListItemButton onClick={() => togglePage(9)}>
+										<ListItemButton onClick={() => togglePage(7)}>
 											<ListItemIcon>
 												<FoodBank />
 											</ListItemIcon>
-											<ListItemText primary="رزرو ها" />
+											<ListItemText primary="لیست رزرو ها" />
 										</ListItemButton>
-										{/* <ListItemButton onClick={() => togglePage(10)}>
-											<ListItemIcon>
-												<FoodBankOutlined />
-											</ListItemIcon>
-											<ListItemText primary="افزودن غذا" />
-										</ListItemButton>
-										<ListItemButton onClick={() => togglePage(11)}>
-											<ListItemIcon>
-												<FoodBankOutlined />
-											</ListItemIcon>
-											<ListItemText primary="ویرایش غذا" />
-										</ListItemButton> */}
-										<ListItemButton onClick={() => togglePage(12)}>
+										<ListItemButton onClick={() => togglePage(8)}>
 											<ListItemIcon>
 												<Assignment />
 											</ListItemIcon>
-											<ListItemText primary="گزارش" />
+											<ListItemText primary="گزارش رستوران" />
 										</ListItemButton>
 									</>
 								)}
@@ -333,17 +307,3 @@ const DashboardLayout = () => {
 };
 
 export default DashboardLayout;
-
-function tempPage() {
-	return (
-		<Container
-			maxWidth="lg"
-			sx={{ mt: 4, mb: 4 }}>
-			<Grid
-				container
-				spacing={3}>
-				<Typography>این یک صفحه تستی است</Typography>
-			</Grid>
-		</Container>
-	);
-}
