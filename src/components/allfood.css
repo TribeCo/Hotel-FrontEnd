@@ -8,16 +8,16 @@
 	background: #352d2d;
 	color: #fff;
 	text-align: center;
-	font-size: 32px;
+	font-size: 25px;
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
 	text-transform: capitalize;
 	width: 220px;
-	height: 80px;
+	height: 70px;
 }
 #allfoodcardContainer {
-	max-height: 500px ;
+	max-height: 700px ;
 	overflow-y: auto;
 	scrollbar-width: none; /* Enable vertical scrolling */
 	border-color: #271c15;
