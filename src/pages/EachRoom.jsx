@@ -58,7 +58,7 @@ const Eachroom = ({ user }) => {
 			 // some extra info ...
 			 // .
 			 // .
-			 role: null}; // null ==> user | character ==> admin
+			 role: 'null'}; // null ==> user | character ==> admin
 	
 	return (
 		<Grid
@@ -100,7 +100,7 @@ const Eachroom = ({ user }) => {
 							position: "fixed",
 							margin: "16px",
 						}}>
-						<Typography>
+						<Typography variant="h6">
 							مشاهده نظرات
 						</Typography>
 						<CommentOutlinedIcon sx={{ ml: 1 }} />
@@ -120,6 +120,7 @@ const Eachroom = ({ user }) => {
 								spacing={2}>
 								<Grid
 									item
+									mb={2}
 									xs={12}>
 									<TextField
 										disabled
@@ -131,6 +132,7 @@ const Eachroom = ({ user }) => {
 
 								<Grid
 									item
+									mb={2}
 									xs={12}>
 									<TextField
 										multiline
@@ -152,7 +154,7 @@ const Eachroom = ({ user }) => {
 									borderRadius: 15,
 									bgcolor: "secondary.main",
 								}}>
-								<Typography>
+								<Typography variant="h6">
 									سفارش اتاق
 								</Typography>
 							</Button>
@@ -167,7 +169,7 @@ const Eachroom = ({ user }) => {
 										borderRadius: 15,
 										bgcolor: "#f7b060",
 									}}>
-									<Typography>
+									<Typography variant="h6">
 										ویرایش اطلاعات
 									</Typography>
 								</Button>
@@ -183,7 +185,7 @@ const Eachroom = ({ user }) => {
 									borderRadius: 15,
 									bgcolor: "#f76d6d",
 								}}>
-								<Typography>
+								<Typography variant="h6">
 									خروج
 								</Typography>
 							</Button>
@@ -206,7 +208,7 @@ const Eachroom = ({ user }) => {
 							position: "fixed",
 							margin: "16px",
 						}}>
-						<Typography>
+						<Typography variant="h6">
 							مشاهده نظرات
 						</Typography>
 						<CommentOutlinedIcon sx={{ ml: 1 }} />
@@ -225,6 +227,7 @@ const Eachroom = ({ user }) => {
 								container
 								spacing={2}>
 								<Grid
+									mb={2}
 									item
 									xs={12}>
 									<TextField
@@ -236,6 +239,7 @@ const Eachroom = ({ user }) => {
 
 								<Grid
 									item
+									mb={2}
 									xs={12}>
 									<TextField
 										multiline
@@ -256,7 +260,7 @@ const Eachroom = ({ user }) => {
 										borderRadius: 15,
 										bgcolor: "#7ed695",
 									}}>
-									<Typography>
+									<Typography variant="h6">
 										ذخیزه تغییرات
 									</Typography>
 								</Button>
@@ -271,7 +275,7 @@ const Eachroom = ({ user }) => {
 									borderRadius: 15,
 									bgcolor: "#f76d6d",
 								}}>
-								<Typography>
+								<Typography variant="h6">
 									بازگشت
 								</Typography>
 							</Button>

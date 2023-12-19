@@ -191,7 +191,7 @@ const ProfilePage = () => {
 											mt: 7,
 											mb: 1,
 											borderRadius: 10,
-											bgcolor: "secondary.main",
+											bgcolor: "#7359f8",
 										}}>
 										<Typography
 											color="#FFFFFF"
@@ -206,7 +206,7 @@ const ProfilePage = () => {
 										sx={{
 											mt: 1,
 											borderRadius: 5,
-											bgcolor: "#FF0000",
+											bgcolor: "#f76d6d",
 										}}>
 										<Typography
 											color="#FFFFFF"

@@ -8,7 +8,7 @@ import Food from "../services/food";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
-const Allfood = () => {
+const Allfood = ({ user }) => {
 	const [cardData, setCardData] = useState([]);
 	const { accessToken } = useAuth();
 
@@ -48,14 +48,14 @@ const Allfood = () => {
 							<Link to={`/food/${cardInfo.id}`}>
 								<div
 									key={index}
-									className="allfoodcard bg-white rounded p-2 flex flex-row items-center">
+									className="allfoodcard  p-2 flex flex-row items-center">
 									<img
 										src={cardInfo.image}
 										className="allfoodimage object-cover  ml-1"
 										alt={`Image for Card ${index + 1}`}
 									/>
 									<div>
-										<p className="allfoodcard-text  mb-2 mr-2">
+										<p className="allfoodcard-text  mb-3 mr-2">
 											{cardInfo.name}
 										</p>
 										<p className="allfoodcard-text  mr-2">{cardInfo.price}</p>
