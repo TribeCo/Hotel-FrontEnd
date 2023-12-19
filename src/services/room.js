@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const baseUrl = "api/rooms";
+const baseUrl = "/api/rooms";
 
 //? Room Api
 class Room {
 	// @Desc get Room info with id
 	static getOne = ({ uid, authToken }) => {
-		const url = `${baseUrl}/${uid}`;
+		const url = `${baseUrl}/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",

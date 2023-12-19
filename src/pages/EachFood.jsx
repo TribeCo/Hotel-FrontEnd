@@ -17,6 +17,7 @@ import {
 
 import CommentList from "../components/commentList";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
+import Loading from "../components/utils/Loading";
 const comments = [
 	{ id: 1, text: "test comment 1 ..........." },
 	{ id: 2, text: "test comment 2 ........" },
@@ -26,7 +27,7 @@ const comments = [
 const Eachfood = ({ user }) => {
 	const { id } = useParams();
 
-	const [food, setFood] = useState([]);
+	const [food, setFood] = useState(null);
 	const { accessToken } = useAuth();
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [isCommentListOpen, setCommentListOpen] = useState(false);
@@ -38,14 +39,13 @@ const Eachfood = ({ user }) => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			try {
-				const res = await Food.getOne({ uid: id, authToken: accessToken });
-				console.log(res);
-				if (res.status === 200) {
+			if (accessToken) {
+				try {
+					const res = await Food.getOne({ uid: id, authToken: accessToken });
 					setFood(res.data);
+				} catch (error) {
+					console.log(error);
 				}
-			} catch (error) {
-				console.log(error);
 			}
 		};
 		fetchData();
@@ -60,216 +60,221 @@ const Eachfood = ({ user }) => {
 		role: "null",
 	}; // null ==> user | character ==> admin
 
-	return (
-		<Grid
-			container
-			component="main"
-			sx={{ height: "100vh", backgroundColor: "#141A20" }}>
-			<CssBaseline />
-
+	console.log(food);
+	if (food) {
+		return (
 			<Grid
-				item
-				xs={false}
-				sm={4}
-				md={7}
-				sx={{
-					backgroundImage: `url(${bk})`, //TODO: get food image from back-end and give backgroundImage it's url??
-					backgroundSize: "cover",
-					backgroundPosition: "center",
-				}}>
-				<CommentList
-					comments={comments} //TODO: all comments should be here as an array like this: [ {id: 0, text: "..."}, {id: 1, text: "..."}, ... ]??
-					isOpen={isCommentListOpen}
-					onClose={toggleCommentList}
-				/>
-			</Grid>
+				container
+				component="main"
+				sx={{ height: "100vh", backgroundColor: "#141A20" }}>
+				<CssBaseline />
 
-			{!isEditMode ? (
 				<Grid
 					item
-					xs={12}
-					sm={8}
-					md={5}
-					elevation={6}
-					square>
-					<Fab
-						onClick={() => toggleCommentList()}
-						variant="extended"
-						style={{
-							position: "fixed",
-							margin: "16px",
-						}}>
-						<Typography>مشاهده نظرات</Typography>
-						<CommentOutlinedIcon sx={{ ml: 1 }} />
-					</Fab>
+					xs={false}
+					sm={4}
+					md={7}
+					sx={{
+						backgroundImage: `url(${food.image})`, //TODO: get food image from back-end and give backgroundImage it's url??
+						backgroundSize: "cover",
+						backgroundPosition: "center",
+					}}>
+					<CommentList
+						comments={comments} //TODO: all comments should be here as an array like this: [ {id: 0, text: "..."}, {id: 1, text: "..."}, ... ]??
+						isOpen={isCommentListOpen}
+						onClose={toggleCommentList}
+					/>
+				</Grid>
 
-					<Container maxWidth="xs">
-						<CssBaseline />
-						<Box
-							sx={{
-								marginTop: 25,
-								display: "flex",
-								flexDirection: "column",
-								alignItems: "center",
+				{!isEditMode ? (
+					<Grid
+						item
+						xs={12}
+						sm={8}
+						md={5}
+						elevation={6}
+						square>
+						<Fab
+							onClick={() => toggleCommentList()}
+							variant="extended"
+							style={{
+								position: "fixed",
+								margin: "16px",
 							}}>
-							<Grid
-								container
-								spacing={2}>
-								<Grid
-									item
-									mb={2}
-									xs={12}>
-									<TextField
-										disabled
-										fullWidth
-										label="نام غذا"
-										defaultValue={"food name"} //TODO: default value for food??
-									/>
-								</Grid>
+							<Typography>مشاهده نظرات</Typography>
+							<CommentOutlinedIcon sx={{ ml: 1 }} />
+						</Fab>
 
-								<Grid
-									item
-									mb={2}
-									xs={12}>
-									<TextField
-										multiline
-										rows={6}
-										disabled
-										fullWidth
-										label="توضیحات"
-										defaultValue={"..."} //TODO: default value for desc??
-									/>
-								</Grid>
-							</Grid>
-
-							<Button
-								onClick={() => Navigate("/dashboard")} //TODO: save food order and Navigate to dashboard??
-								fullWidth
-								variant="contained"
+						<Container maxWidth="xs">
+							<CssBaseline />
+							<Box
 								sx={{
-									mt: 3,
-									borderRadius: 15,
-									bgcolor: "secondary.main",
+									marginTop: 25,
+									display: "flex",
+									flexDirection: "column",
+									alignItems: "center",
 								}}>
-								<Typography>سفارش غذا</Typography>
-							</Button>
+								<Grid
+									container
+									spacing={2}>
+									<Grid
+										item
+										mb={2}
+										xs={12}>
+										<TextField
+											disabled
+											fullWidth
+											label="نام غذا"
+											defaultValue={food.name}
+										/>
+									</Grid>
 
-							{user.role && (
+									<Grid
+										item
+										mb={2}
+										xs={12}>
+										<TextField
+											multiline
+											rows={6}
+											disabled
+											fullWidth
+											label="توضیحات"
+											defaultValue={`قیمت : ${food.price}\nموجودی : ${food.count}\nتوضیحات : ${food.type}`}
+										/>
+									</Grid>
+								</Grid>
+
 								<Button
-									onClick={() => setIsEditMode(true)}
+									onClick={() => Navigate("/dashboard")} //TODO: save food order and Navigate to dashboard??
 									fullWidth
 									variant="contained"
 									sx={{
-										mt: 3,
+										mt: 2,
 										borderRadius: 15,
-										bgcolor: "#f7b060",
+										bgcolor: "secondary.main",
 									}}>
-									<Typography>ویرایش اطلاعات</Typography>
+									<Typography variant="h6">سفارش غذا</Typography>
 								</Button>
-							)}
 
-							<Button
-								onClick={() => Navigate("/dashboard")} //TODO: Navigate to dashboard without ordering??
-								fullWidth
-								variant="contained"
-								sx={{
-									mt: 2,
-									mb: 2,
-									borderRadius: 15,
-									bgcolor: "#f76d6d",
-								}}>
-								<Typography>خروج</Typography>
-							</Button>
-						</Box>
-					</Container>
-				</Grid>
-			) : (
-				// Edit mood:
-				<Grid
-					item
-					xs={12}
-					sm={8}
-					md={5}
-					elevation={6}
-					square>
-					<Fab
-						onClick={() => toggleCommentList()}
-						variant="extended"
-						style={{
-							position: "fixed",
-							margin: "16px",
-						}}>
-						<Typography>مشاهده نظرات</Typography>
-						<CommentOutlinedIcon sx={{ ml: 1 }} />
-					</Fab>
+								{user.role && (
+									<Button
+										onClick={() => setIsEditMode(true)}
+										fullWidth
+										variant="contained"
+										sx={{
+											mt: 2,
+											borderRadius: 15,
+											bgcolor: "#f7b060",
+										}}>
+										<Typography variant="h6">ویرایش اطلاعات</Typography>
+									</Button>
+								)}
 
-					<Container maxWidth="xs">
-						<CssBaseline />
-						<Box
-							sx={{
-								marginTop: 25,
-								display: "flex",
-								flexDirection: "column",
-								alignItems: "center",
+								<Button
+									onClick={() => Navigate("/dashboard")}
+									fullWidth
+									variant="contained"
+									sx={{
+										mt: 2,
+										mb: 2,
+										borderRadius: 15,
+										bgcolor: "#f76d6d",
+									}}>
+									<Typography variant="h6">خروج</Typography>
+								</Button>
+							</Box>
+						</Container>
+					</Grid>
+				) : (
+					// Edit mood:
+					<Grid
+						item
+						xs={12}
+						sm={8}
+						md={5}
+						elevation={6}
+						square>
+						<Fab
+							onClick={() => toggleCommentList()}
+							variant="extended"
+							style={{
+								position: "fixed",
+								margin: "16px",
 							}}>
-							<Grid
-								container
-								spacing={2}>
+							<Typography>مشاهده نظرات</Typography>
+							<CommentOutlinedIcon sx={{ ml: 1 }} />
+						</Fab>
+
+						<Container maxWidth="xs">
+							<CssBaseline />
+							<Box
+								sx={{
+									marginTop: 25,
+									display: "flex",
+									flexDirection: "column",
+									alignItems: "center",
+								}}>
 								<Grid
-									item
-									mb={2}
-									xs={12}>
-									<TextField
-										fullWidth
-										label="نام غذا"
-										defaultValue={"food name"} //TODO: default value for food??
-									/>
+									container
+									spacing={2}>
+									<Grid
+										item
+										mb={2}
+										xs={12}>
+										<TextField
+											fullWidth
+											label="نام غذا"
+											defaultValue={food.name}
+										/>
+									</Grid>
+
+									<Grid
+										item
+										mb={2}
+										xs={12}>
+										<TextField
+											multiline
+											rows={6}
+											fullWidth
+											label="توضیحات"
+											defaultValue={`قیمت : ${food.price}\nموجودی : ${food.count}\nتوضیحات : ${food.type}`} //TODO: default value for desc??
+										/>
+									</Grid>
 								</Grid>
 
-								<Grid
-									item
-									mb={2}
-									xs={12}>
-									<TextField
-										multiline
-										rows={6}
-										fullWidth
-										label="توضیحات"
-										defaultValue={"..."} //TODO: default value for desc??
-									/>
-								</Grid>
-							</Grid>
+								<Button
+									onClick={() => setIsEditMode(false)}
+									fullWidth
+									variant="contained"
+									sx={{
+										mt: 2,
+										borderRadius: 15,
+										bgcolor: "#7ed695",
+									}}>
+									<Typography variant="h6">ذخیره تغییرات</Typography>
+								</Button>
 
-							<Button
-								onClick={() => setIsEditMode(false)} //TODO: saving new input for food and switch to non-edit mode??
-								fullWidth
-								variant="contained"
-								sx={{
-									mt: 3,
-									borderRadius: 15,
-									bgcolor: "#7ed695",
-								}}>
-								<Typography>ذخیزه تغییرات</Typography>
-							</Button>
-
-							<Button
-								onClick={() => setIsEditMode(false)}
-								fullWidth
-								variant="contained"
-								sx={{
-									mt: 3,
-									mb: 2,
-									borderRadius: 15,
-									bgcolor: "#f76d6d",
-								}}>
-								<Typography>بازگشت</Typography>
-							</Button>
-						</Box>
-					</Container>
-				</Grid>
-			)}
-		</Grid>
-	);
+								<Button
+									onClick={() => setIsEditMode(false)}
+									fullWidth
+									variant="contained"
+									sx={{
+										mt: 2,
+										mb: 2,
+										borderRadius: 15,
+										bgcolor: "#f76d6d",
+									}}>
+									<Typography variant="h6">بازگشت</Typography>
+								</Button>
+							</Box>
+						</Container>
+					</Grid>
+				)}
+			</Grid>
+		);
+	} else {
+		return <Loading />;
+	}
 };
 
 export default Eachfood;
