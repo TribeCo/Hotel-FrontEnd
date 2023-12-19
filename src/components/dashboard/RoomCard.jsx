@@ -1,9 +1,11 @@
 import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
+import moment from "moment-jalaali";
 
-function RoomCard(props) {
-	const res = props.res;
-	if (res) {
+const baseUrl = "https://hotelback.iran.liara.run";
+
+function RoomCard({ res }) {
+	if (res.room) {
 		return (
 			<>
 				<Paper
@@ -21,11 +23,19 @@ function RoomCard(props) {
 							<Typography
 								variant="h4"
 								mb={2}>
-								شماره اتاق {111}
+								شماره اتاق {res.room.number}
 							</Typography>
+
 							<Typography>
-								شما این اتاق را از تاریخ 01/01/1403 تا تاریخ 07/01/1403 رزرو
-								کرده اید
+								شما این اتاق را از تاریخ{" "}
+								{moment(res.check_in, "YYYY-M-D")
+									.endOf("jMonth")
+									.format("jYYYY/jM/jD")}{" "}
+								تا تاریخ{" "}
+								{moment(res.check_out, "YYYY-M-D")
+									.endOf("jMonth")
+									.format("jYYYY/jM/jD")}{" "}
+								رزرو کرده اید .
 							</Typography>
 						</Container>
 						<Box
@@ -34,7 +44,7 @@ function RoomCard(props) {
 							sx={{
 								borderRadius: 2,
 							}}
-							src="/src/assets/pic1.jpg"></Box>
+							src={baseUrl + res.room.type.image}></Box>
 					</Grid>
 				</Paper>
 			</>
@@ -50,12 +60,7 @@ function RoomCard(props) {
 						alignItems: "center	",
 						height: 240,
 					}}>
-					<Typography
-						sx={{
-							fontWeight: "bold",
-						}}>
-						اتاقی رزرو ندارید.
-					</Typography>
+					<Typography variant="h4">اتاقی رزرو ندارید.</Typography>
 				</Paper>
 			</>
 		);

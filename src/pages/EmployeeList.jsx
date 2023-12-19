@@ -105,8 +105,13 @@ const EmployeeList = () => {
 	const handleEditEmployee = async (data) => {
 		try {
 			setLoading(true);
+			// console.log({
+			// 	uid: selectedEmployee.id,
+			// 	data: data,
+			// 	authToken: accessToken,
+			// });
 			const res = await Admin.edit({
-				uid: data.id,
+				uid: selectedEmployee.id,
 				data: data,
 				authToken: accessToken,
 			});
@@ -177,18 +182,12 @@ const EmployeeList = () => {
 										<TableCell>
 											<Typography variant="h6">نام</Typography>
 										</TableCell>
-										{/* <TableCell align="center">
-										<Typography variant="h6">کد ملی</Typography>
-									</TableCell> */}
+
 										<TableCell align="center">
 											<Typography variant="h6">مقام</Typography>
 										</TableCell>
-										{/* <TableCell align="center">
-										<Typography variant="h6">ایمیل</Typography>
-									</TableCell> */}
-										<TableCell align="center">
-											{/* <Typography variant="h6">عملیات ها</Typography> */}
-										</TableCell>
+
+										<TableCell align="center"></TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
@@ -199,15 +198,10 @@ const EmployeeList = () => {
 												scope="row">
 												{emp.firstName + " " + emp.lastName}
 											</TableCell>
-											{/* <TableCell align="center">
-											<Typography>{emp.nationalCode}</Typography>
-										</TableCell> */}
+
 											<TableCell align="center">
 												<Typography>{Role(emp.role)}</Typography>
 											</TableCell>
-											{/* <TableCell align="center">
-											<Typography>{emp.email}</Typography>
-										</TableCell> */}
 
 											<TableCell align="right">
 												<Button
@@ -230,7 +224,7 @@ const EmployeeList = () => {
 														bgcolor: "#ff6600",
 														color: "#FFFFFF",
 													}}>
-													<Typography variant="h6">ویرایش</Typography>
+													<Typography variant="h6">ویرایش مقام</Typography>
 												</Button>
 												<Button
 													onClick={() => handleDeleteBtnClick(emp)}

@@ -52,6 +52,18 @@ class Room {
 		return axios.get(url, config);
 	};
 
+	// @Desc get User All Room
+	static getUserAll = ({ authToken }) => {
+		const url = `${baseUrl}/reservation/user/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.get(url, config);
+	};
+
 	// @Desc delete a Room with id
 	static delete = ({ uid, authToken }) => {
 		const url = `${baseUrl}/delete/${uid}`;

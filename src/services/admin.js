@@ -28,21 +28,9 @@ class Admin {
 		return axios.get(url, config);
 	};
 
-	// // @Desc delete user with id
-	// static delete = ({ uid, authToken }) => {
-	// 	const url = `${baseUrl}/delete/${uid}`;
-	// 	const config = {
-	// 		headers: {
-	// 			"Content-Type": "application/json",
-	// 			Authorization: `Bearer ${authToken}`,
-	// 		},
-	// 	};
-	// 	return axios.delete(url, config);
-	// };
-
 	// @Desc edit user info with id
 	static edit = ({ uid, data, authToken }) => {
-		const url = `${baseUrl}/update/${uid}`;
+		const url = `/api/accounts/users/role/update/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",

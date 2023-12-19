@@ -16,12 +16,12 @@ import {
 } from "@mui/material";
 
 import CommentList from "../components/commentList";
-import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
+import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 const comments = [
-    { id: 1, text: 'test comment 1 ...........' },
-    { id: 2, text: 'test comment 2 ........' },
-    { id: 3, text: 'test comment 3 ...................' },
-  ];
+	{ id: 1, text: "test comment 1 ..........." },
+	{ id: 2, text: "test comment 2 ........" },
+	{ id: 3, text: "test comment 3 ..................." },
+];
 
 const Eachfood = ({ user }) => {
 	const { id } = useParams();
@@ -33,7 +33,7 @@ const Eachfood = ({ user }) => {
 	const Navigate = useNavigate();
 
 	const toggleCommentList = () => {
-	  setCommentListOpen(!isCommentListOpen);
+		setCommentListOpen(!isCommentListOpen);
 	};
 
 	useEffect(() => {
@@ -51,12 +51,14 @@ const Eachfood = ({ user }) => {
 		fetchData();
 	}, [accessToken]);
 
-	user = { id: 1,										  //TODO: it should be real user!
-			 name: "user-test",
-			 // some extra info ...
-			 // .
-			 // .
-			 role: 'null'}; // null ==> user | character ==> admin
+	user = {
+		id: 1, //TODO: it should be real user!
+		name: "user-test",
+		// some extra info ...
+		// .
+		// .
+		role: "null",
+	}; // null ==> user | character ==> admin
 
 	return (
 		<Grid
@@ -64,25 +66,23 @@ const Eachfood = ({ user }) => {
 			component="main"
 			sx={{ height: "100vh", backgroundColor: "#141A20" }}>
 			<CssBaseline />
-			
+
 			<Grid
 				item
 				xs={false}
 				sm={4}
 				md={7}
 				sx={{
-					backgroundImage: `url(${bk})`,          //TODO: get food image from back-end and give backgroundImage it's url??    
+					backgroundImage: `url(${bk})`, //TODO: get food image from back-end and give backgroundImage it's url??
 					backgroundSize: "cover",
 					backgroundPosition: "center",
 				}}>
-
 				<CommentList
-					comments={comments}                      //TODO: all comments should be here as an array like this: [ {id: 0, text: "..."}, {id: 1, text: "..."}, ... ]??   
+					comments={comments} //TODO: all comments should be here as an array like this: [ {id: 0, text: "..."}, {id: 1, text: "..."}, ... ]??
 					isOpen={isCommentListOpen}
 					onClose={toggleCommentList}
-				/>					
+				/>
 			</Grid>
-
 
 			{!isEditMode ? (
 				<Grid
@@ -92,7 +92,6 @@ const Eachfood = ({ user }) => {
 					md={5}
 					elevation={6}
 					square>
-
 					<Fab
 						onClick={() => toggleCommentList()}
 						variant="extended"
@@ -100,9 +99,7 @@ const Eachfood = ({ user }) => {
 							position: "fixed",
 							margin: "16px",
 						}}>
-						<Typography variant="h6" >
-							مشاهده نظرات
-						</Typography>
+						<Typography>مشاهده نظرات</Typography>
 						<CommentOutlinedIcon sx={{ ml: 1 }} />
 					</Fab>
 
@@ -115,7 +112,6 @@ const Eachfood = ({ user }) => {
 								flexDirection: "column",
 								alignItems: "center",
 							}}>
-
 							<Grid
 								container
 								spacing={2}>
@@ -127,7 +123,7 @@ const Eachfood = ({ user }) => {
 										disabled
 										fullWidth
 										label="نام غذا"
-										defaultValue={"food name"}     //TODO: default value for food??
+										defaultValue={"food name"} //TODO: default value for food??
 									/>
 								</Grid>
 
@@ -141,13 +137,13 @@ const Eachfood = ({ user }) => {
 										disabled
 										fullWidth
 										label="توضیحات"
-										defaultValue={"..."}            //TODO: default value for desc??
+										defaultValue={"..."} //TODO: default value for desc??
 									/>
 								</Grid>
 							</Grid>
 
 							<Button
-								onClick={() => Navigate("/dashboard")}   //TODO: save food order and Navigate to dashboard??    
+								onClick={() => Navigate("/dashboard")} //TODO: save food order and Navigate to dashboard??
 								fullWidth
 								variant="contained"
 								sx={{
@@ -155,29 +151,25 @@ const Eachfood = ({ user }) => {
 									borderRadius: 15,
 									bgcolor: "secondary.main",
 								}}>
-								<Typography variant="h6" >
-									سفارش غذا
-								</Typography>
+								<Typography>سفارش غذا</Typography>
 							</Button>
 
 							{user.role && (
 								<Button
-								onClick={() => setIsEditMode(true)}
-								fullWidth
-								variant="contained"
-								sx={{ 	 		
-									mt: 2,
-									borderRadius: 15,
-									bgcolor: "#f7b060",
-								}}>
-								<Typography variant="h6" >
-									ویرایش اطلاعات
-								</Typography>
-							</Button>
-							) } 
+									onClick={() => setIsEditMode(true)}
+									fullWidth
+									variant="contained"
+									sx={{
+										mt: 3,
+										borderRadius: 15,
+										bgcolor: "#f7b060",
+									}}>
+									<Typography>ویرایش اطلاعات</Typography>
+								</Button>
+							)}
 
 							<Button
-								onClick={() => Navigate("/dashboard")}   //TODO: Navigate to dashboard without ordering??    
+								onClick={() => Navigate("/dashboard")} //TODO: Navigate to dashboard without ordering??
 								fullWidth
 								variant="contained"
 								sx={{
@@ -186,15 +178,13 @@ const Eachfood = ({ user }) => {
 									borderRadius: 15,
 									bgcolor: "#f76d6d",
 								}}>
-								<Typography variant="h6" >
-									خروج
-								</Typography>
+								<Typography>خروج</Typography>
 							</Button>
-
 						</Box>
 					</Container>
 				</Grid>
-			) : ( // Edit mood:
+			) : (
+				// Edit mood:
 				<Grid
 					item
 					xs={12}
@@ -202,7 +192,6 @@ const Eachfood = ({ user }) => {
 					md={5}
 					elevation={6}
 					square>
-
 					<Fab
 						onClick={() => toggleCommentList()}
 						variant="extended"
@@ -210,9 +199,7 @@ const Eachfood = ({ user }) => {
 							position: "fixed",
 							margin: "16px",
 						}}>
-						<Typography variant="h6" >
-							مشاهده نظرات
-						</Typography>
+						<Typography>مشاهده نظرات</Typography>
 						<CommentOutlinedIcon sx={{ ml: 1 }} />
 					</Fab>
 
@@ -225,7 +212,6 @@ const Eachfood = ({ user }) => {
 								flexDirection: "column",
 								alignItems: "center",
 							}}>
-
 							<Grid
 								container
 								spacing={2}>
@@ -236,7 +222,7 @@ const Eachfood = ({ user }) => {
 									<TextField
 										fullWidth
 										label="نام غذا"
-										defaultValue={"food name"}     //TODO: default value for food??
+										defaultValue={"food name"} //TODO: default value for food??
 									/>
 								</Grid>
 
@@ -249,24 +235,22 @@ const Eachfood = ({ user }) => {
 										rows={6}
 										fullWidth
 										label="توضیحات"
-										defaultValue={"..."}           //TODO: default value for desc??
+										defaultValue={"..."} //TODO: default value for desc??
 									/>
 								</Grid>
 							</Grid>
 
-								<Button
-									onClick={() => setIsEditMode(false)}  //TODO: saving new input for food and switch to non-edit mode??    
-									fullWidth 
-									variant="contained"
-									sx={{
-										mt: 3,
-										borderRadius: 15,
-										bgcolor: "#7ed695",
-									}}>
-									<Typography variant="h6" >
-										ذخیزه تغییرات
-									</Typography>
-								</Button>
+							<Button
+								onClick={() => setIsEditMode(false)} //TODO: saving new input for food and switch to non-edit mode??
+								fullWidth
+								variant="contained"
+								sx={{
+									mt: 3,
+									borderRadius: 15,
+									bgcolor: "#7ed695",
+								}}>
+								<Typography>ذخیزه تغییرات</Typography>
+							</Button>
 
 							<Button
 								onClick={() => setIsEditMode(false)}
@@ -278,9 +262,7 @@ const Eachfood = ({ user }) => {
 									borderRadius: 15,
 									bgcolor: "#f76d6d",
 								}}>
-								<Typography variant="h6" >
-									بازگشت
-								</Typography>
+								<Typography>بازگشت</Typography>
 							</Button>
 						</Box>
 					</Container>

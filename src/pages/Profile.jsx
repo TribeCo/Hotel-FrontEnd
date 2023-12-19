@@ -73,6 +73,7 @@ const ProfilePage = () => {
 			console.log(error);
 		}
 	};
+	//
 	const fileInputRef = useRef(null);
 	const handleAvatarClick = () => {
 		fileInputRef.current.click();

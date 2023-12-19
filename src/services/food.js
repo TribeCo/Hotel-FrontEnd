@@ -30,7 +30,19 @@ class Food {
 
 	// @Desc get All Food
 	static getAll = ({ authToken }) => {
-		const url = `${baseUrl}/`;
+		const url = `${baseUrl}/reservation/all/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.get(url, config);
+	};
+
+	// @Desc get User All Food
+	static getUserAll = ({ authToken }) => {
+		const url = `${baseUrl}/reservation/user/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
