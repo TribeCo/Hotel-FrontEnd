@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import moment from "moment-jalaali";
 import {
 	Box,
 	Divider,
@@ -15,13 +16,9 @@ import {
 } from "@mui/material";
 import { AttachMoneyOutlined, ListRounded } from "@mui/icons-material";
 
-const PaymentPage = () => {
-	const rows = [
-		{ name: "اتاق 161 VIP", price: 400000, num: 5 },
-		{ name: "چیزبرگر مخصوص", price: 140000, num: 2 },
-		{ name: "نوشابه خانواده پپسی", price: 40000, num: 5 },
-		{ name: "چلو کباب مخصوص", price: 190000, num: 6 },
-	];
+const PaymentPage = ({ payment }) => {
+	console.log(payment);
+
 	const handlePayment = () => {
 		alert("پرداخت با موفقیت انجام شد");
 		console.log("Payment success!");
@@ -56,22 +53,39 @@ const PaymentPage = () => {
 							<TableHead>
 								<TableRow>
 									<TableCell>نام محصول یا خدمات</TableCell>
-									<TableCell align="center">قیمت هر واحد (تومان)</TableCell>
-									<TableCell align="center">تعداد</TableCell>
-									<TableCell align="right">قیمت کل</TableCell>
+									<TableCell align="center">قیمت (تومان)</TableCell>
+									<TableCell align="center">تاریخ</TableCell>
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{rows.map((row) => (
-									<TableRow key={row.name}>
+								{payment.room.map((row) => (
+									<TableRow key={row.room.number}>
 										<TableCell
 											component="th"
 											scope="row">
-											{row.name}
+											رزرو اتاق شماره : {row.room.number}
 										</TableCell>
-										<TableCell align="center">{row.price}</TableCell>
-										<TableCell align="center">{row.num}</TableCell>
-										<TableCell align="right">{row.price * row.num}</TableCell>
+										<TableCell align="center">{row.total_price}</TableCell>
+										<TableCell align="center">
+											{moment(row.created, "YYYY-M-D")
+												.endOf("jMonth")
+												.format("jYYYY/jM/jD")}
+										</TableCell>
+									</TableRow>
+								))}
+								{payment.food.map((row) => (
+									<TableRow key={row.food.name}>
+										<TableCell
+											component="th"
+											scope="row">
+											{row.food.name}
+										</TableCell>
+										<TableCell align="center">{row.food.price}</TableCell>
+										<TableCell align="center">
+											{moment(row.created, "YYYY-M-D")
+												.endOf("jMonth")
+												.format("jYYYY/jM/jD")}
+										</TableCell>
 									</TableRow>
 								))}
 							</TableBody>
@@ -104,7 +118,7 @@ const PaymentPage = () => {
 							p: 2,
 						}}>
 						<Typography>رزرو اتاق : </Typography>
-						<Typography> {"2000000"} تومان</Typography>
+						<Typography> {Sum(payment.room)} تومان</Typography>
 					</Box>
 					<Box
 						sx={{
@@ -113,17 +127,17 @@ const PaymentPage = () => {
 							p: 2,
 						}}>
 						<Typography>رستوران : </Typography>
-						<Typography> {"1620000"} تومان</Typography>
+						<Typography> {Sum(payment.food)} تومان</Typography>
 					</Box>
-					<Box
+					{/* <Box
 						sx={{
-							display: "flex",
+							display: "none",
 							justifyContent: "space-between",
 							p: 2,
 						}}>
 						<Typography>تخفیف : </Typography>
 						<Typography> {"20000"} تومان</Typography>
-					</Box>
+					</Box> */}
 					<Divider />
 					<Box
 						sx={{
@@ -132,7 +146,7 @@ const PaymentPage = () => {
 							p: 2,
 						}}>
 						<Typography>{"مجموع مبلغ قابل پرداخت :"}</Typography>
-						<Typography> {"3600000"}</Typography>
+						<Typography> {Sum(payment.room) + Sum(payment.food)}</Typography>
 					</Box>
 					<Box
 						sx={{
@@ -153,3 +167,12 @@ const PaymentPage = () => {
 };
 
 export default PaymentPage;
+
+const Sum = (array) => {
+	let sum = 0;
+	array.map((value) => {
+		sum += value.remain_paid;
+	});
+
+	return sum;
+};

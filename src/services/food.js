@@ -1,12 +1,24 @@
 import axios from "axios";
 
-const baseUrl = "api/food";
+const baseUrl = "/api/food";
 
 //? Food Api
 class Food {
 	// @Desc get Food info with id
 	static getOne = ({ uid, authToken }) => {
 		const url = `${baseUrl}/${uid}/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.get(url, config);
+	};
+
+	// @Desc get All Food
+	static getAllFood = ({ authToken }) => {
+		const url = `${baseUrl}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
@@ -28,9 +40,21 @@ class Food {
 		return axios.post(url, data, config);
 	};
 
-	// @Desc get All Food
+	// @Desc get All res
 	static getAll = ({ authToken }) => {
-		const url = `${baseUrl}/`;
+		const url = `${baseUrl}/reservation/all/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.get(url, config);
+	};
+
+	// @Desc get User All Food
+	static getUserAll = ({ authToken }) => {
+		const url = `${baseUrl}/reservation/user/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",

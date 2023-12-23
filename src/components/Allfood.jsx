@@ -8,14 +8,14 @@ import Food from "../services/food";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
-const Allfood = ({ user }) => {
+const Allfood = () => {
 	const [cardData, setCardData] = useState([]);
 	const { accessToken } = useAuth();
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await Food.getAll({ authToken: accessToken });
+				const res = await Food.getAllFood({ authToken: accessToken });
 				console.log(res);
 				if (res.status === 200) {
 					setCardData(res.data);

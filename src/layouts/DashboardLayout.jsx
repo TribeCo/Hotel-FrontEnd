@@ -98,14 +98,17 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const DashboardLayout = () => {
-	const Navigate = useNavigate();
 	const { accessToken } = useAuth();
+	const Navigate = useNavigate();
 
 	const [user, setUser] = useState(null);
+	const [payment, setPayment] = useState({
+		room: [],
+		food: [],
+	});
 	const [open, setOpen] = useState(false);
 	const [page, setPage] = useState(0);
 	const togglePage = (num) => {
-		console.log(num);
 		setPage(num);
 	};
 	const toggleDrawer = () => {
@@ -120,26 +123,28 @@ const DashboardLayout = () => {
 		};
 
 		const fetchData = async () => {
-			try {
-				const response = await User.getOne({ accessToken: accessToken });
-				console.log(response.data);
-				if (response.status === 200) {
+			if (accessToken) {
+				try {
+					const response = await User.getOne({ accessToken: accessToken });
 					setUser(response.data);
-				} else {
-					Navigate("/login");
+				} catch (error) {
+					console.error("Error fetching data:", error);
 				}
-			} catch (error) {
-				console.error("Error fetching data:", error);
 			}
 		};
+
 		fetchData();
 	}, [accessToken]);
 
 	const pages = [
-		<Dashboard user={user} />, // محتویات داشبورد
+		<Dashboard
+			user={user}
+			payment={payment}
+			setPayment={setPayment}
+		/>, // محتویات داشبورد
 		<AllRoom />, // رزرو اتاق
 		<Allfood />, // رزرو غذا
-		<PaymentPage />, // تسویه حساب
+		<PaymentPage payment={payment} />, // تسویه حساب
 		<Reception />, //پذیرش
 		<EmployeeList />, //لیست کارمندان
 		<Reports />, //گزارش کل

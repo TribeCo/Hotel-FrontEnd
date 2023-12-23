@@ -35,7 +35,7 @@ const EmployeeInfoDialog = ({ open, handleClose, employeeData }) => {
 						textAlign="start">
 						<Avatar
 							alt="Employee Avatar"
-							src={employeeData.image}
+							src={"https://hotelback.iran.liara.run" + employeeData.image}
 							sx={{ width: 80, height: 80, mb: 2 }}
 						/>
 						<Typography

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	Box,
 	Divider,
@@ -16,33 +16,24 @@ import {
 
 import { useAuth } from "../context/AuthContext";
 import ListRow from "../components/reception/ListRow";
+import Room from "../services/room";
 
 const Reception = () => {
-	const [guestList, setGuestList] = useState([
-		{
-			id: 13,
-			firstName: "رضا",
-			lastName: "بوذرجمهری",
-			nationalCode: "1991289634",
-			email: "rezakuix@gmail.com",
-			checkInDate: "19/12/1401",
-			checkOutDate: "07/01/1402",
-			debt: 19000,
-			roomId: 111,
-		},
-		{
-			id: 15,
-			firstName: "طاها",
-			lastName: "موسوی",
-			nationalCode: "1000010101",
-			email: "taha@gmail.com",
-			checkInDate: "19/12/1401",
-			checkOutDate: "07/01/1402",
-			debt: 0,
-			roomId: 100,
-		},
-	]);
+	const [guestList, setGuestList] = useState([]);
 	const { accessToken } = useAuth();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const res = await Room.getAll({ authToken: accessToken });
+				console.log(res.data);
+				setGuestList(res.data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchData();
+	}, [accessToken]);
 
 	return (
 		<Container

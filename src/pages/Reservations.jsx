@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Box,
 	Divider,
@@ -15,14 +15,29 @@ import {
 	Container,
 	Checkbox,
 } from "@mui/material";
+import { useAuth } from "../context/AuthContext";
+import Food from "../services/food";
 
 const Reservations = () => {
 	const initialFoodList = [
-		{ id: 1, foodName: "Burger", foodPrice: "10$", delivered: true },
-		{ id: 2, foodName: "Pizza", foodPrice: "15$", delivered: false },
+		{
+			id: 1,
+			user: { firstName: "رضا", lastName: "بوذرجمهری" },
+			foodName: "Burger",
+			foodPrice: "10$",
+			delivered: true,
+		},
+		{
+			id: 2,
+			user: { firstName: "رضا", lastName: "بوذرجمهری" },
+			foodName: "Pizza",
+			foodPrice: "15$",
+			delivered: false,
+		},
 		// Add more food objects as needed
 	];
 
+	const { accessToken } = useAuth();
 	const [foodList, setFoodList] = useState(initialFoodList);
 
 	const handleButtonClick = (foodId) => {
@@ -31,6 +46,19 @@ const Reservations = () => {
 		);
 		setFoodList(updatedFoodList);
 	};
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const res = await Food.getAll({ authToken: accessToken });
+				console.log(res.data);
+				setFoodList(res.data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchData();
+	}, [accessToken]);
 
 	return (
 		<Container
@@ -54,6 +82,9 @@ const Reservations = () => {
 								<TableRow>
 									<TableCell>وضعیت تحویل</TableCell>
 									<TableCell align="center">
+										<Typography variant="h6">سفارش دهنده</Typography>
+									</TableCell>
+									<TableCell align="center">
 										<Typography variant="h6">نام غذا</Typography>
 									</TableCell>
 									<TableCell align="center">
@@ -75,8 +106,11 @@ const Reservations = () => {
 												disabled
 											/>
 										</TableCell>
-										<TableCell align="center">{food.foodName}</TableCell>
-										<TableCell align="center">{food.foodPrice}</TableCell>
+										<TableCell align="center">
+											{food.user.firstName + food.user.lastName}
+										</TableCell>
+										<TableCell align="center">{food.food.name}</TableCell>
+										<TableCell align="center">{food.food.price}</TableCell>
 										<TableCell align="center">
 											<Button
 												variant="contained"
