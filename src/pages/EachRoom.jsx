@@ -13,6 +13,10 @@ import {
 	Container,
 	Fab,
 	Typography,
+	Select,
+	MenuItem,
+	FormControl,
+	InputLabel,
 } from "@mui/material";
 
 import CommentList from "../components/commentList";
@@ -59,7 +63,14 @@ const Eachroom = ({ user }) => {
 			 // .
 			 // .
 			 role: 'null'}; // null ==> user | character ==> admin
-	
+
+	const [date, setDate] = useState('');
+
+	const handleChange = (event) => {
+		setDate(event.target.value);
+	};
+
+
 	return (
 		<Grid
 			container
@@ -109,7 +120,7 @@ const Eachroom = ({ user }) => {
 						<CssBaseline />
 						<Box
 							sx={{
-								marginTop: 25,
+								marginTop: 19,
 								display: "flex",
 								flexDirection: "column",
 								alignItems: "center",
@@ -118,6 +129,81 @@ const Eachroom = ({ user }) => {
 							<Grid
 								container
 								spacing={2}>
+
+
+								<Grid
+									item
+									container
+									direction={'row'}
+									spacing={1}
+									>
+									<Grid
+										item
+										mb={2}
+										xs={6}>
+										<TextField
+											disabled
+											fullWidth
+											label="اتاق"
+											defaultValue={"room name"}     //TODO: default value for room??
+										/>
+									</Grid>
+
+									<Grid
+										item
+										mb={2}
+										xs={6}
+										>
+										<TextField
+											disabled
+											fullWidth
+											label="نوع اتاق"
+											defaultValue={"room type"}     //TODO: default value for room type??
+										/>
+									</Grid>
+								</Grid>
+
+
+								<Grid
+									item
+									container
+									direction={'row'}
+									spacing={1}
+									>
+									<Grid
+										item
+										mb={2}
+										xs={6}
+										>
+										<TextField
+											disabled
+											fullWidth
+											label="تعداد تخت ها"
+											defaultValue={"bed count"}     //TODO: default value for bed count??
+										/>
+									</Grid>
+
+									<Grid
+										item
+										mb={2}
+										xs={6}
+										>
+										<FormControl fullWidth>
+											<InputLabel>تاریخ رزرو اتاق</InputLabel>
+											<Select
+												label="تاریخ رزرو اتاق"
+												value={date}
+												onChange={handleChange}
+												>
+												<MenuItem value={1}>option1</MenuItem>   {/* TODO: show real options from db?? */}
+												<MenuItem value={2}>option2</MenuItem>
+												<MenuItem value={3}>option3</MenuItem>
+											</Select>
+
+										</FormControl>
+									</Grid>
+								</Grid>
+
 								<Grid
 									item
 									mb={2}
@@ -125,8 +211,8 @@ const Eachroom = ({ user }) => {
 									<TextField
 										disabled
 										fullWidth
-										label="اتاق"
-										defaultValue={"room name"}     //TODO: default value for room??
+										label="قیمت هر شب"
+										defaultValue={"room price"}     //TODO: default value for room??
 									/>
 								</Grid>
 
@@ -144,7 +230,7 @@ const Eachroom = ({ user }) => {
 									/>
 								</Grid>
 							</Grid>
-							
+
 							<Button
 								onClick={() => Navigate("/dashboard")}   //TODO: save room order and Navigate to dashboard??    
 								fullWidth
@@ -217,7 +303,7 @@ const Eachroom = ({ user }) => {
 						<CssBaseline />
 						<Box
 							sx={{
-								marginTop: 25,
+								marginTop: 19,
 								display: "flex",
 								flexDirection: "column",
 								alignItems: "center",
@@ -226,16 +312,59 @@ const Eachroom = ({ user }) => {
 							<Grid
 								container
 								spacing={2}>
+
 								<Grid
-									mb={2}
 									item
+									container
+									direction={'row'}
+									spacing={1}
+									>
+									<Grid
+										item
+										mb={2}
+										xs={6}>
+										<TextField
+											fullWidth
+											label="اتاق"
+											defaultValue={"room name"}     //TODO: default value for room??
+										/>
+									</Grid>
+
+									<Grid
+										item
+										mb={2}
+										xs={6}
+										>
+										<TextField
+											fullWidth
+											label="نوع اتاق"
+											defaultValue={"room type"}     //TODO: default value for room type??
+										/>
+									</Grid>
+								</Grid>
+
+								<Grid
+									item
+									mb={2}
 									xs={12}>
 									<TextField
 										fullWidth
-										label="اتاق"
-										defaultValue={"room name"}     //TODO: default value for room??
+										label="تعداد تخت ها"
+										defaultValue={"bed count"}     //TODO: default value for room??
 									/>
 								</Grid>
+
+								<Grid
+									item
+									mb={2}
+									xs={12}>
+									<TextField
+										fullWidth
+										label="قیمت هر شب"
+										defaultValue={"room price"}     //TODO: default value for room??
+									/>
+								</Grid>
+
 
 								<Grid
 									item
@@ -246,7 +375,7 @@ const Eachroom = ({ user }) => {
 										rows={6}
 										fullWidth
 										label="توضیحات"
-										defaultValue={"..."}           //TODO: default value for desc??
+										defaultValue={"..."}            //TODO: default value for desc??
 									/>
 								</Grid>
 							</Grid>

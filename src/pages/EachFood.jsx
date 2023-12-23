@@ -4,6 +4,7 @@ import Food from "../services/food";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+
 import {
 	Button,
 	CssBaseline,
@@ -13,6 +14,10 @@ import {
 	Container,
 	Fab,
 	Typography,
+	Select,
+	FormControl,
+	InputLabel,
+	MenuItem,
 } from "@mui/material";
 
 import CommentList from "../components/commentList";
@@ -57,6 +62,12 @@ const Eachfood = ({ user }) => {
 			 // .
 			 // .
 			 role: 'null'}; // null ==> user | character ==> admin
+
+	const [date, setDate] = useState('');
+
+	const handleChange = (event) => {
+		setDate(event.target.value);
+	};
 
 	return (
 		<Grid
@@ -110,7 +121,7 @@ const Eachfood = ({ user }) => {
 						<CssBaseline />
 						<Box
 							sx={{
-								marginTop: 25,
+								marginTop: 19,
 								display: "flex",
 								flexDirection: "column",
 								alignItems: "center",
@@ -129,6 +140,59 @@ const Eachfood = ({ user }) => {
 										label="نام غذا"
 										defaultValue={"food name"}     //TODO: default value for food??
 									/>
+								</Grid>
+
+								<Grid
+									item
+									mb={2}
+									xs={12}
+									>
+									<TextField
+										disabled
+										fullWidth
+										label="قیمت"
+										defaultValue={"food price"}     //TODO: default value for food??
+									/>
+								</Grid>
+
+								<Grid
+									item
+									container
+									direction={'row'}
+									spacing={1}
+									>
+									<Grid
+										item
+										mb={2}
+										xs={6}
+										>
+										<TextField
+											disabled
+											fullWidth
+											label="وعده غذایی"
+											defaultValue={"meal choice"}     //TODO: default value for food??
+										/>
+									</Grid>
+
+									<Grid
+										item
+										mb={2}
+										xs={6}
+										>
+										<FormControl fullWidth>
+											<InputLabel>تاریخ رزرو غذا</InputLabel>
+											<Select
+												label="تاریخ رزرو غذا"
+												value={date}
+												onChange={handleChange}
+												>
+												<MenuItem value={1}>option1</MenuItem>   {/* TODO: show real options from db?? */}
+												<MenuItem value={2}>option2</MenuItem>
+												<MenuItem value={3}>option3</MenuItem>
+											</Select>
+
+										</FormControl>
+									</Grid>
 								</Grid>
 
 								<Grid
@@ -220,7 +284,7 @@ const Eachfood = ({ user }) => {
 						<CssBaseline />
 						<Box
 							sx={{
-								marginTop: 25,
+								marginTop: 19,
 								display: "flex",
 								flexDirection: "column",
 								alignItems: "center",
@@ -245,11 +309,33 @@ const Eachfood = ({ user }) => {
 									mb={2}
 									xs={12}>
 									<TextField
+										fullWidth
+										label="قیمت"
+										defaultValue={"food price"}     //TODO: default value for food??
+									/>
+								</Grid>
+
+								<Grid
+									item
+									mb={2}
+									xs={12}>
+									<TextField
+										fullWidth
+										label="وعده غذایی"
+										defaultValue={"meal choice"}     //TODO: default value for food??
+									/>
+								</Grid>
+
+								<Grid
+									item
+									mb={2}
+									xs={12}>
+									<TextField
 										multiline
 										rows={6}
 										fullWidth
 										label="توضیحات"
-										defaultValue={"..."}           //TODO: default value for desc??
+										defaultValue={"..."}            //TODO: default value for desc??
 									/>
 								</Grid>
 							</Grid>
