@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import bk from "../assets/eachroom.png";
 import { useNavigate } from "react-router-dom";
 import Room from "../services/room";
 import {
@@ -12,22 +13,26 @@ import {
 	Container,
 	Fab,
 	Typography,
+	Select,
+	MenuItem,
+	FormControl,
+	InputLabel,
 } from "@mui/material";
 
 import CommentList from "../components/commentList";
-import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
-import Loading from "../components/utils/Loading";
+import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 
 const comments = [
-	{ id: 1, text: "test comment 1 ..........." },
-	{ id: 2, text: "test comment 2 ........" },
-	{ id: 3, text: "test comment 3 ..................." },
-];
+    { id: 1, text: 'test comment 1 ...........' },
+    { id: 2, text: 'test comment 2 ........' },
+    { id: 3, text: 'test comment 3 ...................' },
+  ];
+
 
 const Eachroom = ({ user }) => {
 	const { id } = useParams();
 
-	const [room, setRoom] = useState(null);
+	const [room, setRoom] = useState([]);
 	const { accessToken } = useAuth();
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [isCommentListOpen, setCommentListOpen] = useState(false);
@@ -39,241 +44,376 @@ const Eachroom = ({ user }) => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			if (accessToken) {
-				try {
-					const res = await Room.getOne({ uid: id, authToken: accessToken });
-					console.log(res);
-					if (res.status === 200) {
-						setRoom(res.data);
-					}
-				} catch (error) {
-					console.log(error);
+			try {
+				const res = await Room.getOne({ uid: id, authToken: accessToken });
+				console.log(res);
+				if (res.status === 200) {
+					setRoom(res.data);
 				}
+			} catch (error) {
+				console.log(error);
 			}
 		};
 		fetchData();
 	}, [accessToken]);
 
-	user = {
-		id: 1, //TODO: it should be real user!
-		name: "user-test",
-		// some extra info ...
-		// .
-		// .
-		role: "null",
-	}; // null ==> user | character ==> admin
-	if (room) {
-		return (
-			<Grid
-				container
-				component="main"
-				sx={{ height: "100vh", backgroundColor: "#141A20" }}>
-				<CssBaseline />
+	user = { id: 1,										  //TODO: it should be real user!
+			 name: "user-test",
+			 // some extra info ...
+			 // .
+			 // .
+			 role: 'null'}; // null ==> user | character ==> admin
 
+	const [date, setDate] = useState('');
+
+	const handleChange = (event) => {
+		setDate(event.target.value);
+	};
+
+
+	return (
+		<Grid
+			container
+			component="main"
+			sx={{ height: "100vh", backgroundColor: "#141A20" }}>
+			<CssBaseline />
+
+			<Grid
+				item
+				xs={false}
+				sm={4}
+				md={7}
+				sx={{
+					backgroundImage: `url(${bk})`,          //TODO: get room image from back-end and give backgroundImage it's url??    
+					backgroundSize: "cover",
+					backgroundPosition: "center",
+				}}>
+
+				<CommentList
+					comments={comments}                      //TODO: all comments should be here as an array like this: [ {id: 0, text: "..."}, {id: 1, text: "..."}, ... ]??   
+					isOpen={isCommentListOpen}
+					onClose={toggleCommentList}
+				/>
+			</Grid>
+
+			{!isEditMode ? (
 				<Grid
 					item
-					xs={false}
-					sm={4}
-					md={7}
-					sx={{
-						backgroundImage: `url(${room.image})`, //TODO: get room image from back-end and give backgroundImage it's url??
-						backgroundSize: "cover",
-						backgroundPosition: "center",
-					}}>
-					<CommentList
-						comments={comments} //TODO: all comments should be here as an array like this: [ {id: 0, text: "..."}, {id: 1, text: "..."}, ... ]??
-						isOpen={isCommentListOpen}
-						onClose={toggleCommentList}
-					/>
-				</Grid>
-
-				{!isEditMode ? (
-					<Grid
-						item
-						xs={12}
-						sm={8}
-						md={5}
-						elevation={6}
-						square>
-						<Fab
-							onClick={() => toggleCommentList()}
-							variant="extended"
-							style={{
-								position: "fixed",
-								margin: "16px",
+					xs={12}
+					sm={8}
+					md={5}
+					elevation={6}
+					square>
+					<Fab
+						onClick={() => toggleCommentList()}
+						variant="extended"
+						style={{
+							position: "fixed",
+							margin: "16px",
+						}}>
+						<Typography variant="h6">
+							مشاهده نظرات
+						</Typography>
+						<CommentOutlinedIcon sx={{ ml: 1 }} />
+					</Fab>
+					<Container maxWidth="xs">
+						<CssBaseline />
+						<Box
+							sx={{
+								marginTop: 19,
+								display: "flex",
+								flexDirection: "column",
+								alignItems: "center",
 							}}>
-							<Typography variant="h6">مشاهده نظرات</Typography>
-							<CommentOutlinedIcon sx={{ ml: 1 }} />
-						</Fab>
-						<Container maxWidth="xs">
-							<CssBaseline />
-							<Box
-								sx={{
-									marginTop: 25,
-									display: "flex",
-									flexDirection: "column",
-									alignItems: "center",
-								}}>
+
+							<Grid
+								container
+								spacing={2}>
+
+
 								<Grid
+									item
 									container
-									spacing={2}>
+									direction={'row'}
+									spacing={1}
+									>
 									<Grid
 										item
 										mb={2}
-										xs={12}>
+										xs={6}>
 										<TextField
 											disabled
 											fullWidth
 											label="اتاق"
-											defaultValue={room.number}
+											defaultValue={"room name"}     //TODO: default value for room??
 										/>
 									</Grid>
 
 									<Grid
 										item
 										mb={2}
-										xs={12}>
+										xs={6}
+										>
 										<TextField
-											multiline
-											rows={6}
 											disabled
 											fullWidth
-											label="توضیحات"
-											defaultValue={`قیمت برای هر شب : ${room.price_one_night} تومان`} //TODO: default value for desc??
+											label="نوع اتاق"
+											defaultValue={"room type"}     //TODO: default value for room type??
 										/>
 									</Grid>
 								</Grid>
 
-								<Button
-									onClick={() => Navigate("/dashboard")} //TODO: save room order and Navigate to dashboard??
-									fullWidth
-									variant="contained"
-									sx={{
-										mt: 2,
-										borderRadius: 15,
-										bgcolor: "secondary.main",
-									}}>
-									<Typography variant="h6">سفارش اتاق</Typography>
-								</Button>
 
-								{user.role && (
-									<Button
-										onClick={() => setIsEditMode(true)}
+								<Grid
+									item
+									container
+									direction={'row'}
+									spacing={1}
+									>
+									<Grid
+										item
+										mb={2}
+										xs={6}
+										>
+										<TextField
+											disabled
+											fullWidth
+											label="تعداد تخت ها"
+											defaultValue={"bed count"}     //TODO: default value for bed count??
+										/>
+									</Grid>
+
+									<Grid
+										item
+										mb={2}
+										xs={6}
+										>
+										<FormControl fullWidth>
+											<InputLabel>تاریخ رزرو اتاق</InputLabel>
+											<Select
+												label="تاریخ رزرو اتاق"
+												value={date}
+												onChange={handleChange}
+												>
+												<MenuItem value={1}>option1</MenuItem>   {/* TODO: show real options from db?? */}
+												<MenuItem value={2}>option2</MenuItem>
+												<MenuItem value={3}>option3</MenuItem>
+											</Select>
+
+										</FormControl>
+									</Grid>
+								</Grid>
+
+								<Grid
+									item
+									mb={2}
+									xs={12}>
+									<TextField
+										disabled
 										fullWidth
-										variant="contained"
-										sx={{
-											mt: 2,
-											borderRadius: 15,
-											bgcolor: "#f7b060",
-										}}>
-										<Typography variant="h6">ویرایش اطلاعات</Typography>
-									</Button>
-								)}
+										label="قیمت هر شب"
+										defaultValue={"room price"}     //TODO: default value for room??
+									/>
+								</Grid>
 
-								<Button
-									onClick={() => Navigate("/dashboard")}
+								<Grid
+									item
+									mb={2}
+									xs={12}>
+									<TextField
+										multiline
+										rows={6}
+										disabled
+										fullWidth
+										label="توضیحات"
+										defaultValue={"..."}            //TODO: default value for desc??
+									/>
+								</Grid>
+							</Grid>
+
+							<Button
+								onClick={() => Navigate("/dashboard")}   //TODO: save room order and Navigate to dashboard??    
+								fullWidth
+								variant="contained"
+								sx={{
+									mt: 3,
+									borderRadius: 15,
+									bgcolor: "secondary.main",
+								}}>
+								<Typography variant="h6">
+									سفارش اتاق
+								</Typography>
+							</Button>
+
+							{user.role && (
+									<Button
+									onClick={() => setIsEditMode(true)}
 									fullWidth
 									variant="contained"
-									sx={{
-										mt: 2,
-										mb: 2,
+									sx={{ 	 		
+										mt: 3,
 										borderRadius: 15,
-										bgcolor: "#f76d6d",
+										bgcolor: "#f7b060",
 									}}>
-									<Typography variant="h6">خروج</Typography>
+									<Typography variant="h6">
+										ویرایش اطلاعات
+									</Typography>
 								</Button>
-							</Box>
-						</Container>
-					</Grid>
-				) : (
-					// Edit mood:
-					<Grid
-						item
-						xs={12}
-						sm={8}
-						md={5}
-						elevation={6}
-						square>
-						<Fab
-							onClick={() => toggleCommentList()}
-							variant="extended"
-							style={{
-								position: "fixed",
-								margin: "16px",
-							}}>
-							<Typography variant="h6">مشاهده نظرات</Typography>
-							<CommentOutlinedIcon sx={{ ml: 1 }} />
-						</Fab>
-						<Container maxWidth="xs">
-							<CssBaseline />
-							<Box
+							) }
+
+							<Button
+								onClick={() => Navigate("/dashboard")}   //TODO: Navigate to dashboard without ordering??    
+								fullWidth
+								variant="contained"
 								sx={{
-									marginTop: 25,
-									display: "flex",
-									flexDirection: "column",
-									alignItems: "center",
+									mt: 3,
+									mb: 2,
+									borderRadius: 15,
+									bgcolor: "#f76d6d",
 								}}>
+								<Typography variant="h6">
+									خروج
+								</Typography>
+							</Button>
+
+						</Box>
+					</Container>
+				</Grid>
+			) : ( // Edit mood:
+				<Grid
+					item
+					xs={12}
+					sm={8}
+					md={5}
+					elevation={6}
+					square>
+					<Fab
+						onClick={() => toggleCommentList()}
+						variant="extended"
+						style={{
+							position: "fixed",
+							margin: "16px",
+						}}>
+						<Typography variant="h6">
+							مشاهده نظرات
+						</Typography>
+						<CommentOutlinedIcon sx={{ ml: 1 }} />
+					</Fab>
+					<Container maxWidth="xs">
+						<CssBaseline />
+						<Box
+							sx={{
+								marginTop: 19,
+								display: "flex",
+								flexDirection: "column",
+								alignItems: "center",
+							}}>
+
+							<Grid
+								container
+								spacing={2}>
+
 								<Grid
+									item
 									container
-									spacing={2}>
+									direction={'row'}
+									spacing={1}
+									>
 									<Grid
-										mb={2}
 										item
-										xs={12}>
+										mb={2}
+										xs={6}>
 										<TextField
 											fullWidth
 											label="اتاق"
-											defaultValue={"room name"} //TODO: default value for room??
+											defaultValue={"room name"}     //TODO: default value for room??
 										/>
 									</Grid>
 
 									<Grid
 										item
 										mb={2}
-										xs={12}>
+										xs={6}
+										>
 										<TextField
-											multiline
-											rows={6}
 											fullWidth
-											label="توضیحات"
-											defaultValue={"..."} //TODO: default value for desc??
+											label="نوع اتاق"
+											defaultValue={"room type"}     //TODO: default value for room type??
 										/>
 									</Grid>
 								</Grid>
 
+								<Grid
+									item
+									mb={2}
+									xs={12}>
+									<TextField
+										fullWidth
+										label="تعداد تخت ها"
+										defaultValue={"bed count"}     //TODO: default value for room??
+									/>
+								</Grid>
+
+								<Grid
+									item
+									mb={2}
+									xs={12}>
+									<TextField
+										fullWidth
+										label="قیمت هر شب"
+										defaultValue={"room price"}     //TODO: default value for room??
+									/>
+								</Grid>
+
+
+								<Grid
+									item
+									mb={2}
+									xs={12}>
+									<TextField
+										multiline
+										rows={6}
+										fullWidth
+										label="توضیحات"
+										defaultValue={"..."}            //TODO: default value for desc??
+									/>
+								</Grid>
+							</Grid>
+
 								<Button
-									onClick={() => setIsEditMode(false)} //TODO: saving new input for room and switch to non-edit mode??
-									fullWidth
+									onClick={() => setIsEditMode(false)}  //TODO: saving new input for room and switch to non-edit mode??    
+									fullWidth 
 									variant="contained"
 									sx={{
-										mt: 2,
+										mt: 3,
 										borderRadius: 15,
 										bgcolor: "#7ed695",
 									}}>
-									<Typography variant="h6">ذخیزه تغییرات</Typography>
+									<Typography variant="h6">
+										ذخیزه تغییرات
+									</Typography>
 								</Button>
 
-								<Button
-									onClick={() => setIsEditMode(false)}
-									fullWidth
-									variant="contained"
-									sx={{
-										mt: 2,
-										mb: 2,
-										borderRadius: 15,
-										bgcolor: "#f76d6d",
-									}}>
-									<Typography variant="h6">بازگشت</Typography>
-								</Button>
-							</Box>
-						</Container>
-					</Grid>
-				)}
-			</Grid>
-		);
-	} else {
-		return <Loading />;
-	}
+							<Button
+								onClick={() => setIsEditMode(false)}
+								fullWidth
+								variant="contained"
+								sx={{
+									mt: 3,
+									mb: 2,
+									borderRadius: 15,
+									bgcolor: "#f76d6d",
+								}}>
+								<Typography variant="h6">
+									بازگشت
+								</Typography>
+							</Button>
+						</Box>
+					</Container>
+				</Grid>
+			)}
+		</Grid>
+	);
 };
 
 export default Eachroom;
