@@ -6,7 +6,7 @@ const baseUrl = "/api/rooms";
 class Room {
 	// @Desc get Room info with id
 	static getOne = ({ uid, authToken }) => {
-		const url = `${baseUrl}/${uid}/`;
+		const url = `${baseUrl}/type/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
@@ -66,7 +66,7 @@ class Room {
 
 	// @Desc delete a Room with id
 	static delete = ({ uid, authToken }) => {
-		const url = `${baseUrl}/delete/${uid}`;
+		const url = `${baseUrl}/delete/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
@@ -78,7 +78,7 @@ class Room {
 
 	// @Desc edit Room info with id
 	static edit = ({ uid, data, authToken }) => {
-		const url = `${baseUrl}/update/${uid}`;
+		const url = `${baseUrl}/update/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",

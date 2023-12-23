@@ -18,11 +18,11 @@ import {
 import CommentList from "../components/commentList";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import Loading from "../components/utils/Loading";
-const comments = [
-	{ id: 1, text: "test comment 1 ..........." },
-	{ id: 2, text: "test comment 2 ........" },
-	{ id: 3, text: "test comment 3 ..................." },
-];
+// const comments = [
+// 	{ id: 1, text: "test comment 1 ..........." },
+// 	{ id: 2, text: "test comment 2 ........" },
+// 	{ id: 3, text: "test comment 3 ..................." },
+// ];
 
 const Eachfood = ({ user }) => {
 	const { id } = useParams();
@@ -80,7 +80,7 @@ const Eachfood = ({ user }) => {
 						backgroundPosition: "center",
 					}}>
 					<CommentList
-						comments={comments} //TODO: all comments should be here as an array like this: [ {id: 0, text: "..."}, {id: 1, text: "..."}, ... ]??
+						comments={food.comments} //TODO: all comments should be here as an array like this: [ {id: 0, text: "..."}, {id: 1, text: "..."}, ... ]??
 						isOpen={isCommentListOpen}
 						onClose={toggleCommentList}
 					/>

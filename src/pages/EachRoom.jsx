@@ -76,7 +76,7 @@ const Eachroom = ({ user }) => {
 					sm={4}
 					md={7}
 					sx={{
-						backgroundImage: `url(${room.type.image})`, //TODO: get room image from back-end and give backgroundImage it's url??
+						backgroundImage: `url(${room.image})`, //TODO: get room image from back-end and give backgroundImage it's url??
 						backgroundSize: "cover",
 						backgroundPosition: "center",
 					}}>
@@ -139,7 +139,7 @@ const Eachroom = ({ user }) => {
 											disabled
 											fullWidth
 											label="توضیحات"
-											defaultValue={`قیمت برای هر شب : ${room.type.price_one_night} تومان`} //TODO: default value for desc??
+											defaultValue={`قیمت برای هر شب : ${room.price_one_night} تومان`} //TODO: default value for desc??
 										/>
 									</Grid>
 								</Grid>

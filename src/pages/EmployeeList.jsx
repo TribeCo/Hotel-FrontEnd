@@ -105,17 +105,11 @@ const EmployeeList = () => {
 	const handleEditEmployee = async (data) => {
 		try {
 			setLoading(true);
-			// console.log({
-			// 	uid: selectedEmployee.id,
-			// 	data: data,
-			// 	authToken: accessToken,
-			// });
 			const res = await Admin.edit({
 				uid: selectedEmployee.id,
 				data: data,
 				authToken: accessToken,
 			});
-
 			const d = await Admin.getAll({ authToken: accessToken });
 			console.log(d);
 			if (d.status === 200) {
