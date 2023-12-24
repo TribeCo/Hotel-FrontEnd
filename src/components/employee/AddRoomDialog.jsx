@@ -52,6 +52,7 @@ const AddRoomDialog = ({ open, handleClose, handleAddRoom }) => {
 	return (
 		<Dialog
 			open={open}
+			fullWidth
 			onClose={handleClose}>
 			<Box sx={{ m: 2 }}>
 				<DialogTitle align="center">افزودن اتاق جدید</DialogTitle>
