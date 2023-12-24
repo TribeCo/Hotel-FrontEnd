@@ -28,7 +28,7 @@
 	flex-direction: column;
 	justify-content: center;
 	justify-items: center;
-	min-height: 92vh;
+	min-height: 100vh;
 	z-index: -1;
 	overflow: hidden;
 }
