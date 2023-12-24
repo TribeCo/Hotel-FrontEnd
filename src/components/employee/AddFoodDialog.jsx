@@ -55,6 +55,7 @@ const AddFoodDialog = ({ open, handleClose, handleAddFood }) => {
 
 	return (
 		<Dialog
+			fullWidth
 			open={open}
 			onClose={handleClose}>
 			<Box sx={{ m: 2 }}>
