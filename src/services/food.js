@@ -28,6 +28,17 @@ class Food {
 		return axios.get(url, config);
 	};
 
+	static delivered = ({ uid, data, authToken }) => {
+		const url = `${baseUrl}/reservation/delivery/${uid}/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.put(url, data, config);
+	};
+
 	// @Desc upload food image
 	static uploadImage = ({ uid, data, authToken }) => {
 		const url = `${baseUrl}/upload/${uid}/`;

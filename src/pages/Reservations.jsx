@@ -17,121 +17,124 @@ import {
 } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import Food from "../services/food";
+import Loading from "../components/utils/Loading";
 
 const Reservations = () => {
-	const initialFoodList = [
-		{
-			id: 1,
-			user: { firstName: "رضا", lastName: "بوذرجمهری" },
-			foodName: "Burger",
-			foodPrice: "10$",
-			delivered: true,
-		},
-		{
-			id: 2,
-			user: { firstName: "رضا", lastName: "بوذرجمهری" },
-			foodName: "Pizza",
-			foodPrice: "15$",
-			delivered: false,
-		},
-		// Add more food objects as needed
-	];
-
 	const { accessToken } = useAuth();
-	const [foodList, setFoodList] = useState(initialFoodList);
+	const [foodList, setFoodList] = useState([]);
+	const [loading, setLoading] = useState(false);
 
-	const handleButtonClick = (foodId) => {
-		const updatedFoodList = foodList.map((food) =>
-			food.id === foodId ? { ...food, delivered: !food.delivered } : food,
-		);
-		setFoodList(updatedFoodList);
+	const handleButtonClick = async (food) => {
+		try {
+			setLoading(true);
+			await Food.delivered({
+				uid: food.id,
+				data: {
+					delivery: !food.delivery,
+				},
+				authToken: accessToken,
+			});
+			const res = await Food.getAll({ authToken: accessToken });
+			setFoodList(res.data);
+			setLoading(false);
+		} catch (error) {
+			alert(error);
+			setLoading(false);
+		}
 	};
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
+				setLoading(true);
 				const res = await Food.getAll({ authToken: accessToken });
 				console.log(res.data);
 				setFoodList(res.data);
+				setLoading(false);
 			} catch (error) {
-				console.log(error);
+				alert(error);
+				setLoading(false);
 			}
 		};
 		fetchData();
 	}, [accessToken]);
-
-	return (
-		<Container
-			maxWidth="lg"
-			sx={{ mt: 4, mb: 4 }}>
-			<Paper sx={{ padding: 2 }}>
-				<Grid item>
-					<Box
-						sx={{
-							display: "flex",
-							justifyContent: "center",
-							bgcolor: "#303030",
-							p: 2,
-						}}>
-						<Typography variant="h5">غذا های رزرو شده</Typography>
-					</Box>
-					<Divider />
-					<TableContainer>
-						<Table aria-label="caption table">
-							<TableHead>
-								<TableRow>
-									<TableCell>وضعیت تحویل</TableCell>
-									<TableCell align="center">
-										<Typography variant="h6">سفارش دهنده</Typography>
-									</TableCell>
-									<TableCell align="center">
-										<Typography variant="h6">نام غذا</Typography>
-									</TableCell>
-									<TableCell align="center">
-										<Typography variant="h6">قیمت غذا</Typography>
-									</TableCell>
-									<TableCell align="center">
-										<Typography variant="h6">عملیات</Typography>
-									</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								{foodList.map((food) => (
-									<TableRow key={food.id}>
-										<TableCell
-											component="th"
-											scope="row">
-											<Checkbox
-												checked={food.delivered}
-												disabled
-											/>
+	if (!loading) {
+		return (
+			<Container
+				maxWidth="lg"
+				sx={{ mt: 4, mb: 4 }}>
+				<Paper sx={{ padding: 2 }}>
+					<Grid item>
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "center",
+								bgcolor: "#303030",
+								p: 2,
+							}}>
+							<Typography variant="h5">غذا های رزرو شده</Typography>
+						</Box>
+						<Divider />
+						<TableContainer>
+							<Table aria-label="caption table">
+								<TableHead>
+									<TableRow>
+										<TableCell variant="h6">وضعیت تحویل</TableCell>
+										<TableCell align="center">
+											<Typography variant="h6">سفارش دهنده</Typography>
 										</TableCell>
 										<TableCell align="center">
-											{food.user.firstName + food.user.lastName}
+											<Typography variant="h6">نام غذا</Typography>
 										</TableCell>
-										<TableCell align="center">{food.food.name}</TableCell>
-										<TableCell align="center">{food.food.price}</TableCell>
 										<TableCell align="center">
-											<Button
-												variant="contained"
-												color={food.delivered ? "success" : "primary"}
-												onClick={() => handleButtonClick(food.id)}
-												sx={{
-													width: 150,
-													color: food.delivered ? "white" : "inherit",
-												}}>
-												{food.delivered ? "تحویل داده شده" : "تحویل"}
-											</Button>
+											<Typography variant="h6">قیمت غذا</Typography>
+										</TableCell>
+										<TableCell align="center">
+											<Typography variant="h6">عملیات</Typography>
 										</TableCell>
 									</TableRow>
-								))}
-							</TableBody>
-						</Table>
-					</TableContainer>
-				</Grid>
-			</Paper>
-		</Container>
-	);
+								</TableHead>
+								<TableBody>
+									{foodList.map((food) => (
+										<TableRow key={food.id}>
+											<TableCell
+												component="th"
+												scope="row">
+												<Checkbox
+													checked={food.delivery}
+													disabled
+												/>
+											</TableCell>
+											<TableCell align="center">
+												{food.user.firstName + food.user.lastName}
+											</TableCell>
+											<TableCell align="center">{food.food.name}</TableCell>
+											<TableCell align="center">{food.food.price}</TableCell>
+											<TableCell align="center">
+												<Button
+													variant="contained"
+													disabled={food.delivery}
+													color={food.delivery ? "success" : "primary"}
+													onClick={() => handleButtonClick(food)}
+													sx={{
+														width: 150,
+														color: food.delivery ? "white" : "inherit",
+													}}>
+													{food.delivery ? "تحویل داده شده" : "تحویل"}
+												</Button>
+											</TableCell>
+										</TableRow>
+									))}
+								</TableBody>
+							</Table>
+						</TableContainer>
+					</Grid>
+				</Paper>
+			</Container>
+		);
+	} else {
+		return <Loading />;
+	}
 };
 
 export default Reservations;

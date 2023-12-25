@@ -29,285 +29,264 @@ const Reports = () => {
 		},
 	});
 
+	const [loading, setLoading] = useState(false);
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
+				setLoading(true);
 				const res = await Report.getAllReports({ authToken: accessToken });
 				console.log(res);
 				setReport(res.data);
+				setLoading(false);
 			} catch (error) {
-				console.log(error);
+				alert(error);
+				setLoading(false);
 			}
 		};
 		fetchData();
 	}, [accessToken]);
-
-	return (
-		<>
-			<Grid
-				sx={{
-					padding: 2,
-				}}
-				container
-				spacing={2}>
+	if (!loading) {
+		return (
+			<>
 				<Grid
-					item
-					xs={12}
-					md={4}>
-					<Paper
-						sx={{
-							padding: 2,
-						}}>
-						<Box
+					sx={{
+						padding: 2,
+					}}
+					container
+					spacing={2}>
+					<Grid
+						item
+						xs={12}
+						md={4}>
+						<Paper
 							sx={{
-								display: "flex",
-								justifyContent: "center",
-								p: 2,
+								padding: 2,
 							}}>
-							<Typography>گزارش سالانه</Typography>
-						</Box>
-						<Divider />
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>تعداد مهمهانان:‌ </Typography>
-							<Typography>
-								{" "}
-								{report.room_reservation.yearly_count} نفر
-							</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>مجموع درآمد رزرو اتاق ها: </Typography>
-							<Typography>
-								{" "}
-								{report.room_reservation.yearly_reservation} تومان
-							</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>تعداد غذا های فروخته شده : </Typography>
-							<Typography>{report.food_sales.yearly_count} عدد</Typography>
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>مجموع درآمد رزرو غذاها: </Typography>
-							<Typography>
-								{report.food_sales.yearly_sales} تومان
-							</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>مجموع درآمد کل: </Typography>
-							<Typography>
-								{" "}
-								{report.food_sales.yearly_sales +
-									report.room_reservation.yearly_reservation}{" "}
-								تومان
-							</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Divider />
-					</Paper>
-				</Grid>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "center",
+									p: 2,
+								}}>
+								<Typography>گزارش سالانه</Typography>
+							</Box>
+							<Divider />
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>تعداد مهمهانان:‌ </Typography>
+								<Typography>
+									{report.room_reservation.yearly_count} نفر
+								</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>مجموع درآمد رزرو اتاق ها: </Typography>
+								<Typography>
+									{" "}
+									{report.room_reservation.yearly_reservation} تومان
+								</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>تعداد غذا های فروخته شده : </Typography>
+								<Typography>{report.food_sales.yearly_count} عدد</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>مجموع درآمد رزرو غذاها: </Typography>
+								<Typography>{report.food_sales.yearly_sales} تومان</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>مجموع درآمد کل: </Typography>
+								<Typography>
+									{report.food_sales.yearly_sales +
+										report.room_reservation.yearly_reservation}
+									تومان
+								</Typography>
+							</Box>
+							<Divider />
+						</Paper>
+					</Grid>
 
-				<Grid
-					item
-					xs={12}
-					md={4}>
-					<Paper
-						sx={{
-							padding: 2,
-						}}>
-						<Box
+					<Grid
+						item
+						xs={12}
+						md={4}>
+						<Paper
 							sx={{
-								display: "flex",
-								justifyContent: "center",
-								p: 2,
+								padding: 2,
 							}}>
-							<Typography>گزارش ماهانه</Typography>
-						</Box>
-						<Divider />
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>تعداد مهمهانان:‌ </Typography>
-							<Typography>
-								{" "}
-								{report.room_reservation.monthly_count} نفر
-							</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>مجموع درآمد رزرو اتاق ها: </Typography>
-							<Typography>
-								{" "}
-								{report.room_reservation.monthly_reservation} تومان
-							</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>تعداد غذا های فروخته شده : </Typography>
-							<Typography>
-								{report.food_sales.monthly_count} عدد
-							</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>مجموع درآمد رزرو غذاها: </Typography>
-							<Typography>
-								{" "}
-								{report.food_sales.monthly_sales} تومان
-							</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>مجموع درآمد کل: </Typography>
-							<Typography>
-								{" "}
-								{report.room_reservation.monthly_reservation +
-									report.food_sales.monthly_sales}{" "}
-								تومان
-							</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Divider />
-					</Paper>
-				</Grid>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "center",
+									p: 2,
+								}}>
+								<Typography>گزارش ماهانه</Typography>
+							</Box>
+							<Divider />
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>تعداد مهمهانان:‌ </Typography>
+								<Typography>
+									{" "}
+									{report.room_reservation.monthly_count} نفر
+								</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>مجموع درآمد رزرو اتاق ها: </Typography>
+								<Typography>
+									{report.room_reservation.monthly_reservation} تومان
+								</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>تعداد غذا های فروخته شده : </Typography>
+								<Typography>{report.food_sales.monthly_count} عدد</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>مجموع درآمد رزرو غذاها: </Typography>
+								<Typography>{report.food_sales.monthly_sales} تومان</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>مجموع درآمد کل: </Typography>
+								<Typography>
+									{report.room_reservation.monthly_reservation +
+										report.food_sales.monthly_sales}{" "}
+									تومان
+								</Typography>
+							</Box>
+							<Divider />
+						</Paper>
+					</Grid>
 
-				<Grid
-					item
-					xs={12}
-					md={4}>
-					<Paper
-						sx={{
-							padding: 2,
-						}}>
-						<Box
+					<Grid
+						item
+						xs={12}
+						md={4}>
+						<Paper
 							sx={{
-								display: "flex",
-								justifyContent: "center",
-								p: 2,
+								padding: 2,
 							}}>
-							<Typography>گزارش روزانه</Typography>
-						</Box>
-						<Divider />
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>تعداد مهمهانان:‌ </Typography>
-							<Typography>
-								{" "}
-								{report.room_reservation.daily_count} نفر
-							</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>مجموع درآمد رزرو اتاق ها: </Typography>
-							<Typography>
-								{" "}
-								{report.room_reservation.daily_reservation} تومان
-							</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>تعداد غذا های فروخته شده : </Typography>
-							<Typography>{report.food_sales.daily_count} عدد</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>مجموع درآمد رزرو غذاها: </Typography>
-							<Typography>
-								{" "}
-								{report.food_sales.daily_sales} تومان
-							</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								p: 2,
-							}}>
-							<Typography>مجموع درآمد کل: </Typography>
-							<Typography>
-								{" "}
-								{report.food_sales.daily_sales +
-									report.room_reservation.daily_reservation}{" "}
-								تومان
-							</Typography>{" "}
-							{/* TODO: set value from back-end?? */}
-						</Box>
-						<Divider />
-					</Paper>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "center",
+									p: 2,
+								}}>
+								<Typography>گزارش روزانه</Typography>
+							</Box>
+							<Divider />
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>تعداد مهمهانان:‌ </Typography>
+								<Typography>
+									{" "}
+									{report.room_reservation.daily_count} نفر
+								</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>مجموع درآمد رزرو اتاق ها: </Typography>
+								<Typography>
+									{" "}
+									{report.room_reservation.daily_reservation} تومان
+								</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>تعداد غذا های فروخته شده : </Typography>
+								<Typography>{report.food_sales.daily_count} عدد</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>مجموع درآمد رزرو غذاها: </Typography>
+								<Typography>{report.food_sales.daily_sales} تومان</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									p: 2,
+								}}>
+								<Typography>مجموع درآمد کل: </Typography>
+								<Typography>
+									{" "}
+									{report.food_sales.daily_sales +
+										report.room_reservation.daily_reservation}{" "}
+									تومان
+								</Typography>
+							</Box>
+							<Divider />
+						</Paper>
+					</Grid>
 				</Grid>
-			</Grid>
-		</>
-	);
+			</>
+		);
+	} else {
+		return <Loading />;
+	}
 };
 
 export default Reports;

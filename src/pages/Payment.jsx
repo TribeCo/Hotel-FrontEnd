@@ -17,8 +17,6 @@ import {
 import { AttachMoneyOutlined, ListRounded } from "@mui/icons-material";
 
 const PaymentPage = ({ payment }) => {
-	console.log(payment);
-
 	const handlePayment = () => {
 		alert("پرداخت با موفقیت انجام شد");
 		console.log("Payment success!");
