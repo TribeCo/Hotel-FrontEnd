@@ -1,6 +1,4 @@
-/* @import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities"; */
+
 
 .landingtext-color {
 	color: #c1c1c1;
@@ -19,12 +17,14 @@
 }
 
 .landingbtn-link {
-	padding: 8px 16px;
+	padding: 8px;
 	background-color: #b4b7b7;
-	color: rgba(86, 89, 90, 255);
-	border-radius: 4px;
+	width: 80px;
+	color:  #242828;
+	border-radius: 8px;
 	text-decoration: none;
 	transition: background-color 0.6s ease;
+	text-align: center;
 }
 
 .landingbtn-link2 {
@@ -37,11 +37,12 @@
 }
 
 .landingbtn-link:hover {
-	background-color: #546f6f;
+	background-color: #864daf;
+	color: #000000;
 }
 
 .landingbtn-link2:hover {
-	background-color: #546f6f;
+	background-color: #23c9c9;
 }
 
 .landingnav-color {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./tailwind.css";
-// import "./landing.css"; // Import your CSS file
+import "./landing.css"; // Import your CSS file
 import mainpicture from "../assets/mainpicture.png";
 import pic1 from "../assets/pic1.jpg";
 import pic2 from "../assets/pic2.jpg";
@@ -29,18 +29,18 @@ function Landing() {
 									<Typography>اخبار</Typography>
 								</Link>
 							</li> */}
-							<li>
+							<li className="landingbtn-link" >
 								<Link
 									to="/login"
-									className="landingbtn-link">
-									ورود
+									>
+									<Typography >ورود</Typography>
 								</Link>
 							</li>
-							<li>
+							<li className="landingbtn-link">
 								<Link
 									to="/register"
-									className="landingbtn-link">
-									ثبت نام
+									>
+									<Typography >ثبت نام</Typography>
 								</Link>
 							</li>
 						</ul>
@@ -173,7 +173,7 @@ function Landing() {
 					<div className="column-1">
 						<Link
 							to="/contactus"
-							className="hover:text-gray-300 ml-4">
+							className="hover:text-gray-300 ml-4 mb-2">
 							<Typography>تماس با ما</Typography>
 						</Link>
 						<Link
