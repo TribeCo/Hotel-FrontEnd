@@ -6,6 +6,7 @@ const baseUrl = "https://hotelback.iran.liara.run";
 
 function RoomCard({ res }) {
 	if (res.room) {
+		console.log(res);
 		return (
 			<>
 				<Paper
@@ -27,14 +28,14 @@ function RoomCard({ res }) {
 							</Typography>
 
 							<Typography>
-								شما این اتاق را از تاریخ{" "}
-								{moment(res.check_in, "YYYY-M-D")
+								شما این اتاق را در تاریخ{" "}
+								{moment(res.created, "YYYY-M-D")
 									.endOf("jMonth")
 									.format("jYYYY/jM/jD")}{" "}
-								تا تاریخ{" "}
-								{moment(res.check_out, "YYYY-M-D")
+								{/* تا تاریخ */}
+								{/* {moment(res.check_out, "YYYY-M-D")
 									.endOf("jMonth")
-									.format("jYYYY/jM/jD")}{" "}
+									.format("jYYYY/jM/jD")} */}
 								رزرو کرده اید .
 							</Typography>
 						</Container>
