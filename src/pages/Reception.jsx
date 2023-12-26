@@ -28,7 +28,7 @@ const Reception = () => {
 		const fetchData = async () => {
 			try {
 				setLoading(true);
-				const res = await Room.getAll({ authToken: accessToken });
+				const res = await Room.getAllReservation({ authToken: accessToken });
 				console.log(res.data);
 				setGuestList(res.data);
 				setLoading(false);

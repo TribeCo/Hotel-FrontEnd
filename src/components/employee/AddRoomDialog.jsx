@@ -17,31 +17,40 @@ import {
 
 const AddRoomDialog = ({ open, handleClose, handleAddRoom }) => {
 	const roomTypes = {
-		v: "وی آی پی",
-		n: "عادی",
+		v: "VIP",
+		o: "معمولی",
 	};
 
 	const validationSchema = Yup.object({
 		type: Yup.string().required("نوع اتاق الزامی است"),
-		bedCount: Yup.number().typeError("ورودی باید یک عدد باشد").required("تعداد تخت ها الزامی است"),
-		priceOneNight: Yup.number().typeError("ورودی باید یک عدد باشد").required("قیمت رزرو هر شب الزامی است"),
+		number: Yup.number()
+			.typeError("ورودی باید یک عدد باشد")
+			.required("تعداد تخت ها الزامی است"),
+		bed_count: Yup.number()
+			.typeError("ورودی باید یک عدد باشد")
+			.required("تعداد تخت ها الزامی است"),
+		price_one_night: Yup.number()
+			.typeError("ورودی باید یک عدد باشد")
+			.required("قیمت رزرو هر شب الزامی است"),
 		// features: (no validation)
 	});
 
 	const formik = useFormik({
 		initialValues: {
+			number: "",
 			type: "",
-			bedCount: "",
-			priceOneNight: "",
+			bed_count: "",
+			price_one_night: "",
 			features: "",
 			image: null,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
 			handleAddRoom({
+				number: values.number,
 				type: values.type,
-				bedCount: values.bedCount,
-				priceOneNight: values.priceOneNight,
+				bed_count: values.bed_count,
+				price_one_night: values.price_one_night,
 				features: values.features,
 				image: values.image,
 			});
@@ -76,38 +85,47 @@ const AddRoomDialog = ({ open, handleClose, handleAddRoom }) => {
 						))}
 					</Select>
 					<TextField
-						label="تعداد تخت ها"
-						name="bedCount"
-						value={formik.values.bedCount}
+						label="شماره اتاق"
+						name="number"
+						value={formik.values.number}
 						onChange={formik.handleChange}
 						fullWidth
 						margin="normal"
-						error={formik.touched.bedCount && Boolean(formik.errors.bedCount)}
-						helperText={formik.touched.bedCount && formik.errors.bedCount}
+						error={formik.touched.number && Boolean(formik.errors.number)}
+						helperText={formik.touched.number && formik.errors.number}
+					/>
+					<TextField
+						label="تعداد تخت ها"
+						name="bed_count"
+						value={formik.values.bed_count}
+						onChange={formik.handleChange}
+						fullWidth
+						margin="normal"
+						error={formik.touched.bed_count && Boolean(formik.errors.bed_count)}
+						helperText={formik.touched.bed_count && formik.errors.bed_count}
 					/>
 					<TextField
 						label="قیمت رزرو هر شب"
-						name="priceOneNight"
-						value={formik.values.priceOneNight}
+						name="price_one_night"
+						value={formik.values.price_one_night}
 						onChange={formik.handleChange}
 						fullWidth
 						margin="normal"
 						error={
-							formik.touched.priceOneNight && Boolean(formik.errors.priceOneNight)
+							formik.touched.price_one_night &&
+							Boolean(formik.errors.price_one_night)
 						}
 						helperText={
-							formik.touched.priceOneNight && formik.errors.priceOneNight
+							formik.touched.price_one_night && formik.errors.price_one_night
 						}
 					/>
-
 					<Box
 						sx={{
 							mt: 2,
 							display: "flex",
 							justifyContent: "space-between",
 							alignItems: "center",
-						}}
-					>
+						}}>
 						<Button
 							variant="contained"
 							component="label"
@@ -116,8 +134,7 @@ const AddRoomDialog = ({ open, handleClose, handleAddRoom }) => {
 								borderRadius: 2,
 								bgcolor: "#F8F8F2",
 								textTransform: "none",
-							}}
-						>
+							}}>
 							انتخاب تصویر
 							<input
 								id="image"
@@ -131,15 +148,9 @@ const AddRoomDialog = ({ open, handleClose, handleAddRoom }) => {
 							/>
 						</Button>
 						{formik.values.image && (
-							<Typography>
-								{formik.values.image.name}
-							</Typography>
+							<Typography>{formik.values.image.name}</Typography>
 						)}
 					</Box>
-
-
-
-
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose}>لغو</Button>

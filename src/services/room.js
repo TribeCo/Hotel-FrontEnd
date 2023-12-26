@@ -40,6 +40,17 @@ class Room {
 		return axios.post(url, data, config);
 	};
 
+	// @Desc get Reservation All Reservation Room
+	static getAllReservation = ({ authToken }) => {
+		const url = `${baseUrl}/reservation/all/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.get(url, config);
+	};
 	// @Desc get All Room
 	static getAll = ({ authToken }) => {
 		const url = `${baseUrl}/type/`;
@@ -78,7 +89,7 @@ class Room {
 
 	// @Desc edit Room info with id
 	static edit = ({ uid, data, authToken }) => {
-		const url = `${baseUrl}/update/${uid}/`;
+		const url = `${baseUrl}/type/update/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",

@@ -9,7 +9,6 @@ import Loading from "../components/utils/Loading";
 import { Fab, Typography } from "@mui/material";
 import { AddCircle } from "@mui/icons-material";
 import AddRoomDialog from "./employee/AddRoomDialog";
-
 function AllRoom() {
 	const [openAddDialog, setOpenAddDialog] = useState(false); // Ceate
 	const [loading, setLoading] = useState(false);
@@ -53,14 +52,10 @@ function AllRoom() {
 	const handleAddRoom = async (data) => {
 		try {
 			setLoading(true);
-			const res = await Admin.create({ data: data, authToken: accessToken });
-			if (res.status === 201) {
-				const d = await Admin.getAll({ authToken: accessToken });
-				console.log(d);
-				if (d.status === 200) {
-					cardData(d.data);
-				}
-			}
+			await Room.create({ data: data, authToken: accessToken });
+			const d = await Room.getAll({ authToken: accessToken });
+			console.log(d);
+			setCardData(d.data);
 			setLoading(false);
 		} catch (error) {
 			console.log(error);
@@ -92,11 +87,11 @@ function AllRoom() {
 					<Typography>افزودن اتاق</Typography>
 				</Fab>
 				{openAddDialog && (
-							<AddRoomDialog
-								open={openAddDialog}
-								handleClose={handleClose}
-								handleAddRoom={handleAddRoom}
-							/>
+					<AddRoomDialog
+						open={openAddDialog}
+						handleClose={handleClose}
+						handleAddRoom={handleAddRoom}
+					/>
 				)}
 
 				<div
@@ -119,8 +114,9 @@ function AllRoom() {
 											alt={`Image for Card ${index + 1}`}
 										/>
 										<div>
-											<h5 className=" font-semibold mb-2 allroomcard-header-text">{` ${cardInfo.price_one_night
-												} : ${index + 1} قیمت اتاق`}</h5>
+											<h5 className=" font-semibold mb-2 allroomcard-header-text">{` ${
+												cardInfo.price_one_night
+											} : ${index + 1} قیمت اتاق`}</h5>
 											<p className=" allroomcard-text">توضیحات</p>
 										</div>
 									</div>
@@ -206,7 +202,7 @@ function AllRoom() {
 										بدون فیلتر
 									</label>
 								</div>
-								<div class="small-card right-card px-4">
+								{/* <div class="small-card right-card px-4">
 									<div class="card-text">قیمت</div>
 									<input
 										type="range"
@@ -222,7 +218,7 @@ function AllRoom() {
 										class="slider text-center mt-2">
 										تومان 1500000
 									</div>
-								</div>
+								</div> */}
 								<button
 									id="applyButton"
 									class="custom-button "

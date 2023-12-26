@@ -44,14 +44,10 @@ const Allfood = () => {
 	const handleAddFood = async (data) => {
 		try {
 			setLoading(true);
-			const res = await Admin.create({ data: data, authToken: accessToken });
-			if (res.status === 201) {
-				const d = await Admin.getAll({ authToken: accessToken });
-				console.log(d);
-				if (d.status === 200) {
-					cardData(d.data);
-				}
-			}
+			const res = await Food.create({ data: data, authToken: accessToken });
+			const d = await Food.getAll({ authToken: accessToken });
+			console.log(res);
+			setCardData(d.data);
 			setLoading(false);
 		} catch (error) {
 			console.log(error);
@@ -83,11 +79,11 @@ const Allfood = () => {
 					<Typography>افزودن غذا</Typography>
 				</Fab>
 				{openAddDialog && (
-							<AddFoodDialog 
-								open={openAddDialog}
-								handleClose={handleClose}
-								handleAddFood={handleAddFood}
-							/>
+					<AddFoodDialog
+						open={openAddDialog}
+						handleClose={handleClose}
+						handleAddFood={handleAddFood}
+					/>
 				)}
 
 				<div className=" bg-cover  flex flex-col justify-center items-center allfoodbody">
@@ -116,7 +112,7 @@ const Allfood = () => {
 								</Link>
 							))}
 						</div>
-						<button
+						{/* <button
 							className="absolute top-24 right-2 -mt-3 -mr-3  "
 							id="calendarButton"
 							onClick={handleCalendarButtonClick}>
@@ -127,7 +123,7 @@ const Allfood = () => {
 								height="40px"
 								className="allfooditem-bg   p-2"
 							/>
-						</button>
+						</button> */}
 					</div>
 
 					{isCalendarOpen && (

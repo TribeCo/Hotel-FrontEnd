@@ -131,7 +131,8 @@ const DashboardLayout = () => {
 					const response = await User.getOne({ accessToken: accessToken });
 					setUser(response.data);
 				} catch (error) {
-					console.error("Error fetching data:", error);
+					alert("شما به محتوا درخواست شده دسترسی ندارید لطفا ابتدا وارد شوید.");
+					Navigate("/");
 				}
 			}
 		};
