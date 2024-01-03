@@ -28,24 +28,12 @@ const EditEmployeeDialog = ({
 	};
 
 	const validationSchema = Yup.object({
-		firstName: Yup.string().required("نام الزامی است"),
-		lastName: Yup.string().required("نام خانوادگی الزامی است"),
-		nationalCode: Yup.string()
-			.required("کد ملی الزامی است")
-			.matches(/^\d{10}$/, "کد ملی باید ۱۰ رقم باشد"),
 		role: Yup.string().required("مقام الزامی است"),
-		email: Yup.string()
-			.email("آدرس ایمیل معتبر نیست")
-			.required("ایمیل الزامی است"),
 	});
 
 	const formik = useFormik({
 		initialValues: {
-			firstName: employeeData.firstName || "",
-			lastName: employeeData.lastName || "",
-			nationalCode: employeeData.nationalCode || "",
 			role: employeeData.role || "",
-			email: employeeData.email || "",
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
@@ -58,10 +46,10 @@ const EditEmployeeDialog = ({
 		<Dialog
 			open={open}
 			onClose={handleClose}>
-			<Box sx={{ m: 2 }}>
-				<DialogTitle align="center">ویرایش کارمند</DialogTitle>
+			<Box sx={{ m: 2, minWidth: 300 }}>
+				<DialogTitle align="center">ویرایش مقام کارمند</DialogTitle>
 				<DialogContent>
-					<TextField
+					{/* <TextField
 						label="نام"
 						name="firstName"
 						value={formik.values.firstName}
@@ -94,7 +82,7 @@ const EditEmployeeDialog = ({
 						helperText={
 							formik.touched.nationalCode && formik.errors.nationalCode
 						}
-					/>
+					/> */}
 					<InputLabel id="role-label">مقام</InputLabel>
 					<Select
 						label="مقام"
@@ -113,7 +101,7 @@ const EditEmployeeDialog = ({
 							</MenuItem>
 						))}
 					</Select>
-					<TextField
+					{/* <TextField
 						label="ایمیل"
 						name="email"
 						value={formik.values.email}
@@ -122,7 +110,7 @@ const EditEmployeeDialog = ({
 						margin="normal"
 						error={formik.touched.email && Boolean(formik.errors.email)}
 						helperText={formik.touched.email && formik.errors.email}
-					/>
+					/> */}
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose}>لغو</Button>

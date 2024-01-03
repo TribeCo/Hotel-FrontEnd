@@ -34,11 +34,16 @@ const validationSchema = Yup.object().shape({
 });
 
 const ProfilePage = () => {
-	const { accessToken } = useAuth();
+	const { accessToken, logout } = useAuth();
 	const [user, setUser] = useState(null);
 	const [image, setImage] = useState(null);
 	const Navigate = useNavigate();
 	const [isEditMode, setIsEditMode] = useState(false);
+
+	const handleLogout = () => {
+		logout();
+		Navigate("/login");
+	};
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -73,6 +78,7 @@ const ProfilePage = () => {
 			console.log(error);
 		}
 	};
+	//
 	const fileInputRef = useRef(null);
 	const handleAvatarClick = () => {
 		fileInputRef.current.click();
@@ -200,7 +206,7 @@ const ProfilePage = () => {
 										</Typography>
 									</Button>
 									<Button
-										onClick={() => Navigate("/logout")}
+										onClick={handleLogout}
 										fullWidth
 										variant="contained"
 										sx={{

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "api/food";
+const baseUrl = "/api/food";
 
 //? Food Api
 class Food {
@@ -16,6 +16,29 @@ class Food {
 		return axios.get(url, config);
 	};
 
+	// @Desc get All Food
+	static getAllFood = ({ authToken }) => {
+		const url = `${baseUrl}/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.get(url, config);
+	};
+
+	static delivered = ({ uid, data, authToken }) => {
+		const url = `${baseUrl}/reservation/delivery/${uid}/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.put(url, data, config);
+	};
+
 	// @Desc upload food image
 	static uploadImage = ({ uid, data, authToken }) => {
 		const url = `${baseUrl}/upload/${uid}/`;
@@ -28,9 +51,21 @@ class Food {
 		return axios.post(url, data, config);
 	};
 
-	// @Desc get All Food
+	// @Desc get All res
 	static getAll = ({ authToken }) => {
-		const url = `${baseUrl}/`;
+		const url = `${baseUrl}/reservation/all/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.get(url, config);
+	};
+
+	// @Desc get User All Food
+	static getUserAll = ({ authToken }) => {
+		const url = `${baseUrl}/reservation/user/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",

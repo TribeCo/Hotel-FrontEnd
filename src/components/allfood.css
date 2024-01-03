@@ -17,7 +17,7 @@
 	height: 70px;
 }
 #allfoodcardContainer {
-	max-height: 700px ;
+	max-height: 600px ;
 	overflow-y: auto;
 	scrollbar-width: none; /* Enable vertical scrolling */
 	border-color: #271c15;
@@ -37,7 +37,7 @@
 	flex-direction: column;
 	justify-content: center;
 	justify-items: center;
-	min-height: 92vh;
+	min-height: 100vh;
 	z-index: -1;
 }
 .allfoodtext {

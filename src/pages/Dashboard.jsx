@@ -4,7 +4,6 @@ import {
 	Divider,
 	Grid,
 	Typography,
-	Button,
 	Paper,
 	Container,
 } from "@mui/material";
@@ -12,31 +11,38 @@ import { AttachMoneyOutlined } from "@mui/icons-material";
 import { useAuth } from "../context/AuthContext";
 import AvatarCard from "../components/dashboard/AvatarCard";
 import RoomCard from "../components/dashboard/RoomCard";
+import Loading from "../components/utils/Loading";
 import Room from "../services/room";
+import Food from "../services/food";
 
 const baseUrl = "https://hotelback.iran.liara.run";
 
-const DashboardPage = (props) => {
+const DashboardPage = ({ user, payment, setPayment }) => {
 	const [room, setRoom] = useState([]);
 	const { accessToken } = useAuth();
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
+				setLoading(true);
+				const resRoom = await Room.getUserAll({ authToken: accessToken });
+				const resFood = await Food.getUserAll({ authToken: accessToken });
+				setPayment({
+					room: resRoom.data.payments,
+					food: resFood.data.payments,
+				});
 				const res = await Room.getUserRoom({ authToken: accessToken });
-				console.log(res.data);
-				if (res.status === 200) {
-					setRoom(res.data);
-				}
+				setRoom(res.data.payments[0]);
+				setLoading(false);
 			} catch (error) {
-				console.log(error);
+				alert(error);
+				setLoading(false);
 			}
 		};
 		fetchData();
 	}, [accessToken]);
-	const user = props.user;
-	console.log(user);
-	if (user) {
+	if (!loading) {
 		return (
 			<Container
 				maxWidth="lg"
@@ -49,7 +55,7 @@ const DashboardPage = (props) => {
 						xs={12}
 						md={8}
 						lg={9}>
-						<RoomCard res={room ? true : false} />
+						<RoomCard res={room} />
 					</Grid>
 					<Grid
 						item
@@ -84,7 +90,7 @@ const DashboardPage = (props) => {
 									p: 2,
 								}}>
 								<Typography>رزرو اتاق : </Typography>
-								<Typography> {"2000000"} تومان</Typography>
+								<Typography> {Sum(payment.room)} تومان</Typography>
 							</Box>
 							<Box
 								sx={{
@@ -93,16 +99,7 @@ const DashboardPage = (props) => {
 									p: 2,
 								}}>
 								<Typography>رستوران : </Typography>
-								<Typography> {"1620000"} تومان</Typography>
-							</Box>
-							<Box
-								sx={{
-									display: "flex",
-									justifyContent: "space-between",
-									p: 2,
-								}}>
-								<Typography>تخفیف : </Typography>
-								<Typography> {"20000"} تومان</Typography>
+								<Typography> {Sum(payment.food)} تومان</Typography>
 							</Box>
 							<Divider />
 							<Box
@@ -112,14 +109,25 @@ const DashboardPage = (props) => {
 									p: 2,
 								}}>
 								<Typography>{"مجموع مبلغ قابل پرداخت :"}</Typography>
-								<Typography> {"3600000"}</Typography>
+								<Typography>{Sum(payment.room) + Sum(payment.food)}</Typography>
 							</Box>
 						</Paper>
 					</Grid>
 				</Grid>
 			</Container>
 		);
+	} else {
+		return <Loading />;
 	}
 };
 
 export default DashboardPage;
+
+const Sum = (array) => {
+	let sum = 0;
+	array.map((value) => {
+		sum += value.remain_paid;
+	});
+
+	return sum;
+};
