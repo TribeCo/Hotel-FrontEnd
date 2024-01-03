@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./tailwind.css";
-import "./landing.css"; // Import your CSS file
+// import "./landing.css"; // Import your CSS file
 import mainpicture from "../assets/mainpicture.png";
 import pic1 from "../assets/pic1.jpg";
 import pic2 from "../assets/pic2.jpg";
