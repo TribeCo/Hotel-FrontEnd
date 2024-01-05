@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 
-
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../layouts/DashboardLayout";
@@ -11,6 +10,7 @@ import ContactUs from "../pages/ContactUs";
 import Eachroom from "../pages/EachRoom";
 import Eachfood from "../pages/EachFood";
 import Landing from "../components/landing";
+import ForgetPassword from "../pages/ForgetPassword";
 
 const Router = () => {
 	return (
@@ -31,9 +31,13 @@ const Router = () => {
 				path="/login"
 				element={<Login />}
 			/>
-			<Route
+			{/* <Route
 				path="/logout"
 				element={<Login />}
+			/> */}
+			<Route
+				path="/forget-password"
+				element={<ForgetPassword />}
 			/>
 			<Route
 				path="/register"

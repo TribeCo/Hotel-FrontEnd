@@ -16,7 +16,7 @@ function ListRow(props) {
 	const [open, setOpen] = useState(false);
 	return (
 		<>
-			<TableRow key={/*guest.user.id*/ "2"}>
+			<TableRow key={guest.user.id}>
 				<TableCell>
 					<IconButton
 						aria-label="expand row"
@@ -87,7 +87,9 @@ function ListRow(props) {
 								<Typography sx={{ mt: 1 }}>
 									{/*guest.check_out*/ "1402/11/30"}
 								</Typography>
-								<Typography sx={{ mt: 1 }}>{guest.remain_paid}</Typography>
+								<Typography sx={{ mt: 1 }}>
+									{guest.remain_paid + " " + "تومان"}
+								</Typography>
 							</Box>
 						</Box>
 						<Box

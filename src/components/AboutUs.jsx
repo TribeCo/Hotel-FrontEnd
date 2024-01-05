@@ -1,11 +1,15 @@
 import React from "react";
 import "./aboutus.css";
 import "./tailwind.css";
-import pic from "../assets/pic.jpg";
+import Images from "../assets/images";
+// import pic from "../assets/pic.jpg";
 import icon from "../assets/icon.png";
 import { Link } from "react-router-dom";
 import { Group } from "@mui/icons-material";
 import { Typography } from "@mui/material";
+
+const pic = Images.pic;
+
 function AboutUs() {
 	return (
 		<div

@@ -40,15 +40,18 @@ class Food {
 	};
 
 	// @Desc upload food image
-	static uploadImage = ({ uid, data, authToken }) => {
-		const url = `${baseUrl}/upload/${uid}/`;
+	static uploadImage = ({ uid, file, authToken }) => {
+		const formData = new FormData();
+		formData.append("image", file);
+
+		const url = `${baseUrl}/update/image/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "multipart/form-data",
 				Authorization: `Bearer ${authToken}`,
 			},
 		};
-		return axios.post(url, data, config);
+		return axios.put(url, formData, config);
 	};
 
 	// @Desc get All res

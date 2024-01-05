@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import bk from "../assets/eachroom.png";
 import { useNavigate } from "react-router-dom";
 import Room from "../services/room";
 import {
@@ -23,6 +22,7 @@ import User from "../services/user";
 import CommentList from "../components/commentList";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import Loading from "../components/utils/Loading";
+import ResRoomDialog from "../components/ResRoomDialog";
 
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -48,6 +48,14 @@ const Eachroom = () => {
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [isCommentListOpen, setCommentListOpen] = useState(false);
 	const Navigate = useNavigate();
+	const [openResDialog, setOpenResDialog] = useState(false);
+
+	const handleResBTN = () => {
+		setOpenResDialog(true);
+	};
+	const handleClose = () => {
+		setOpenResDialog(false);
+	};
 
 	const toggleCommentList = () => {
 		setCommentListOpen(!isCommentListOpen);
@@ -75,9 +83,9 @@ const Eachroom = () => {
 		};
 		fetchData();
 	}, [accessToken]);
-
 	const sendComment = async (comment) => {
 		try {
+			setLoading(true);
 			const url = "/api/accounts/comments/room/create/";
 			const config = {
 				headers: {
@@ -85,12 +93,20 @@ const Eachroom = () => {
 					Authorization: `Bearer ${accessToken}`,
 				},
 			};
+
 			const data = {
 				text: comment,
 				room_id: id,
 				user_id: user.id,
+				rating: 5,
 			};
 			const res = await Axios.post(url, data, config);
+			const roomRes = await Room.getOne({
+				uid: id,
+				authToken: accessToken,
+			});
+			setRoom(roomRes.data);
+			setLoading(false);
 			console.log(res);
 		} catch (error) {
 			console.log(error);
@@ -114,11 +130,6 @@ const Eachroom = () => {
 		}
 	};
 
-	const [date, setDate] = useState("");
-
-	const handleChange = (event) => {
-		setDate(event.target.value);
-	};
 	if (!loading) {
 		return (
 			<Grid
@@ -132,13 +143,13 @@ const Eachroom = () => {
 					sm={4}
 					md={7}
 					sx={{
-						backgroundImage: `url(${room.image ? room.image : bk})`, //TODO: get room image from back-end and give backgroundImage it's url??
+						backgroundImage: `url(${room.image})`, //TODO: get room image from back-end and give backgroundImage it's url??
 						backgroundSize: "cover",
 						backgroundPosition: "center",
 					}}>
 					<CommentList
 						sendComment={sendComment}
-						comments={room.comments} //TODO: all comments should be here as an array like this: [ {id: 0, text: "..."}, {id: 1, text: "..."}, ... ]??
+						comments={room.comments}
 						isOpen={isCommentListOpen}
 						onClose={toggleCommentList}
 					/>
@@ -165,14 +176,14 @@ const Eachroom = () => {
 							<CssBaseline />
 							<Box
 								sx={{
-									marginTop: 19,
+									marginTop: 20,
 									display: "flex",
 									flexDirection: "column",
 									alignItems: "center",
 								}}>
 								<Grid
 									container
-									spacing={2}>
+									spacing={1}>
 									<Grid
 										item
 										container
@@ -221,18 +232,12 @@ const Eachroom = () => {
 											item
 											mb={2}
 											xs={6}>
-											<FormControl fullWidth>
-												<InputLabel>تاریخ رزرو اتاق</InputLabel>
-												<Select
-													label="تاریخ رزرو اتاق"
-													value={date}
-													onChange={handleChange}>
-													<MenuItem value={1}>option1</MenuItem>{" "}
-													{/* TODO: show real options from db?? */}
-													<MenuItem value={2}>option2</MenuItem>
-													<MenuItem value={3}>option3</MenuItem>
-												</Select>
-											</FormControl>
+											<TextField
+												disabled
+												fullWidth
+												label="قیمت هر شب"
+												defaultValue={room.price_one_night}
+											/>
 										</Grid>
 									</Grid>
 									<Grid
@@ -240,28 +245,17 @@ const Eachroom = () => {
 										mb={2}
 										xs={12}>
 										<TextField
-											disabled
-											fullWidth
-											label="قیمت هر شب"
-											defaultValue={room.price_one_night} //TODO: default value for room??
-										/>
-									</Grid>
-									<Grid
-										item
-										mb={2}
-										xs={12}>
-										<TextField
 											multiline
-											rows={6}
+											rows={5}
 											disabled
 											fullWidth
 											label="توضیحات"
-											defaultValue={room.features} //TODO: default value for desc??
+											defaultValue={room.features}
 										/>
 									</Grid>
 								</Grid>
 								<Button
-									onClick={() => Navigate("/dashboard")} //TODO: save room order and Navigate to dashboard??
+									onClick={handleResBTN}
 									fullWidth
 									variant="contained"
 									sx={{
@@ -298,6 +292,13 @@ const Eachroom = () => {
 								</Button>
 							</Box>
 						</Container>
+						{openResDialog && (
+							<ResRoomDialog
+								open={openResDialog}
+								handleClose={handleClose}
+								handleAddEmployee={() => {}}
+							/>
+						)}
 					</Grid>
 				) : (
 					// Edit mood:
@@ -308,16 +309,6 @@ const Eachroom = () => {
 						md={5}
 						elevation={6}
 						square>
-						{/* <Fab
-							onClick={() => toggleCommentList()}
-							variant="extended"
-							style={{
-								position: "fixed",
-								margin: "16px",
-							}}>
-							<Typography variant="h6">مشاهده نظرات</Typography>
-							<CommentOutlinedIcon sx={{ ml: 1 }} />
-						</Fab> */}
 						<Container maxWidth="xs">
 							<CssBaseline />
 							<Box

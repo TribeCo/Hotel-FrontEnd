@@ -24,21 +24,24 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 
 	useEffect(() => {
 		const fetchData = async () => {
+			setLoading(true);
 			try {
-				setLoading(true);
 				const resRoom = await Room.getUserAll({ authToken: accessToken });
 				const resFood = await Food.getUserAll({ authToken: accessToken });
 				setPayment({
 					room: resRoom.data.payments,
 					food: resFood.data.payments,
 				});
-				const res = await Room.getUserRoom({ authToken: accessToken });
-				setRoom(res.data.payments[0]);
-				setLoading(false);
 			} catch (error) {
 				alert(error);
-				setLoading(false);
 			}
+			try {
+				const res = await Room.getUserRoom({ authToken: accessToken });
+				setRoom(res.data.payments[0]);
+			} catch (error) {
+				alert(error);
+			}
+			setLoading(false);
 		};
 		fetchData();
 	}, [accessToken]);
@@ -54,14 +57,14 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 						item
 						xs={12}
 						md={8}
-						lg={9}>
+						lg={8}>
 						<RoomCard res={room} />
 					</Grid>
 					<Grid
 						item
 						xs={12}
 						md={4}
-						lg={3}>
+						lg={4}>
 						<AvatarCard
 							fullname={user.firstName + " " + user.lastName}
 							Photo={baseUrl + user.image}
@@ -109,7 +112,9 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 									p: 2,
 								}}>
 								<Typography>{"مجموع مبلغ قابل پرداخت :"}</Typography>
-								<Typography>{Sum(payment.room) + Sum(payment.food)}</Typography>
+								<Typography>
+									{Sum(payment.room) + Sum(payment.food)} تومان
+								</Typography>
 							</Box>
 						</Paper>
 					</Grid>

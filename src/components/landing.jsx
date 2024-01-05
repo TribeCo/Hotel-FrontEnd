@@ -1,14 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./tailwind.css";
-// import "./landing.css"; // Import your CSS file
-import mainpicture from "../assets/mainpicture.png";
-import pic1 from "../assets/pic1.jpg";
-import pic2 from "../assets/pic2.jpg";
-import pic3 from "../assets/pic3.jpg";
+import "./landing.css";
 import { Group } from "@mui/icons-material";
 import { Typography } from "@mui/material";
-import des from "../assets/des.jpg";
+
+import Images from "../assets/images";
+const mainpicture = Images.mainPicture;
+const pic1 = Images.pic1;
+const pic2 = Images.pic2;
+const pic3 = Images.pic3;
+const des = Images.des;
 
 function Landing() {
 	return (
@@ -29,18 +31,14 @@ function Landing() {
 									<Typography>اخبار</Typography>
 								</Link>
 							</li> */}
-							<li className="landingbtn-link" >
-								<Link
-									to="/login"
-									>
-									<Typography >ورود</Typography>
+							<li className="landingbtn-link">
+								<Link to="/login">
+									<Typography>ورود</Typography>
 								</Link>
 							</li>
 							<li className="landingbtn-link">
-								<Link
-									to="/register"
-									>
-									<Typography >ثبت نام</Typography>
+								<Link to="/register">
+									<Typography>ثبت نام</Typography>
 								</Link>
 							</li>
 						</ul>
