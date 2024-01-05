@@ -19,6 +19,7 @@ import User from "../services/user";
 import { ArrowBack } from "@mui/icons-material";
 import { useAuth } from "../context/AuthContext";
 import Loading from "../components/utils/Loading";
+import Images from "../assets/images";
 const baseUrl = "https://hotelback.iran.liara.run";
 
 const validationSchema = Yup.object().shape({
@@ -122,8 +123,7 @@ const ProfilePage = () => {
 						sm={4}
 						md={7}
 						sx={{
-							backgroundImage:
-								"url(https://s3-alpha-sig.figma.com/img/f07c/e803/405bb6467b3514e734834c00fd24a0c0?Expires=1702857600&Signature=REfAd0AbWTq7mx7skFM53HG7qQlQn8AW7YlGnc9t1eGO6if9-Ap8jAqkLtJAurBVOjTNMqZFzC7wtJzz4ZWOpEYx8gslxKUXRSgIB4CYSCTX~6sod8ML8IElhDkN8GSbWOOJOClK82rmZVL4gd4byfoUorjZbVHNbkQ0UGp~pMkjtALoz75TILepu7uO9ppbHOseyVGcStgBZwU0MvTfuoggcLP2AcqM~6aXI8yvDEIhfFtSKAhxXXZiUnQNh7ts2DQ6HGS2JQXz7J~rj15FBDt5AiTiSUWyKZr5WYbdGeZ3ZIevpCLyw1w~PVQH56bsX3cOshK7OOcXy~xiDqQpWA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4)",
+							backgroundImage: `url(${Images.profileBG})`,
 							backgroundSize: "cover",
 							backgroundPosition: "center",
 						}}></Grid>

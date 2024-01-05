@@ -17,7 +17,7 @@
 	height: 70px;
 }
 #allfoodcardContainer {
-	max-height: 600px ;
+	max-height: 600px;
 	overflow-y: auto;
 	scrollbar-width: none; /* Enable vertical scrolling */
 	border-color: #271c15;
@@ -28,7 +28,7 @@
 	display: none;
 }
 .allfoodbody {
-	background-image: url(../assets/Allfood.png);
+	background-image: url(https://hotelt.liara.run/images/front/Allfood.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -52,7 +52,7 @@
 }
 .allfoodcard {
 	border-radius: 25px;
-	background: #1B0000;
+	background: #1b0000;
 	width: 438px;
 	height: 198px;
 }
@@ -68,7 +68,6 @@
 }
 .allfooditem-bg {
 	background-color: rgba(0, 0, 0, 0.25);
-	
 }
 .allfoodimage {
 	width: 185px;

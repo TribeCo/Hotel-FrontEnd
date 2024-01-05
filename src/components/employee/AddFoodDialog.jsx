@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -15,50 +15,51 @@ import {
 	Typography,
 } from "@mui/material";
 
-const AddFoodDialog = ({ open, handleClose, handleAddFood }) => {
-	const mealChoice = {
-		m: "صبحانه",
-		d: "ناهار",
-		n: "شام",
-	};
+const AddFoodDialog = ({
+	open,
+	handleClose,
+	handleAddFood,
+	handleUploadImage,
+}) => {
+	// const [image, setImage] = useState(null);
+	// const mealChoice = {
+	// 	m: "صبحانه",
+	// 	d: "ناهار",
+	// 	n: "شام",
+	// };
 
 	const validationSchema = Yup.object({
 		price: Yup.number()
 			.positive("ورودی باید یک عدد مثبت باشد")
 			.required("قیمت الزامی است"),
 		name: Yup.string().required("نام غذا الزامی است"),
-		// meal: Yup.string().required("وعده غذایی الزامی است"),
-		type: Yup.string().required("توضیحات الزامی است"),
-		// count: Yup.number()
-		// 	.typeError("ورودی باید یک عدد باشد")
-		// 	.required("تعداد غذا الزامی است"),
+		description: Yup.string().required("توضیحات الزامی است"),
 	});
 
 	const formik = useFormik({
 		initialValues: {
 			price: "",
 			name: "",
-			meal: "",
-			type: "",
+			description: "",
 			count: "",
-			image: null,
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
 			handleAddFood({
-				price: values.price,
-				name: values.name,
-				meal: "d",
-				type: values.type,
-				count: 100,
-				image: values.image,
-				date: "1402-آذر-20",
-				day: "2023-12-11",
+				info: {
+					price: values.price,
+					name: values.name,
+					description: values.description,
+					count: 100,
+					day: "2023-12-11",
+				},
+				image: {
+					file: values.image,
+				},
 			});
 			handleClose();
 		},
 	});
-
 	return (
 		<Dialog
 			fullWidth
@@ -77,35 +78,6 @@ const AddFoodDialog = ({ open, handleClose, handleAddFood }) => {
 						error={formik.touched.name && Boolean(formik.errors.name)}
 						helperText={formik.touched.name && formik.errors.name}
 					/>
-
-					{/* <InputLabel id="meal-label">وعده غذایی</InputLabel>
-					<Select
-						labelId="meal-label"
-						id="meal"
-						name="meal"
-						value={formik.values.meal}
-						onChange={formik.handleChange}
-						fullWidth
-						margin="normal"
-						error={formik.touched.meal && Boolean(formik.errors.meal)}>
-						{Object.entries(mealChoice).map(([key, value]) => (
-							<MenuItem
-								key={key}
-								value={key}>
-								{value}
-							</MenuItem>
-						))}
-					</Select> */}
-					{/* <TextField
-						label="تعداد موجود از غذا"
-						name="count"
-						value={formik.values.count}
-						onChange={formik.handleChange}
-						fullWidth
-						margin="normal"
-						error={formik.touched.count && Boolean(formik.errors.count)}
-						helperText={formik.touched.count && formik.errors.count}
-					/> */}
 					<TextField
 						label="قیمت"
 						name="price"
@@ -120,13 +92,15 @@ const AddFoodDialog = ({ open, handleClose, handleAddFood }) => {
 						label="توضیحات"
 						multiline
 						rows={4}
-						name="type"
-						value={formik.values.type}
+						name="description"
+						value={formik.values.description}
 						onChange={formik.handleChange}
 						fullWidth
 						margin="normal"
-						error={formik.touched.type && Boolean(formik.errors.type)}
-						helperText={formik.touched.type && formik.errors.type}
+						error={
+							formik.touched.description && Boolean(formik.errors.description)
+						}
+						helperText={formik.touched.description && formik.errors.description}
 					/>
 					<Box
 						sx={{

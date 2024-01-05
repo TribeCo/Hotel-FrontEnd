@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
 import Axios from "axios";
-import bk from "../assets/eachfood.png";
+// import bk from "../assets/eachfood.png";
 import User from "../services/user";
 import Food from "../services/food";
 import { useParams } from "react-router-dom";
@@ -73,6 +73,7 @@ const Eachfood = () => {
 
 	const sendComment = async (comment) => {
 		try {
+			setLoading(true);
 			const url = "/api/accounts/comments/food/create/";
 			const config = {
 				headers: {
@@ -84,8 +85,16 @@ const Eachfood = () => {
 				text: comment,
 				food_id: id,
 				user_id: user.id,
+				rating: 5,
 			};
+			console.log(data);
 			const res = await Axios.post(url, data, config);
+			const foodRes = await Food.getOne({
+				uid: id,
+				authToken: accessToken,
+			});
+			setFood(foodRes.data);
+			setLoading(false);
 			console.log(res);
 		} catch (error) {
 			console.log(error);
@@ -124,7 +133,7 @@ const Eachfood = () => {
 					sm={4}
 					md={7}
 					sx={{
-						backgroundImage: `url(${food.image ? food.image : bk})`,
+						backgroundImage: `url(${food.image})`,
 						backgroundSize: "cover",
 						backgroundPosition: "center",
 					}}>

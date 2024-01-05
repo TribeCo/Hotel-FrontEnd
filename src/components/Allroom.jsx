@@ -9,14 +9,16 @@ import Loading from "../components/utils/Loading";
 import { Fab, Typography } from "@mui/material";
 import { AddCircle } from "@mui/icons-material";
 import AddRoomDialog from "./employee/AddRoomDialog";
+
 function AllRoom() {
-	const [openAddDialog, setOpenAddDialog] = useState(false); // Ceate
+	const [openAddDialog, setOpenAddDialog] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [cardData, setCardData] = useState([]);
 	const { accessToken } = useAuth();
 
 	useEffect(() => {
 		const fetchData = async () => {
+			setLoading(true);
 			try {
 				const res = await Room.getAll({ authToken: accessToken });
 				console.log(res);
@@ -26,6 +28,7 @@ function AllRoom() {
 			} catch (error) {
 				console.log(error);
 			}
+			setLoading(false);
 		};
 		fetchData();
 	}, [accessToken]);
@@ -45,17 +48,21 @@ function AllRoom() {
 			numberInput.value = value - 1;
 		}
 	};
-	const slide = () => {
-		sliderValue.textContent = "تومان " + priceSlider.value;
-	};
 
 	const handleAddRoom = async (data) => {
 		try {
 			setLoading(true);
-			await Room.create({ data: data, authToken: accessToken });
-			const d = await Room.getAll({ authToken: accessToken });
-			console.log(d);
-			setCardData(d.data);
+			const resRoom = await Room.create({
+				data: data.info,
+				authToken: accessToken,
+			});
+			await Room.uploadImage({
+				file: data.image.file,
+				authToken: accessToken,
+				uid: resRoom.data.data.id,
+			});
+			const res = await Room.getAll({ authToken: accessToken });
+			setCardData(res.data);
 			setLoading(false);
 		} catch (error) {
 			console.log(error);
@@ -71,7 +78,7 @@ function AllRoom() {
 		setOpenAddDialog(false);
 	};
 
-	if (cardData.length > 0) {
+	if (!loading) {
 		return (
 			<div>
 				<Fab

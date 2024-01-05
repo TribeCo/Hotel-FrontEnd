@@ -29,15 +29,18 @@ class Room {
 	};
 
 	// @Desc upload user image
-	static uploadImage = ({ uid, data, authToken }) => {
-		const url = `${baseUrl}/upload/${uid}/`;
+	static uploadImage = ({ uid, file, authToken }) => {
+		const formData = new FormData();
+		formData.append("image", file);
+
+		const url = `${baseUrl}/type/update/image/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "multipart/form-data",
 				Authorization: `Bearer ${authToken}`,
 			},
 		};
-		return axios.post(url, data, config);
+		return axios.put(url, formData, config);
 	};
 
 	// @Desc get Reservation All Reservation Room
@@ -101,7 +104,7 @@ class Room {
 
 	// @Desc create Room
 	static create = ({ data, authToken }) => {
-		const url = `${baseUrl}/create/`;
+		const url = `${baseUrl}/type/create/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",

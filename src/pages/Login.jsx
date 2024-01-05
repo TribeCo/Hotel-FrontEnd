@@ -153,7 +153,6 @@ const Login = () => {
 										</Button>
 										<Grid container>
 											<Grid
-												display="none"
 												xs
 												item>
 												<Link to="/forget-password">
