@@ -47,7 +47,11 @@ function Landing() {
 								<Link to="/dashboard">
 									<Button
 										variant="contained"
-										sx={{ bgcolor: "#b4b7b7", borderRadius: 3 }}>
+										sx={{
+											bgcolor: "#b4b7b7",
+											borderRadius: 3,
+											"&:hover": { backgroundColor: "#ebebeb" },
+										}}>
 										<Typography>ورود به داشبورد </Typography>
 
 										<Avatar
