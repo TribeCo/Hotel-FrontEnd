@@ -36,12 +36,14 @@ const validationSchema = Yup.object({
 	price_one_night: Yup.number()
 		.required("لطفاً قیمت هر شب را وارد کنید")
 		.positive("قیمت باید عدد مثبت باشد"),
-	features: Yup.string().required("لطفاً توضیحات را وارد کنید"),
+	description: Yup.string().required("لطفاً توضیحات را وارد کنید"),
 });
 
 const Eachroom = () => {
 	const { id } = useParams();
 	const [room, setRoom] = useState([]);
+	const [reservedDays, setReservedDays] = useState([]);
+
 	const { accessToken } = useAuth();
 	const [loading, setLoading] = useState(true);
 	const [user, setUser] = useState({});
@@ -71,7 +73,12 @@ const Eachroom = () => {
 						uid: id,
 						authToken: accessToken,
 					});
-					console.log(roomRes);
+					const roomResDays = await Room.getReservedDays({
+						uid: id,
+						authToken: accessToken,
+					});
+					console.log(roomResDays.data);
+					setReservedDays(roomResDays.data);
 					setUser(userRes.data);
 					setRoom(roomRes.data);
 					setLoading(false);
@@ -250,7 +257,7 @@ const Eachroom = () => {
 											disabled
 											fullWidth
 											label="توضیحات"
-											defaultValue={room.features}
+											defaultValue={room.description}
 										/>
 									</Grid>
 								</Grid>
@@ -296,7 +303,9 @@ const Eachroom = () => {
 							<ResRoomDialog
 								open={openResDialog}
 								handleClose={handleClose}
-								handleAddEmployee={() => {}}
+								room_type_id={room.id}
+								reserved={reservedDays}
+								accessToken={accessToken}
 							/>
 						)}
 					</Grid>
@@ -324,7 +333,7 @@ const Eachroom = () => {
 										type: room.type || "",
 										bed_count: room.bed_count || "",
 										price_one_night: room.price_one_night || "",
-										features: room.features || "",
+										description: room.description || "",
 									}}
 									validationSchema={validationSchema}
 									onSubmit={handleUpdate}>
@@ -412,12 +421,14 @@ const Eachroom = () => {
 													rows={6}
 													fullWidth
 													label="توضیحات"
-													name="features"
-													value={values.features}
+													name="description"
+													value={values.description}
 													onChange={handleChange}
 													onBlur={handleBlur}
-													error={touched.features && Boolean(errors.features)}
-													helperText={touched.features && errors.features}
+													error={
+														touched.description && Boolean(errors.description)
+													}
+													helperText={touched.description && errors.description}
 												/>
 											</Grid>
 											<Button
