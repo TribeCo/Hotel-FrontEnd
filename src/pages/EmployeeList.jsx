@@ -202,9 +202,12 @@ const EmployeeList = () => {
 													onClick={() => handleInfoBtnClick(emp)}
 													variant="contained"
 													sx={{
+														"&:hover": {
+															backgroundColor: "#007acf",
+														},
 														m: 1,
 														minWidth: 100,
-														bgcolor: "	#0096FF",
+														bgcolor: "#0096FF",
 														color: "#FFFFFF",
 													}}>
 													<Typography variant="h6">اطلاعات</Typography>
@@ -213,6 +216,9 @@ const EmployeeList = () => {
 													onClick={() => handleEditBtnClick(emp)}
 													variant="contained"
 													sx={{
+														"&:hover": {
+															backgroundColor: "#d15400",
+														},
 														m: 1,
 														minWidth: 100,
 														bgcolor: "#ff6600",
@@ -224,6 +230,9 @@ const EmployeeList = () => {
 													onClick={() => handleDeleteBtnClick(emp)}
 													variant="contained"
 													sx={{
+														"&:hover": {
+															backgroundColor: "#c90000",
+														},
 														minWidth: 100,
 														m: 1,
 														bgcolor: "#ff0000",
