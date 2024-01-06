@@ -112,11 +112,16 @@ const Reservations = () => {
 											<TableCell align="center">{food.food.price}</TableCell>
 											<TableCell align="center">
 												<Button
+
 													variant="contained"
 													disabled={food.delivery}
 													color={food.delivery ? "success" : "primary"}
 													onClick={() => handleButtonClick(food)}
 													sx={{
+														"&:hover": {
+															backgroundColor: "#1340b0",
+														},
+														bgcolor: "#2358de",
 														width: 150,
 														color: food.delivery ? "white" : "inherit",
 													}}>
