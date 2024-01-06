@@ -183,7 +183,7 @@ const Eachroom = () => {
 							<CssBaseline />
 							<Box
 								sx={{
-									marginTop: 20,
+									marginTop: 19,
 									display: "flex",
 									flexDirection: "column",
 									alignItems: "center",
@@ -253,7 +253,7 @@ const Eachroom = () => {
 										xs={12}>
 										<TextField
 											multiline
-											rows={5}
+											rows={6}
 											disabled
 											fullWidth
 											label="توضیحات"
@@ -266,7 +266,10 @@ const Eachroom = () => {
 									fullWidth
 									variant="contained"
 									sx={{
-										mt: 3,
+										"&:hover": {
+											backgroundColor: "#b272b8",
+										},
+										mt: 2,
 										borderRadius: 15,
 										bgcolor: "secondary.main",
 									}}>
@@ -278,7 +281,10 @@ const Eachroom = () => {
 										fullWidth
 										variant="contained"
 										sx={{
-											mt: 3,
+											"&:hover": {
+												backgroundColor: "#c98e4b",
+											},
+											mt: 2,
 											borderRadius: 15,
 											bgcolor: "#f7b060",
 										}}>
@@ -290,7 +296,10 @@ const Eachroom = () => {
 									fullWidth
 									variant="contained"
 									sx={{
-										mt: 3,
+										"&:hover": {
+											backgroundColor: "#c74e4e",
+										},
+										mt: 2,
 										mb: 2,
 										borderRadius: 15,
 										bgcolor: "#f76d6d",
@@ -344,6 +353,7 @@ const Eachroom = () => {
 												spacing={2}>
 												<Grid
 													mt={1}
+													mb={2}
 													item
 													xs={12}
 													sm={6}>
@@ -360,6 +370,7 @@ const Eachroom = () => {
 												</Grid>
 												<Grid
 													mt={1}
+													mb={2}
 													item
 													xs={12}
 													sm={6}>
@@ -377,6 +388,7 @@ const Eachroom = () => {
 											</Grid>
 											<Grid
 												mt={1}
+												mb={2}
 												item
 												xs={12}>
 												<TextField
@@ -393,6 +405,7 @@ const Eachroom = () => {
 											</Grid>
 											<Grid
 												mt={1}
+												mb={2}
 												item
 												xs={12}>
 												<TextField
@@ -414,6 +427,7 @@ const Eachroom = () => {
 											</Grid>
 											<Grid
 												mt={1}
+												mb={2}
 												item
 												xs={12}>
 												<TextField
@@ -436,6 +450,9 @@ const Eachroom = () => {
 												fullWidth
 												variant="contained"
 												sx={{
+													"&:hover": {
+														backgroundColor: "#5cab70",
+													},
 													mt: 3,
 													borderRadius: 15,
 													bgcolor: "#7ed695",
@@ -447,7 +464,10 @@ const Eachroom = () => {
 												fullWidth
 												variant="contained"
 												sx={{
-													mt: 3,
+													"&:hover": {
+														backgroundColor: "#c74e4e",
+													},
+													mt: 2,
 													mb: 2,
 													borderRadius: 15,
 													bgcolor: "#f76d6d",
