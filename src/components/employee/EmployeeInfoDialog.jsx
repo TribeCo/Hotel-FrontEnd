@@ -68,7 +68,17 @@ const EmployeeInfoDialog = ({ open, handleClose, employeeData }) => {
 					</Box>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose}>بستن</Button>
+					<Button onClick={handleClose}
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
+						}}>بستن</Button>
 				</DialogActions>
 			</Box>
 		</Dialog>

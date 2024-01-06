@@ -194,6 +194,9 @@ const ProfilePage = () => {
 										fullWidth
 										variant="contained"
 										sx={{
+											"&:hover": {
+												backgroundColor: "#634dd1",
+										  },
 											mt: 7,
 											mb: 1,
 											borderRadius: 10,
@@ -210,6 +213,9 @@ const ProfilePage = () => {
 										fullWidth
 										variant="contained"
 										sx={{
+											"&:hover": {
+												backgroundColor: "#c74e4e",
+										  },
 											mt: 1,
 											borderRadius: 5,
 											bgcolor: "#f76d6d",
@@ -407,9 +413,12 @@ const ProfilePage = () => {
 													fullWidth
 													variant="contained"
 													sx={{
+														"&:hover": {
+															backgroundColor: "#a653a2",
+													  },
 														mt: 5,
 														borderRadius: 15,
-														bgcolor: "secondary.main",
+														bgcolor: "#c76dc3",
 													}}>
 													<Typography
 														variant="h6"

@@ -110,14 +110,22 @@ const AddFoodDialog = ({
 							alignItems: "center",
 						}}>
 						<Button
+
+
+
 							variant="contained"
 							component="label"
 							htmlFor="image"
 							sx={{
+								"&:hover": {
+									backgroundColor: "#ffffff",
+								},
 								borderRadius: 2,
-								bgcolor: "#F8F8F2",
+								bgcolor: "#ebe6e6",
 								textTransform: "none",
 							}}>
+
+
 							انتخاب تصویر
 							<input
 								id="image"
@@ -136,10 +144,31 @@ const AddFoodDialog = ({
 					</Box>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose}>لغو</Button>
+					<Button onClick={handleClose}
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
+						}}>
+						لغو</Button>
 					<Button
 						onClick={formik.handleSubmit}
-						color="primary">
+
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
+						}}>
 						افزودن
 					</Button>
 				</DialogActions>
