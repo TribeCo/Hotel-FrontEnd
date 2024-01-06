@@ -198,6 +198,9 @@ const ProfilePage = () => {
 											mb: 1,
 											borderRadius: 10,
 											bgcolor: "#7359f8",
+											"&:hover": {
+												backgroundColor: "#522fff",
+											},
 										}}>
 										<Typography
 											color="#FFFFFF"
@@ -213,6 +216,9 @@ const ProfilePage = () => {
 											mt: 1,
 											borderRadius: 5,
 											bgcolor: "#f76d6d",
+											"&:hover": {
+												backgroundColor: "#c44040",
+											},
 										}}>
 										<Typography
 											color="#FFFFFF"
