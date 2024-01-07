@@ -59,25 +59,7 @@ const Eachroom = () => {
 	const [isCommentListOpen, setCommentListOpen] = useState(false);
 	const [openResDialog, setOpenResDialog] = useState(false);
 
-
 	// component life cycle
-	const handleChange = (event) => {
-		setRoom({
-			...room,
-			type: event.target.value,
-		});
-	};
-
-	const handleResBTN = () => {
-		setOpenResDialog(true);
-	};
-	const handleClose = () => {
-		setOpenResDialog(false);
-	};
-
-	const toggleCommentList = () => {
-		setCommentListOpen(!isCommentListOpen);
-	};
 	useEffect(() => {
 		const fetchData = async () => {
 			if (accessToken) {
@@ -421,8 +403,7 @@ const Eachroom = () => {
 													container
 													// direction="row"
 													spacing={2}
-													item
-												>
+													item>
 													<Grid
 														mt={1}
 														item
@@ -440,7 +421,6 @@ const Eachroom = () => {
 														/>
 													</Grid>
 
-
 													<Grid
 														mt={1}
 														item
@@ -454,15 +434,12 @@ const Eachroom = () => {
 																value={values.type}
 																onChange={handleChange}
 																onBlur={handleBlur}
-																error={touched.type && Boolean(errors.type)}
-															>
-																<MenuItem value='o'>معمولی</MenuItem>
-																<MenuItem value='v'>VIP</MenuItem>
+																error={touched.type && Boolean(errors.type)}>
+																<MenuItem value="o">معمولی</MenuItem>
+																<MenuItem value="v">VIP</MenuItem>
 															</Select>
 														</FormControl>
 													</Grid>
-
-
 												</Grid>
 												<Grid
 													mt={1}
@@ -477,13 +454,13 @@ const Eachroom = () => {
 														value={values.bed_count}
 														onChange={handleChange}
 														onBlur={handleBlur}
-														error={touched.bed_count && Boolean(errors.bed_count)}
+														error={
+															touched.bed_count && Boolean(errors.bed_count)
+														}
 														helperText={touched.bed_count && errors.bed_count}
 													/>
 												</Grid>
-
 											</Grid>
-
 
 											<Grid
 												mt={1}
