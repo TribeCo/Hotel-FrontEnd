@@ -46,19 +46,16 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
     },
   });
 
-  const editFormik = useFormik({
-    initialValues: {
-      text: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      // Handle editing logic for the selected comment
-      sendComment(values.text);
-      // Clear the form or perform other actions if needed
-      editFormik.resetForm();
-      setEditMoodComment(null);
-    },
-  });
+ const editFormik = useFormik({
+		initialValues: {
+			comment: "",
+		},
+		validationSchema: validationSchema,
+		onSubmit: (values) => {
+			editComment({ comment_id: editMoodComment, text: values.comment });
+			setEditMoodComment(null);
+		},
+	});
 
   const handleEditClick = (commentId) => {
     setEditMoodComment(commentId);
@@ -74,13 +71,11 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
     setSelectedIndex(index);
     setSelectedCommentId(comment.id); // Store the selected comment ID
   };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
     setSelectedIndex(null);
     setSelectedCommentId(null); // Reset selected comment ID when the menu closes
   };
-
   const handleEdit = (comment) => {
     // Using the selectedCommentId to identify the comment to edit
     if (comment !== null) {
@@ -277,7 +272,6 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
           </Button>
         </DialogActions>
       </Dialog>
-
       <Grid p={1}>
         <Divider />
         <form onSubmit={formik.handleSubmit}>

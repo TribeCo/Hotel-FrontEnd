@@ -43,6 +43,7 @@ const Login = () => {
 			console.log(res);
 			Navigate("/dashboard");
 		} catch (error) {
+			console.log(error);
 			if ((error = "No active account found with the given credentials")) {
 				alert("ایمیل یا پسورد اشتباه میباشد!");
 				setLoading(false);

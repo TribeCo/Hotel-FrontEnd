@@ -39,6 +39,17 @@ class Food {
 		return axios.put(url, data, config);
 	};
 
+	static reserve = ({ data, authToken }) => {
+		const url = `${baseUrl}/reservation/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.post(url, data, config);
+	};
+
 	// @Desc upload food image
 	static uploadImage = ({ uid, file, authToken }) => {
 		const formData = new FormData();

@@ -20,7 +20,7 @@ import { ArrowBack } from "@mui/icons-material";
 import { useAuth } from "../context/AuthContext";
 import Loading from "../components/utils/Loading";
 import Images from "../assets/images";
-const baseUrl = "https://hotelback.iran.liara.run";
+// const baseUrl = Images.baseUrl;
 
 const validationSchema = Yup.object().shape({
 	firstName: Yup.string(),
@@ -52,7 +52,7 @@ const ProfilePage = () => {
 				const response = await User.getOne({ accessToken: accessToken });
 				console.log(response.data);
 				setUser(response.data);
-				setImage(baseUrl + response.data.image);
+				setImage(Images.baseUrl + response.data.image);
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			}
@@ -145,7 +145,7 @@ const ProfilePage = () => {
 										alignItems: "center",
 									}}>
 									<Avatar
-										src={baseUrl + user.image}
+										src={Images.baseUrl + user.image}
 										sx={{
 											width: 200,
 											height: 200,
@@ -196,7 +196,7 @@ const ProfilePage = () => {
 										sx={{
 											"&:hover": {
 												backgroundColor: "#634dd1",
-										  },
+											},
 											mt: 7,
 											mb: 1,
 											borderRadius: 10,
@@ -215,7 +215,7 @@ const ProfilePage = () => {
 										sx={{
 											"&:hover": {
 												backgroundColor: "#c74e4e",
-										  },
+											},
 											mt: 1,
 											borderRadius: 5,
 											bgcolor: "#f76d6d",
@@ -415,7 +415,7 @@ const ProfilePage = () => {
 													sx={{
 														"&:hover": {
 															backgroundColor: "#a653a2",
-													  },
+														},
 														mt: 5,
 														borderRadius: 15,
 														bgcolor: "#c76dc3",

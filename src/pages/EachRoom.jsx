@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
-import { useParams } from "react-router-dom";
+import * as Yup from "yup";
+import { useParams, useNavigate } from "react-router-dom";
+import { Formik, Form } from "formik";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import Room from "../services/room";
 import {
 	Button,
 	CssBaseline,
@@ -18,15 +17,19 @@ import {
 	FormControl,
 	InputLabel,
 } from "@mui/material";
-import User from "../services/user";
-import CommentList from "../components/commentList";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
+
+// services
+import User from "../services/user";
+import Room from "../services/room";
+import Comment from "../services/comment";
+
+// components
+import CommentList from "../components/commentList";
 import Loading from "../components/utils/Loading";
 import ResRoomDialog from "../components/ResRoomDialog";
 
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-
+// form validation
 const validationSchema = Yup.object({
 	code: Yup.string().required("لطفاً کد اتاق را وارد کنید"),
 	type: Yup.string().required("لطفاً نوع اتاق را وارد کنید"),
@@ -40,18 +43,24 @@ const validationSchema = Yup.object({
 });
 
 const Eachroom = () => {
+	// react HOOKs
 	const { id } = useParams();
+	const Navigate = useNavigate();
+
+	// custom HOOKs
+	const { accessToken } = useAuth();
+
+	// states
 	const [room, setRoom] = useState([]);
 	const [reservedDays, setReservedDays] = useState([]);
-
-	const { accessToken } = useAuth();
 	const [loading, setLoading] = useState(true);
 	const [user, setUser] = useState({});
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [isCommentListOpen, setCommentListOpen] = useState(false);
-	const Navigate = useNavigate();
 	const [openResDialog, setOpenResDialog] = useState(false);
 
+
+	// component life cycle
 	const handleChange = (event) => {
 		setRoom({
 			...room,
@@ -69,7 +78,6 @@ const Eachroom = () => {
 	const toggleCommentList = () => {
 		setCommentListOpen(!isCommentListOpen);
 	};
-
 	useEffect(() => {
 		const fetchData = async () => {
 			if (accessToken) {
@@ -97,34 +105,82 @@ const Eachroom = () => {
 		};
 		fetchData();
 	}, [accessToken]);
-	const sendComment = async (comment) => {
-		try {
-			setLoading(true);
-			const url = "/api/accounts/comments/room/create/";
-			const config = {
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${accessToken}`,
-				},
-			};
 
+	// handle buttons
+	const handleResBTN = () => {
+		setOpenResDialog(true);
+	};
+	const handleClose = () => {
+		setOpenResDialog(false);
+	};
+	const toggleCommentList = () => {
+		setCommentListOpen(!isCommentListOpen);
+	};
+
+	// functions
+	// for send comments and update state
+	const sendComment = async (comment) => {
+		setLoading(true);
+		try {
 			const data = {
 				text: comment,
 				room_id: id,
 				user_id: user.id,
 				rating: 5,
 			};
-			const res = await Axios.post(url, data, config);
+			const res = await Comment.addRoom({ data: data, authToken: accessToken });
+			console.log(res);
 			const roomRes = await Room.getOne({
 				uid: id,
 				authToken: accessToken,
 			});
 			setRoom(roomRes.data);
-			setLoading(false);
+		} catch (error) {
+			alert(error);
+		}
+		setLoading(false);
+	};
+	const editComment = async ({ comment_id, text }) => {
+		setLoading(true);
+		try {
+			const data = {
+				text: text,
+				rating: 5,
+			};
+			const res = await Comment.update({
+				uid: comment_id,
+				data: data,
+				authToken: accessToken,
+			});
 			console.log(res);
+			const roomRes = await Room.getOne({
+				uid: id,
+				authToken: accessToken,
+			});
+			setRoom(roomRes.data);
 		} catch (error) {
 			console.log(error);
 		}
+		setLoading(false);
+	};
+
+	const deleteComment = async (comment_id) => {
+		setLoading(true);
+		try {
+			const res = await Comment.delete({
+				uid: comment_id,
+				authToken: accessToken,
+			});
+			console.log(res);
+			const roomRes = await Room.getOne({
+				uid: id,
+				authToken: accessToken,
+			});
+			setRoom(roomRes.data);
+		} catch (error) {
+			console.log(error);
+		}
+		setLoading(false);
 	};
 
 	const handleUpdate = async (values) => {
@@ -144,6 +200,7 @@ const Eachroom = () => {
 		}
 	};
 
+	// render User Interface
 	if (!loading) {
 		return (
 			<Grid
@@ -163,6 +220,8 @@ const Eachroom = () => {
 					}}>
 					<CommentList
 						sendComment={sendComment}
+						editComment={editComment}
+						deleteComment={deleteComment}
 						comments={room.comments}
 						isOpen={isCommentListOpen}
 						onClose={toggleCommentList}
