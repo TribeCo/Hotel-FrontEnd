@@ -52,6 +52,13 @@ const Eachroom = () => {
 	const Navigate = useNavigate();
 	const [openResDialog, setOpenResDialog] = useState(false);
 
+	const handleChange = (event) => {
+		setRoom({
+			...room,
+			type: event.target.value,
+		});
+	};
+
 	const handleResBTN = () => {
 		setOpenResDialog(true);
 	};
@@ -352,57 +359,73 @@ const Eachroom = () => {
 												container
 												spacing={2}>
 												<Grid
-													mt={1}
-													mb={2}
+													container
+													// direction="row"
+													spacing={2}
 													item
-													xs={12}
-													sm={6}>
-													<TextField
-														fullWidth
-														label="اتاق"
-														name="code"
-														value={values.code}
-														onChange={handleChange}
-														onBlur={handleBlur}
-														error={touched.code && Boolean(errors.code)}
-														helperText={touched.code && errors.code}
-													/>
+												>
+													<Grid
+														mt={1}
+														item
+														xs={12}
+														sm={6}>
+														<TextField
+															fullWidth
+															label="اتاق"
+															name="code"
+															value={values.code}
+															onChange={handleChange}
+															onBlur={handleBlur}
+															error={touched.code && Boolean(errors.code)}
+															helperText={touched.code && errors.code}
+														/>
+													</Grid>
+
+
+													<Grid
+														mt={1}
+														item
+														xs={6}
+														sm={6}>
+														<FormControl fullWidth>
+															<InputLabel>نوع اتاق</InputLabel>
+															<Select
+																label="نوع اتاق"
+																name="type"
+																value={values.type}
+																onChange={handleChange}
+																onBlur={handleBlur}
+																error={touched.type && Boolean(errors.type)}
+															>
+																<MenuItem value='o'>معمولی</MenuItem>
+																<MenuItem value='v'>VIP</MenuItem>
+															</Select>
+														</FormControl>
+													</Grid>
+
+
 												</Grid>
 												<Grid
 													mt={1}
 													mb={2}
 													item
-													xs={12}
-													sm={6}>
+													xs={12}>
 													<TextField
 														fullWidth
-														label="نوع اتاق"
-														name="type"
-														value={values.type}
+														label="تعداد تخت‌ها"
+														name="bed_count"
+														type="number"
+														value={values.bed_count}
 														onChange={handleChange}
 														onBlur={handleBlur}
-														error={touched.type && Boolean(errors.type)}
-														helperText={touched.type && errors.type}
+														error={touched.bed_count && Boolean(errors.bed_count)}
+														helperText={touched.bed_count && errors.bed_count}
 													/>
 												</Grid>
+
 											</Grid>
-											<Grid
-												mt={1}
-												mb={2}
-												item
-												xs={12}>
-												<TextField
-													fullWidth
-													label="تعداد تخت‌ها"
-													name="bed_count"
-													type="number"
-													value={values.bed_count}
-													onChange={handleChange}
-													onBlur={handleBlur}
-													error={touched.bed_count && Boolean(errors.bed_count)}
-													helperText={touched.bed_count && errors.bed_count}
-												/>
-											</Grid>
+
+
 											<Grid
 												mt={1}
 												mb={2}
