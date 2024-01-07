@@ -217,7 +217,7 @@ const Eachfood = () => {
 								}}>
 								<Grid
 									container
-									spacing={2}>
+									spacing={1}>
 									<Grid
 										item
 										mb={2}
@@ -290,7 +290,10 @@ const Eachfood = () => {
 									fullWidth
 									variant="contained"
 									sx={{
-										mt: 3,
+										"&:hover": {
+											backgroundColor: "#b272b8",
+										},
+										mt: 2,
 										borderRadius: 15,
 										bgcolor: "secondary.main",
 									}}>
@@ -302,6 +305,9 @@ const Eachfood = () => {
 										fullWidth
 										variant="contained"
 										sx={{
+											"&:hover": {
+												backgroundColor: "#c98e4b",
+											},
 											mt: 2,
 											borderRadius: 15,
 											bgcolor: "#f7b060",
@@ -314,6 +320,9 @@ const Eachfood = () => {
 									fullWidth
 									variant="contained"
 									sx={{
+										"&:hover": {
+											backgroundColor: "#c74e4e",
+										},
 										mt: 2,
 										mb: 2,
 										borderRadius: 15,
@@ -362,6 +371,7 @@ const Eachfood = () => {
 									{({ values, errors, touched, handleChange, handleBlur }) => (
 										<Form>
 											<Grid
+												item
 												container
 												spacing={2}>
 												<Grid
@@ -412,30 +422,36 @@ const Eachfood = () => {
 														helperText={touched.type && errors.type}
 													/>
 												</Grid>
-												<Button
-													type="submit"
-													fullWidth
-													variant="contained"
-													sx={{
-														mt: 3,
-														borderRadius: 15,
-														bgcolor: "#7ed695",
-													}}>
-													<Typography variant="h6">ذخیره تغییرات</Typography>
-												</Button>
-												<Button
-													onClick={() => setIsEditMode(false)}
-													fullWidth
-													variant="contained"
-													sx={{
-														mt: 3,
-														mb: 2,
-														borderRadius: 15,
-														bgcolor: "#f76d6d",
-													}}>
-													<Typography variant="h6">بازگشت</Typography>
-												</Button>
 											</Grid>
+											<Button
+												type="submit"
+												fullWidth
+												variant="contained"
+												sx={{
+													"&:hover": {
+														backgroundColor: "#5cab70",
+													},
+													mt: 3,
+													borderRadius: 15,
+													bgcolor: "#7ed695",
+												}}>
+												<Typography variant="h6">ذخیره تغییرات</Typography>
+											</Button>
+											<Button
+												onClick={() => setIsEditMode(false)}
+												fullWidth
+												variant="contained"
+												sx={{
+													"&:hover": {
+														backgroundColor: "#c74e4e",
+													},
+													mt: 2,
+													mb: 2,
+													borderRadius: 15,
+													bgcolor: "#f76d6d",
+												}}>
+												<Typography variant="h6">بازگشت</Typography>
+											</Button>
 										</Form>
 									)}
 								</Formik>
