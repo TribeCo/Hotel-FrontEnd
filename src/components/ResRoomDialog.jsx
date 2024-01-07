@@ -14,6 +14,7 @@ import {
 	DialogActions,
 	Box,
 	Typography,
+	Divider,
 } from "@mui/material";
 import Room from "../services/room";
 
@@ -45,11 +46,15 @@ const ResRoom = ({
 		<Dialog
 			open={open}
 			onClose={handleClose}>
-			<Box sx={{ m: 2 }}>
+			<Box sx={{ mt: 1, mb: 1, mr: 5, ml: 5 }}>
 				<DialogTitle align="center">
-					<Typography>یک بازه را جهت رزور انتخاب کنید</Typography>
+					<Typography variant="h5">رزرو اتاق</Typography>
 				</DialogTitle>
 				<DialogContent>
+					<Divider />
+					<Typography sx={{ mb: 4, mt: 2 }}>
+						لطفا یک بازه را جهت رزور انتخاب کنید.
+					</Typography>
 					<Calendar
 						shadow={false}
 						className="bg-dark teal"

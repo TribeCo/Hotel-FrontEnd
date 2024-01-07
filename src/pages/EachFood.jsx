@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import Axios from "axios";
-// import bk from "../assets/eachfood.png";
-import User from "../services/user";
-import Food from "../services/food";
-import { useParams } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import {
 	Button,
 	CssBaseline,
@@ -18,18 +12,25 @@ import {
 	Fab,
 	Typography,
 } from "@mui/material";
-
-import CommentList from "../components/commentList";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 
+// services
+import { useAuth } from "../context/AuthContext";
+import User from "../services/user";
+import Food from "../services/food";
+import Comment from "../services/comment";
+
+// components
+import CommentList from "../components/commentList";
+import ReserveFoodDialog from "../components/ReserveFoodDialog";
 import Loading from "../components/utils/Loading";
 
+// form validation
 const validationSchema = Yup.object({
 	name: Yup.string().required("نام غذا را وارد کنید"),
 	price: Yup.number()
 		.required("قیمت را وارد کنید")
 		.positive("قیمت باید عدد مثبت باشد"),
-	// meal: Yup.string().required("وعده غذایی را وارد کنید"),
 	type: Yup.string().required("توضیحات را وارد کنید"),
 });
 
@@ -41,8 +42,15 @@ const Eachfood = () => {
 	const [user, setUser] = useState({});
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [isCommentListOpen, setCommentListOpen] = useState(false);
+	const [openReserveDialog, setOpenReserveDialog] = useState(false);
 	const Navigate = useNavigate();
 
+	const handleReserveBTN = () => {
+		setOpenReserveDialog(true);
+	};
+	const handleClose = () => {
+		setOpenReserveDialog(false);
+	};
 	const toggleCommentList = () => {
 		setCommentListOpen(!isCommentListOpen);
 	};
@@ -74,31 +82,65 @@ const Eachfood = () => {
 	const sendComment = async (comment) => {
 		try {
 			setLoading(true);
-			const url = "/api/accounts/comments/food/create/";
-			const config = {
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${accessToken}`,
-				},
-			};
 			const data = {
 				text: comment,
 				food_id: id,
 				user_id: user.id,
 				rating: 5,
 			};
-			console.log(data);
-			const res = await Axios.post(url, data, config);
+			const res = await Comment.addFood({ data: data, authToken: accessToken });
+			console.log(res);
 			const foodRes = await Food.getOne({
 				uid: id,
 				authToken: accessToken,
 			});
 			setFood(foodRes.data);
 			setLoading(false);
+		} catch (error) {
+			alert(error);
+		}
+	};
+	const editComment = async ({ comment_id, text }) => {
+		setLoading(true);
+		try {
+			const data = {
+				text: text,
+				rating: 5,
+			};
+			const res = await Comment.update({
+				uid: comment_id,
+				data: data,
+				authToken: accessToken,
+			});
 			console.log(res);
+			const foodRes = await Food.getOne({
+				uid: id,
+				authToken: accessToken,
+			});
+			setFood(foodRes.data);
 		} catch (error) {
 			console.log(error);
 		}
+		setLoading(false);
+	};
+
+	const deleteComment = async (comment_id) => {
+		setLoading(true);
+		try {
+			const res = await Comment.delete({
+				uid: comment_id,
+				authToken: accessToken,
+			});
+			console.log(res);
+			const foodRes = await Food.getOne({
+				uid: id,
+				authToken: accessToken,
+			});
+			setFood(foodRes.data);
+		} catch (error) {
+			console.log(error);
+		}
+		setLoading(false);
 	};
 
 	const handleUpdate = async (values) => {
@@ -139,6 +181,8 @@ const Eachfood = () => {
 					}}>
 					<CommentList
 						sendComment={sendComment}
+						editComment={editComment}
+						deleteComment={deleteComment}
 						comments={food.comments}
 						isOpen={isCommentListOpen}
 						onClose={toggleCommentList}
@@ -242,7 +286,7 @@ const Eachfood = () => {
 									</Grid>
 								</Grid>
 								<Button
-									onClick={() => Navigate("/dashboard")} //TODO: save food order and Navigate to dashboard??
+									onClick={handleReserveBTN} //TODO: save food order and Navigate to dashboard??
 									fullWidth
 									variant="contained"
 									sx={{
@@ -279,6 +323,14 @@ const Eachfood = () => {
 								</Button>
 							</Box>
 						</Container>
+						{openReserveDialog && (
+							<ReserveFoodDialog
+								open={openReserveDialog}
+								handleClose={handleClose}
+								food_id={food.id}
+								accessToken={accessToken}
+							/>
+						)}
 					</Grid>
 				) : (
 					// Edit mood:
