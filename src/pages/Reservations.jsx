@@ -14,6 +14,7 @@ import {
 	Table,
 	Container,
 	Checkbox,
+	LinearProgress,
 } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import Food from "../services/food";
@@ -23,10 +24,11 @@ const Reservations = () => {
 	const { accessToken } = useAuth();
 	const [foodList, setFoodList] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [deliveryLoading, setdeliveryLoading] = useState(false);
 
 	const handleButtonClick = async (food) => {
+		setdeliveryLoading(true);
 		try {
-			setLoading(true);
 			await Food.delivered({
 				uid: food.id,
 				data: {
@@ -36,25 +38,22 @@ const Reservations = () => {
 			});
 			const res = await Food.getAll({ authToken: accessToken });
 			setFoodList(res.data);
-			setLoading(false);
 		} catch (error) {
 			alert(error);
-			setLoading(false);
 		}
+		setdeliveryLoading(false);
 	};
 
 	useEffect(() => {
 		const fetchData = async () => {
+			setLoading(true);
 			try {
-				setLoading(true);
 				const res = await Food.getAll({ authToken: accessToken });
-				console.log(res.data);
 				setFoodList(res.data);
-				setLoading(false);
 			} catch (error) {
 				alert(error);
-				setLoading(false);
 			}
+			setLoading(false);
 		};
 		fetchData();
 	}, [accessToken]);
@@ -74,6 +73,7 @@ const Reservations = () => {
 							}}>
 							<Typography variant="h5">غذا های رزرو شده</Typography>
 						</Box>
+						{deliveryLoading && <LinearProgress />}
 						<Divider />
 						<TableContainer>
 							<Table aria-label="caption table">
@@ -112,7 +112,6 @@ const Reservations = () => {
 											<TableCell align="center">{food.food.price}</TableCell>
 											<TableCell align="center">
 												<Button
-
 													variant="contained"
 													disabled={food.delivery}
 													color={food.delivery ? "success" : "primary"}

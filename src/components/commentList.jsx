@@ -21,6 +21,7 @@ import {
 	Dialog,
 	DialogTitle,
 	DialogActions,
+	LinearProgress,
 } from "@mui/material";
 
 const CommentList = ({
@@ -30,15 +31,19 @@ const CommentList = ({
 	sendComment,
 	editComment,
 	deleteComment,
+	isLoading,
 }) => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [selectedIndex, setSelectedIndex] = useState(null);
 	const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
 	const [editMoodComment, setEditMoodComment] = useState(null);
-	const [selectedCommentId, setSelectedCommentId] = useState(null);
+	const [selectedComment, setSelectedComment] = useState(null);
 
 	const validationSchema = Yup.object({
 		comment: Yup.string().required("کامنت ارسالی نمی‌تواند خالی باشد"),
+	});
+	const editSchema = Yup.object({
+		text: Yup.string().required("ویرایش کامنت نمیتواند خالی باشد."),
 	});
 
 	const formik = useFormik({
@@ -48,75 +53,40 @@ const CommentList = ({
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
 			sendComment(values.comment);
-			// Clear the form or perform other actions if needed
 			formik.resetForm();
 		},
 	});
 
-	const editFormik = useFormik({
-		initialValues: {
-			comment: "",
-		},
-		validationSchema: validationSchema,
-		onSubmit: (values) => {
-			editComment({ comment_id: editMoodComment, text: values.comment });
-			setEditMoodComment(null);
-		},
-	});
-
-	const handleEditClick = (commentId) => {
-		setEditMoodComment(commentId);
-	};
-
-	const handleSaveClick = () => {
-		// Handle save logic for the edited comment
-		editFormik.handleSubmit();
-	};
-
-	const handleMenuClick = (event, index, comment) => {
-		setAnchorEl(event.currentTarget);
-		setSelectedIndex(index);
-		setSelectedCommentId(comment.id); // Store the selected comment ID
-	};
-	const handleMenuClose = () => {
-		setAnchorEl(null);
-		setSelectedIndex(null);
-		setSelectedCommentId(null); // Reset selected comment ID when the menu closes
-	};
-	const handleEdit = (comment) => {
-		// Using the selectedCommentId to identify the comment to edit
-		if (comment !== null) {
-			handleEditClick(comment.id);
-		}
+	const handleEditClick = (comment) => {
 		handleMenuClose();
+		setEditMoodComment(comment.id);
 	};
-
 	const handleDeleteClick = (comment) => {
-		// Using the selectedCommentId to identify the comment to delete
+		console.log(comment);
 		if (comment !== null) {
-			// Open the delete confirmation dialog
+			setSelectedComment(comment);
 			setDeleteConfirmationOpen(true);
 		}
 		handleMenuClose();
 	};
-
-	const handleDeleteConfirm = () => {
-		// Handle delete logic for the selected comment
-		if (selectedCommentId !== null) {
-			// delete the comment with selectedCommentId
-			// handleDeleteComment(selectedCommentId);
-		}
-		// temporary solution: close the window!
-		setDeleteConfirmationOpen(false);
-	};
-
 	const handleDeleteCancel = () => {
-		// Close the delete confirmation dialog
 		setDeleteConfirmationOpen(false);
 	};
-
 	const handleCancelEdit = () => {
 		// Cancel the editing process
+		setEditMoodComment(null);
+	};
+
+	const handleMenuClick = (event, index) => {
+		setAnchorEl(event.currentTarget);
+		setSelectedIndex(index);
+	};
+	const handleMenuClose = () => {
+		setAnchorEl(null);
+		setSelectedIndex(null);
+	};
+	const handleEditSubmit = ({ text, comment_id }) => {
+		editComment({ text: text, comment_id: comment_id });
 		setEditMoodComment(null);
 	};
 
@@ -140,78 +110,74 @@ const CommentList = ({
 					<React.Fragment key={index}>
 						<ListItem>
 							{editMoodComment === comment.id ? (
-								<Grid p={2}>
-									<Formik
-										initialValues={{
-											text: comment.text,
-										}}
-										validationSchema={validationSchema}
-										onSubmit={editFormik.handleSubmit}>
-										{({ errors, touched }) => (
-											<Form>
-												<Field
-													as={TextField}
-													margin="normal"
-													type="text"
-													required
-													fullWidth
-													id="text"
-													name="text"
-													autoComplete="text"
-													error={touched.text && Boolean(errors.text)}
-												/>
-												<ErrorMessage name="text" />
+								<Formik
+									initialValues={{
+										text: comment.text,
+										comment_id: comment.id,
+									}}
+									validationSchema={editSchema}
+									onSubmit={handleEditSubmit}>
+									{({ errors, touched }) => (
+										<Form>
+											<Field
+												as={TextField}
+												margin="normal"
+												type="text"
+												required
+												fullWidth
+												id="text"
+												name="text"
+												error={touched.text && Boolean(errors.text)}
+											/>
+											<ErrorMessage name="text" />
+											<Grid
+												container
+												direction="row"
+												spacing={1}>
 												<Grid
-													container
-													direction={"row"}
-													spacing={1}>
-													<Grid
-														item
-														xs={6}>
-														<Button
-															onClick={handleSaveClick}
-															type="submit"
-															variant="contained"
-															fullWidth
-															component="label"
-															sx={{
-																"&:hover": {
-																	backgroundColor: "#ffffff",
-																},
-																borderRadius: 3,
-																mt: 1,
-																bgcolor: "#ebe6e6",
-																textTransform: "none",
-															}}>
-															ذخیره
-														</Button>
-													</Grid>
-													<Grid
-														item
-														xs={6}>
-														<Button
-															onClick={handleCancelEdit}
-															type="button"
-															variant="contained"
-															fullWidth
-															component="label"
-															sx={{
-																"&:hover": {
-																	backgroundColor: "#ffffff",
-																},
-																borderRadius: 3,
-																mt: 1,
-																bgcolor: "#ebe6e6",
-																textTransform: "none",
-															}}>
-															انصراف
-														</Button>
-													</Grid>
+													item
+													xs={6}>
+													<Button
+														type="submit"
+														variant="contained"
+														fullWidth
+														sx={{
+															"&:hover": {
+																backgroundColor: "#ffffff",
+															},
+															borderRadius: 3,
+															m: 1,
+															bgcolor: "#ebe6e6",
+															textTransform: "none",
+														}}>
+														<Typography>ذخیره</Typography>
+													</Button>
 												</Grid>
-											</Form>
-										)}
-									</Formik>
-								</Grid>
+												<Grid
+													item
+													xs={6}>
+													<Button
+														onClick={handleCancelEdit}
+														type="button"
+														variant="contained"
+														fullWidth
+														component="label"
+														sx={{
+															"&:hover": {
+																backgroundColor: "#ffffff",
+															},
+															borderRadius: 3,
+															m: 1,
+															bgcolor: "#ebe6e6",
+															textTransform: "none",
+														}}>
+														<Typography>انصراف</Typography>
+													</Button>
+												</Grid>
+											</Grid>
+										</Form>
+									)}
+								</Formik>
 							) : (
 								<>
 									<ListItemText primary={comment.text} />
@@ -231,14 +197,13 @@ const CommentList = ({
 				anchorEl={anchorEl}
 				open={Boolean(anchorEl)}
 				onClose={handleMenuClose}>
-				<MenuItem onClick={() => handleEdit(comments[selectedIndex])}>
+				<MenuItem onClick={() => handleEditClick(comments[selectedIndex])}>
 					ویرایش کامنت
 				</MenuItem>
 				<MenuItem onClick={() => handleDeleteClick(comments[selectedIndex])}>
 					حذف کامنت
 				</MenuItem>
 			</Menu>
-
 			<Dialog
 				open={deleteConfirmationOpen}
 				onClose={handleDeleteCancel}
@@ -248,7 +213,7 @@ const CommentList = ({
 				</DialogTitle>
 				<DialogActions>
 					<Button
-						onClick={handleDeleteCancel}
+						onClick={() => handleDeleteCancel()}
 						variant="contained"
 						component="label"
 						sx={{
@@ -262,7 +227,10 @@ const CommentList = ({
 						انصراف
 					</Button>
 					<Button
-						onClick={handleDeleteConfirm}
+						onClick={() => {
+							deleteComment(selectedComment.id);
+							setDeleteConfirmationOpen(false);
+						}}
 						variant="contained"
 						component="label"
 						sx={{
@@ -277,7 +245,9 @@ const CommentList = ({
 					</Button>
 				</DialogActions>
 			</Dialog>
+
 			<Grid p={1}>
+				{isLoading && <LinearProgress />}
 				<Divider />
 				<form onSubmit={formik.handleSubmit}>
 					{editMoodComment === null ? (
@@ -310,9 +280,6 @@ const CommentList = ({
 							name="comment"
 							id="comment"
 							label="نظر شما"
-							value={editFormik.values.text}
-							error={editFormik.touched.text && Boolean(editFormik.errors.text)}
-							helperText={editFormik.touched.text && editFormik.errors.text}
 						/>
 					)}
 

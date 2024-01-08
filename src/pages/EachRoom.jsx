@@ -58,6 +58,7 @@ const Eachroom = () => {
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [isCommentListOpen, setCommentListOpen] = useState(false);
 	const [openResDialog, setOpenResDialog] = useState(false);
+	const [commentLoading, setCommentLoadig] = useState(false);
 
 	// component life cycle
 	useEffect(() => {
@@ -102,7 +103,7 @@ const Eachroom = () => {
 	// functions
 	// for send comments and update state
 	const sendComment = async (comment) => {
-		setLoading(true);
+		setCommentLoadig(true);
 		try {
 			const data = {
 				text: comment,
@@ -120,10 +121,10 @@ const Eachroom = () => {
 		} catch (error) {
 			alert(error);
 		}
-		setLoading(false);
+		setCommentLoadig(false);
 	};
 	const editComment = async ({ comment_id, text }) => {
-		setLoading(true);
+		setCommentLoadig(true);
 		try {
 			const data = {
 				text: text,
@@ -143,11 +144,11 @@ const Eachroom = () => {
 		} catch (error) {
 			console.log(error);
 		}
-		setLoading(false);
+		setCommentLoadig(false);
 	};
 
 	const deleteComment = async (comment_id) => {
-		setLoading(true);
+		setCommentLoadig(true);
 		try {
 			const res = await Comment.delete({
 				uid: comment_id,
@@ -162,7 +163,7 @@ const Eachroom = () => {
 		} catch (error) {
 			console.log(error);
 		}
-		setLoading(false);
+		setCommentLoadig(false);
 	};
 
 	const handleUpdate = async (values) => {
@@ -196,7 +197,7 @@ const Eachroom = () => {
 					sm={4}
 					md={7}
 					sx={{
-						backgroundImage: `url(${room.image})`, //TODO: get room image from back-end and give backgroundImage it's url??
+						backgroundImage: `url(${room.image})`,
 						backgroundSize: "cover",
 						backgroundPosition: "center",
 					}}>
@@ -207,6 +208,7 @@ const Eachroom = () => {
 						comments={room.comments}
 						isOpen={isCommentListOpen}
 						onClose={toggleCommentList}
+						isLoading={commentLoading}
 					/>
 				</Grid>
 				{!isEditMode ? (
@@ -280,7 +282,7 @@ const Eachroom = () => {
 												disabled
 												fullWidth
 												label="تعداد تخت ها"
-												defaultValue={room.bed_count} //TODO: default value for bed count??
+												defaultValue={room.bed_count}
 											/>
 										</Grid>
 										<Grid

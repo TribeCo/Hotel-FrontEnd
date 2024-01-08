@@ -31,7 +31,7 @@ const validationSchema = Yup.object({
 	price: Yup.number()
 		.required("قیمت را وارد کنید")
 		.positive("قیمت باید عدد مثبت باشد"),
-	type: Yup.string().required("توضیحات را وارد کنید"),
+	description: Yup.string().required("توضیحات را وارد کنید"),
 });
 
 const Eachfood = () => {
@@ -43,6 +43,7 @@ const Eachfood = () => {
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [isCommentListOpen, setCommentListOpen] = useState(false);
 	const [openReserveDialog, setOpenReserveDialog] = useState(false);
+	const [commentLoading, setCommentLoadig] = useState(false);
 	const Navigate = useNavigate();
 
 	const handleReserveBTN = () => {
@@ -80,8 +81,8 @@ const Eachfood = () => {
 	}, [accessToken]);
 
 	const sendComment = async (comment) => {
+		setCommentLoadig(true);
 		try {
-			setLoading(true);
 			const data = {
 				text: comment,
 				food_id: id,
@@ -95,13 +96,13 @@ const Eachfood = () => {
 				authToken: accessToken,
 			});
 			setFood(foodRes.data);
-			setLoading(false);
 		} catch (error) {
 			alert(error);
 		}
+		setCommentLoadig(false);
 	};
 	const editComment = async ({ comment_id, text }) => {
-		setLoading(true);
+		setCommentLoadig(true);
 		try {
 			const data = {
 				text: text,
@@ -121,11 +122,11 @@ const Eachfood = () => {
 		} catch (error) {
 			console.log(error);
 		}
-		setLoading(false);
+		setCommentLoadig(false);
 	};
 
 	const deleteComment = async (comment_id) => {
-		setLoading(true);
+		setCommentLoadig(true);
 		try {
 			const res = await Comment.delete({
 				uid: comment_id,
@@ -140,7 +141,7 @@ const Eachfood = () => {
 		} catch (error) {
 			console.log(error);
 		}
-		setLoading(false);
+		setCommentLoadig(false);
 	};
 
 	const handleUpdate = async (values) => {
@@ -155,7 +156,7 @@ const Eachfood = () => {
 				authToken: accessToken,
 				data: data,
 			});
-			console.log(res);
+			setFood(res.data);
 			setIsEditMode(false);
 		} catch (error) {
 			console.log(error);
@@ -186,6 +187,7 @@ const Eachfood = () => {
 						comments={food.comments}
 						isOpen={isCommentListOpen}
 						onClose={toggleCommentList}
+						isLoading={commentLoading}
 					/>
 				</Grid>
 				{!isEditMode ? (
@@ -240,37 +242,6 @@ const Eachfood = () => {
 											defaultValue={food.price} //TODO: default value for food??
 										/>
 									</Grid>
-									{/* <Grid
-										item
-										container
-										direction={"row"}
-										spacing={1}>
-										<Grid
-											item
-											mb={2}
-											xs={6}>
-											<TextField
-												disabled
-												fullWidth
-												label="وعده غذایی"
-												defaultValue={MealConverter(food.meal)} //TODO: default value for food??
-											/>
-										</Grid>
-										<Grid
-											item
-											mb={2}
-											xs={6}>
-											<FormControl fullWidth>
-												<InputLabel>تاریخ رزرو غذا</InputLabel>
-												<Select
-													label="تاریخ رزرو غذا"
-													value={date}
-													onChange={handleChange}>
-													<MenuItem value={1}>{food.date}</MenuItem>
-												</Select>
-											</FormControl>
-										</Grid>
-									</Grid> */}
 									<Grid
 										item
 										mb={2}
@@ -281,7 +252,7 @@ const Eachfood = () => {
 											disabled
 											fullWidth
 											label="توضیحات"
-											defaultValue={food.type} //TODO: default value for desc??
+											defaultValue={food.description} //TODO: default value for desc??
 										/>
 									</Grid>
 								</Grid>
@@ -363,7 +334,7 @@ const Eachfood = () => {
 									initialValues={{
 										name: food.name || "",
 										price: food.price || "",
-										type: food.type || "",
+										description: food.description || "",
 										meal: food.meal || "d",
 									}}
 									validationSchema={validationSchema}
@@ -414,12 +385,16 @@ const Eachfood = () => {
 														rows={6}
 														fullWidth
 														label="توضیحات"
-														name="type"
-														value={values.type}
+														name="description"
+														value={values.description}
 														onChange={handleChange}
 														onBlur={handleBlur}
-														error={touched.type && Boolean(errors.type)}
-														helperText={touched.type && errors.type}
+														error={
+															touched.description && Boolean(errors.description)
+														}
+														helperText={
+															touched.description && errors.description
+														}
 													/>
 												</Grid>
 											</Grid>

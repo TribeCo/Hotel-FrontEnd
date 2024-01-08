@@ -14,6 +14,7 @@ import {
 	Table,
 	Fab,
 	Container,
+	LinearProgress,
 } from "@mui/material";
 
 import Admin from "../services/admin";
@@ -31,6 +32,8 @@ const EmployeeList = () => {
 	const [empList, setEmpList] = useState([]);
 	const { accessToken } = useAuth();
 	const [loading, setLoading] = useState(false);
+	const [linearLoading, setLinearLoading] = useState(false);
+
 	let reload = false;
 
 	useEffect(() => {
@@ -86,8 +89,8 @@ const EmployeeList = () => {
 
 	//? handle submit functions
 	const handleAddEmployee = async (data) => {
+		setLinearLoading(true);
 		try {
-			setLoading(true);
 			const res = await Admin.create({ data: data, authToken: accessToken });
 			if (res.status === 201) {
 				const d = await Admin.getAll({ authToken: accessToken });
@@ -96,46 +99,42 @@ const EmployeeList = () => {
 					setEmpList(d.data);
 				}
 			}
-			setLoading(false);
 		} catch (error) {
 			console.log(error);
-			setLoading(false);
 		}
+		setLinearLoading(false);
 	};
 	const handleEditEmployee = async (data) => {
+		setLinearLoading(true);
 		try {
-			setLoading(true);
-			const res = await Admin.edit({
+			await Admin.edit({
 				uid: selectedEmployee.id,
 				data: data,
 				authToken: accessToken,
 			});
-			const d = await Admin.getAll({ authToken: accessToken });
-			console.log(d);
-			if (d.status === 200) {
-				setEmpList(d.data);
+			const res = await Admin.getAll({ authToken: accessToken });
+			console.log(res);
+			if (res.status === 200) {
+				setEmpList(res.data);
 			}
-			setLoading(false);
 		} catch (error) {
 			console.log(error);
-			setLoading(false);
 		}
+		setLinearLoading(false);
 	};
 	const handleDeleteEmployee = async (emp) => {
+		setLinearLoading(true);
 		try {
-			setLoading(true);
-			const res = await User.delete({ uid: emp.id, authToken: accessToken });
-			const d = await Admin.getAll({ authToken: accessToken });
-			console.log(d);
-			if (d.status === 200) {
-				setEmpList(d.data);
-			}
+			await User.delete({ uid: emp.id, authToken: accessToken });
+			const res = await Admin.getAll({ authToken: accessToken });
 			console.log(res);
-			setLoading(false);
+			if (res.status === 200) {
+				setEmpList(res.data);
+			}
 		} catch (error) {
 			console.log(error);
-			setLoading(false);
 		}
+		setLinearLoading(false);
 	};
 	if (!loading) {
 		return (
@@ -168,6 +167,7 @@ const EmployeeList = () => {
 							}}>
 							<Typography variant="h5">لیست کارمندان</Typography>
 						</Box>
+						{linearLoading && <LinearProgress />}
 						<Divider />
 						<TableContainer>
 							<Table aria-label="caption table">
