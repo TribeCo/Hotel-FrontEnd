@@ -54,7 +54,7 @@ import { useAuth } from "../context/AuthContext";
 
 // Services
 import User from "../services/user";
-const baseUrl = "https://hotelback.iran.liara.run";
+import Images from "../assets/images";
 
 const drawerWidth = 240;
 const AppBar = styled(MuiAppBar, {
@@ -202,7 +202,7 @@ const DashboardLayout = () => {
 								<Typography sx={{ paddingRight: 1, color: "#FFFFFF", mr: 1 }}>
 									{user.firstName + " " + user.lastName}
 								</Typography>
-								<Avatar src={baseUrl + user.image}></Avatar>
+								<Avatar src={Images.baseUrl + user.image}></Avatar>
 							</Button>
 							<DropDownMenu
 								anchorEl={anchorEl}

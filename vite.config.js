@@ -7,7 +7,7 @@ export default defineConfig({
 	server: {
 		proxy: {
 			"/api": {
-				target: "https://hotelback.iran.liara.run",
+				target: "https://hotelt.liara.run",
 				changeOrigin: true,
 			},
 		},

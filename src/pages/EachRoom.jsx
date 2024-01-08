@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
-import { useParams } from "react-router-dom";
+import * as Yup from "yup";
+import { useParams, useNavigate } from "react-router-dom";
+import { Formik, Form } from "formik";
 import { useAuth } from "../context/AuthContext";
-import bk from "../assets/eachroom.png";
-import { useNavigate } from "react-router-dom";
-import Room from "../services/room";
 import {
 	Button,
 	CssBaseline,
@@ -19,14 +17,19 @@ import {
 	FormControl,
 	InputLabel,
 } from "@mui/material";
-import User from "../services/user";
-import CommentList from "../components/commentList";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
+
+// services
+import User from "../services/user";
+import Room from "../services/room";
+import Comment from "../services/comment";
+
+// components
+import CommentList from "../components/commentList";
 import Loading from "../components/utils/Loading";
+import ResRoomDialog from "../components/ResRoomDialog";
 
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-
+// form validation
 const validationSchema = Yup.object({
 	code: Yup.string().required("لطفاً کد اتاق را وارد کنید"),
 	type: Yup.string().required("لطفاً نوع اتاق را وارد کنید"),
@@ -36,23 +39,28 @@ const validationSchema = Yup.object({
 	price_one_night: Yup.number()
 		.required("لطفاً قیمت هر شب را وارد کنید")
 		.positive("قیمت باید عدد مثبت باشد"),
-	features: Yup.string().required("لطفاً توضیحات را وارد کنید"),
+	description: Yup.string().required("لطفاً توضیحات را وارد کنید"),
 });
 
 const Eachroom = () => {
+	// react HOOKs
 	const { id } = useParams();
-	const [room, setRoom] = useState([]);
+	const Navigate = useNavigate();
+
+	// custom HOOKs
 	const { accessToken } = useAuth();
+
+	// states
+	const [room, setRoom] = useState([]);
+	const [reservedDays, setReservedDays] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [user, setUser] = useState({});
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [isCommentListOpen, setCommentListOpen] = useState(false);
-	const Navigate = useNavigate();
+	const [openResDialog, setOpenResDialog] = useState(false);
+	const [commentLoading, setCommentLoadig] = useState(false);
 
-	const toggleCommentList = () => {
-		setCommentListOpen(!isCommentListOpen);
-	};
-
+	// component life cycle
 	useEffect(() => {
 		const fetchData = async () => {
 			if (accessToken) {
@@ -63,7 +71,12 @@ const Eachroom = () => {
 						uid: id,
 						authToken: accessToken,
 					});
-					console.log(roomRes);
+					const roomResDays = await Room.getReservedDays({
+						uid: id,
+						authToken: accessToken,
+					});
+					console.log(roomResDays.data);
+					setReservedDays(roomResDays.data);
 					setUser(userRes.data);
 					setRoom(roomRes.data);
 					setLoading(false);
@@ -76,25 +89,81 @@ const Eachroom = () => {
 		fetchData();
 	}, [accessToken]);
 
+	// handle buttons
+	const handleResBTN = () => {
+		setOpenResDialog(true);
+	};
+	const handleClose = () => {
+		setOpenResDialog(false);
+	};
+	const toggleCommentList = () => {
+		setCommentListOpen(!isCommentListOpen);
+	};
+
+	// functions
+	// for send comments and update state
 	const sendComment = async (comment) => {
+		setCommentLoadig(true);
 		try {
-			const url = "/api/accounts/comments/room/create/";
-			const config = {
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${accessToken}`,
-				},
-			};
 			const data = {
 				text: comment,
 				room_id: id,
 				user_id: user.id,
+				rating: 5,
 			};
-			const res = await Axios.post(url, data, config);
+			const res = await Comment.addRoom({ data: data, authToken: accessToken });
 			console.log(res);
+			const roomRes = await Room.getOne({
+				uid: id,
+				authToken: accessToken,
+			});
+			setRoom(roomRes.data);
+		} catch (error) {
+			alert(error);
+		}
+		setCommentLoadig(false);
+	};
+	const editComment = async ({ comment_id, text }) => {
+		setCommentLoadig(true);
+		try {
+			const data = {
+				text: text,
+				rating: 5,
+			};
+			const res = await Comment.update({
+				uid: comment_id,
+				data: data,
+				authToken: accessToken,
+			});
+			console.log(res);
+			const roomRes = await Room.getOne({
+				uid: id,
+				authToken: accessToken,
+			});
+			setRoom(roomRes.data);
 		} catch (error) {
 			console.log(error);
 		}
+		setCommentLoadig(false);
+	};
+
+	const deleteComment = async (comment_id) => {
+		setCommentLoadig(true);
+		try {
+			const res = await Comment.delete({
+				uid: comment_id,
+				authToken: accessToken,
+			});
+			console.log(res);
+			const roomRes = await Room.getOne({
+				uid: id,
+				authToken: accessToken,
+			});
+			setRoom(roomRes.data);
+		} catch (error) {
+			console.log(error);
+		}
+		setCommentLoadig(false);
 	};
 
 	const handleUpdate = async (values) => {
@@ -114,11 +183,7 @@ const Eachroom = () => {
 		}
 	};
 
-	const [date, setDate] = useState("");
-
-	const handleChange = (event) => {
-		setDate(event.target.value);
-	};
+	// render User Interface
 	if (!loading) {
 		return (
 			<Grid
@@ -132,15 +197,18 @@ const Eachroom = () => {
 					sm={4}
 					md={7}
 					sx={{
-						backgroundImage: `url(${room.image ? room.image : bk})`, //TODO: get room image from back-end and give backgroundImage it's url??
+						backgroundImage: `url(${room.image})`,
 						backgroundSize: "cover",
 						backgroundPosition: "center",
 					}}>
 					<CommentList
 						sendComment={sendComment}
-						comments={room.comments} //TODO: all comments should be here as an array like this: [ {id: 0, text: "..."}, {id: 1, text: "..."}, ... ]??
+						editComment={editComment}
+						deleteComment={deleteComment}
+						comments={room.comments}
 						isOpen={isCommentListOpen}
 						onClose={toggleCommentList}
+						isLoading={commentLoading}
 					/>
 				</Grid>
 				{!isEditMode ? (
@@ -172,7 +240,7 @@ const Eachroom = () => {
 								}}>
 								<Grid
 									container
-									spacing={2}>
+									spacing={1}>
 									<Grid
 										item
 										container
@@ -214,37 +282,20 @@ const Eachroom = () => {
 												disabled
 												fullWidth
 												label="تعداد تخت ها"
-												defaultValue={room.bed_count} //TODO: default value for bed count??
+												defaultValue={room.bed_count}
 											/>
 										</Grid>
 										<Grid
 											item
 											mb={2}
 											xs={6}>
-											<FormControl fullWidth>
-												<InputLabel>تاریخ رزرو اتاق</InputLabel>
-												<Select
-													label="تاریخ رزرو اتاق"
-													value={date}
-													onChange={handleChange}>
-													<MenuItem value={1}>option1</MenuItem>{" "}
-													{/* TODO: show real options from db?? */}
-													<MenuItem value={2}>option2</MenuItem>
-													<MenuItem value={3}>option3</MenuItem>
-												</Select>
-											</FormControl>
+											<TextField
+												disabled
+												fullWidth
+												label="قیمت هر شب"
+												defaultValue={room.price_one_night}
+											/>
 										</Grid>
-									</Grid>
-									<Grid
-										item
-										mb={2}
-										xs={12}>
-										<TextField
-											disabled
-											fullWidth
-											label="قیمت هر شب"
-											defaultValue={room.price_one_night} //TODO: default value for room??
-										/>
 									</Grid>
 									<Grid
 										item
@@ -256,16 +307,19 @@ const Eachroom = () => {
 											disabled
 											fullWidth
 											label="توضیحات"
-											defaultValue={room.features} //TODO: default value for desc??
+											defaultValue={room.description}
 										/>
 									</Grid>
 								</Grid>
 								<Button
-									onClick={() => Navigate("/dashboard")} //TODO: save room order and Navigate to dashboard??
+									onClick={handleResBTN}
 									fullWidth
 									variant="contained"
 									sx={{
-										mt: 3,
+										"&:hover": {
+											backgroundColor: "#b272b8",
+										},
+										mt: 2,
 										borderRadius: 15,
 										bgcolor: "secondary.main",
 									}}>
@@ -277,7 +331,10 @@ const Eachroom = () => {
 										fullWidth
 										variant="contained"
 										sx={{
-											mt: 3,
+											"&:hover": {
+												backgroundColor: "#c98e4b",
+											},
+											mt: 2,
 											borderRadius: 15,
 											bgcolor: "#f7b060",
 										}}>
@@ -289,7 +346,10 @@ const Eachroom = () => {
 									fullWidth
 									variant="contained"
 									sx={{
-										mt: 3,
+										"&:hover": {
+											backgroundColor: "#c74e4e",
+										},
+										mt: 2,
 										mb: 2,
 										borderRadius: 15,
 										bgcolor: "#f76d6d",
@@ -298,6 +358,15 @@ const Eachroom = () => {
 								</Button>
 							</Box>
 						</Container>
+						{openResDialog && (
+							<ResRoomDialog
+								open={openResDialog}
+								handleClose={handleClose}
+								room_type_id={room.id}
+								reserved={reservedDays}
+								accessToken={accessToken}
+							/>
+						)}
 					</Grid>
 				) : (
 					// Edit mood:
@@ -308,16 +377,6 @@ const Eachroom = () => {
 						md={5}
 						elevation={6}
 						square>
-						{/* <Fab
-							onClick={() => toggleCommentList()}
-							variant="extended"
-							style={{
-								position: "fixed",
-								margin: "16px",
-							}}>
-							<Typography variant="h6">مشاهده نظرات</Typography>
-							<CommentOutlinedIcon sx={{ ml: 1 }} />
-						</Fab> */}
 						<Container maxWidth="xs">
 							<CssBaseline />
 							<Box
@@ -333,7 +392,7 @@ const Eachroom = () => {
 										type: room.type || "",
 										bed_count: room.bed_count || "",
 										price_one_night: room.price_one_night || "",
-										features: room.features || "",
+										description: room.description || "",
 									}}
 									validationSchema={validationSchema}
 									onSubmit={handleUpdate}>
@@ -343,56 +402,71 @@ const Eachroom = () => {
 												container
 												spacing={2}>
 												<Grid
-													mt={1}
-													item
-													xs={12}
-													sm={6}>
-													<TextField
-														fullWidth
-														label="اتاق"
-														name="code"
-														value={values.code}
-														onChange={handleChange}
-														onBlur={handleBlur}
-														error={touched.code && Boolean(errors.code)}
-														helperText={touched.code && errors.code}
-													/>
+													container
+													// direction="row"
+													spacing={2}
+													item>
+													<Grid
+														mt={1}
+														item
+														xs={12}
+														sm={6}>
+														<TextField
+															fullWidth
+															label="اتاق"
+															name="code"
+															value={values.code}
+															onChange={handleChange}
+															onBlur={handleBlur}
+															error={touched.code && Boolean(errors.code)}
+															helperText={touched.code && errors.code}
+														/>
+													</Grid>
+
+													<Grid
+														mt={1}
+														item
+														xs={6}
+														sm={6}>
+														<FormControl fullWidth>
+															<InputLabel>نوع اتاق</InputLabel>
+															<Select
+																label="نوع اتاق"
+																name="type"
+																value={values.type}
+																onChange={handleChange}
+																onBlur={handleBlur}
+																error={touched.type && Boolean(errors.type)}>
+																<MenuItem value="o">معمولی</MenuItem>
+																<MenuItem value="v">VIP</MenuItem>
+															</Select>
+														</FormControl>
+													</Grid>
 												</Grid>
 												<Grid
 													mt={1}
+													mb={2}
 													item
-													xs={12}
-													sm={6}>
+													xs={12}>
 													<TextField
 														fullWidth
-														label="نوع اتاق"
-														name="type"
-														value={values.type}
+														label="تعداد تخت‌ها"
+														name="bed_count"
+														type="number"
+														value={values.bed_count}
 														onChange={handleChange}
 														onBlur={handleBlur}
-														error={touched.type && Boolean(errors.type)}
-														helperText={touched.type && errors.type}
+														error={
+															touched.bed_count && Boolean(errors.bed_count)
+														}
+														helperText={touched.bed_count && errors.bed_count}
 													/>
 												</Grid>
 											</Grid>
+
 											<Grid
 												mt={1}
-												item
-												xs={12}>
-												<TextField
-													fullWidth
-													label="تعداد تخت‌ها"
-													name="bed_count"
-													type="number"
-													value={values.bed_count}
-													onChange={handleChange}
-													onBlur={handleBlur}
-													error={touched.bed_count && Boolean(errors.bed_count)}
-													helperText={touched.bed_count && errors.bed_count}
-												/>
-											</Grid>
-											<Grid
-												mt={1}
+												mb={2}
 												item
 												xs={12}>
 												<TextField
@@ -414,6 +488,7 @@ const Eachroom = () => {
 											</Grid>
 											<Grid
 												mt={1}
+												mb={2}
 												item
 												xs={12}>
 												<TextField
@@ -421,12 +496,14 @@ const Eachroom = () => {
 													rows={6}
 													fullWidth
 													label="توضیحات"
-													name="features"
-													value={values.features}
+													name="description"
+													value={values.description}
 													onChange={handleChange}
 													onBlur={handleBlur}
-													error={touched.features && Boolean(errors.features)}
-													helperText={touched.features && errors.features}
+													error={
+														touched.description && Boolean(errors.description)
+													}
+													helperText={touched.description && errors.description}
 												/>
 											</Grid>
 											<Button
@@ -434,6 +511,9 @@ const Eachroom = () => {
 												fullWidth
 												variant="contained"
 												sx={{
+													"&:hover": {
+														backgroundColor: "#5cab70",
+													},
 													mt: 3,
 													borderRadius: 15,
 													bgcolor: "#7ed695",
@@ -445,7 +525,10 @@ const Eachroom = () => {
 												fullWidth
 												variant="contained"
 												sx={{
-													mt: 3,
+													"&:hover": {
+														backgroundColor: "#c74e4e",
+													},
+													mt: 2,
 													mb: 2,
 													borderRadius: 15,
 													bgcolor: "#f76d6d",

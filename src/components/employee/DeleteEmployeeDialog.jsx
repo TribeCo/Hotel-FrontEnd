@@ -33,10 +33,29 @@ const DeleteEmployeeDialog = ({
 					</Typography>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose}>لغو</Button>
+					<Button onClick={handleClose}
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
+						}}>لغو</Button>
 					<Button
 						onClick={handleDeleteClick}
-						color="primary">
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
+						}}>
 						حذف
 					</Button>
 				</DialogActions>

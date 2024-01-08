@@ -1,16 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./tailwind.css";
-import "./landing.css"; // Import your CSS file
-import mainpicture from "../assets/mainpicture.png";
-import pic1 from "../assets/pic1.jpg";
-import pic2 from "../assets/pic2.jpg";
-import pic3 from "../assets/pic3.jpg";
+import "./landing.css";
 import { Group } from "@mui/icons-material";
-import { Typography } from "@mui/material";
-import des from "../assets/des.jpg";
+import { Avatar, Button, Typography } from "@mui/material";
+import { useAuth } from "../context/AuthContext";
+import User from "../services/user";
+
+import Images from "../assets/images";
+const mainpicture = Images.mainPicture;
+const pic1 = Images.pic1;
+const pic2 = Images.pic2;
+const pic3 = Images.pic3;
+const des = Images.des;
 
 function Landing() {
+	const [user, setUser] = useState(null);
+	const { accessToken } = useAuth();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			if (accessToken) {
+				try {
+					const response = await User.getOne({ accessToken: accessToken });
+					console.log(response.data);
+					setUser(response.data);
+				} catch (error) {}
+			}
+		};
+
+		fetchData();
+	}, [accessToken]);
+
 	return (
 		<div
 			className="flex flex-col min-h-screen justify-center items-center"
@@ -22,27 +43,40 @@ function Landing() {
 					<h1 className="text-2xl font-bold">Transylvania</h1>
 					<nav>
 						<ul className="flex space-x-4">
-							{/* <li>
-								<Link
-									to="news"
-									className="hover:text-gray-300">
-									<Typography>اخبار</Typography>
+							{user ? (
+								<Link to="/dashboard">
+									<Button
+										variant="contained"
+										sx={{
+											bgcolor: "#b4b7b7",
+											borderRadius: 3,
+											"&:hover": { backgroundColor: "#ebebeb" },
+										}}>
+										<Typography>ورود به داشبورد </Typography>
+
+										<Avatar
+											src={`https://hotelt.liara.run${user.image}`}
+											sx={{
+												mr: 1,
+												height: 28,
+												width: 28,
+											}}></Avatar>
+									</Button>
 								</Link>
-							</li> */}
-							<li className="landingbtn-link" >
-								<Link
-									to="/login"
-									>
-									<Typography >ورود</Typography>
-								</Link>
-							</li>
-							<li className="landingbtn-link">
-								<Link
-									to="/register"
-									>
-									<Typography >ثبت نام</Typography>
-								</Link>
-							</li>
+							) : (
+								<>
+									<li className="landingbtn-link">
+										<Link to="/login">
+											<Typography>ورود</Typography>
+										</Link>
+									</li>
+									<li className="landingbtn-link">
+										<Link to="/register">
+											<Typography>ثبت نام</Typography>
+										</Link>
+									</li>
+								</>
+							)}
 						</ul>
 					</nav>
 				</div>

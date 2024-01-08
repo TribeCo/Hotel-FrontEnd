@@ -32,7 +32,7 @@ const AddRoomDialog = ({ open, handleClose, handleAddRoom }) => {
 		price_one_night: Yup.number()
 			.typeError("ورودی باید یک عدد باشد")
 			.required("قیمت رزرو هر شب الزامی است"),
-		// features: (no validation)
+		description: Yup.string().required("توضیحات الزامی است"),
 	});
 
 	const formik = useFormik({
@@ -41,18 +41,21 @@ const AddRoomDialog = ({ open, handleClose, handleAddRoom }) => {
 			type: "",
 			bed_count: "",
 			price_one_night: "",
-			features: "",
-			image: null,
+			description: "",
 		},
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
 			handleAddRoom({
-				number: values.number,
-				type: values.type,
-				bed_count: values.bed_count,
-				price_one_night: values.price_one_night,
-				features: values.features,
-				image: values.image,
+				info: {
+					number: values.number,
+					type: values.type,
+					bed_count: values.bed_count,
+					price_one_night: values.price_one_night,
+					description: values.description,
+				},
+				image: {
+					file: values.image,
+				},
 			});
 			handleClose();
 		},
@@ -119,6 +122,20 @@ const AddRoomDialog = ({ open, handleClose, handleAddRoom }) => {
 							formik.touched.price_one_night && formik.errors.price_one_night
 						}
 					/>
+					<TextField
+						label="توضیحات"
+						multiline
+						rows={4}
+						name="description"
+						value={formik.values.description}
+						onChange={formik.handleChange}
+						fullWidth
+						margin="normal"
+						error={
+							formik.touched.description && Boolean(formik.errors.description)
+						}
+						helperText={formik.touched.description && formik.errors.description}
+					/>
 					<Box
 						sx={{
 							mt: 2,
@@ -131,8 +148,11 @@ const AddRoomDialog = ({ open, handleClose, handleAddRoom }) => {
 							component="label"
 							htmlFor="image"
 							sx={{
+								"&:hover": {
+									backgroundColor: "#ffffff",
+								},
 								borderRadius: 2,
-								bgcolor: "#F8F8F2",
+								bgcolor: "#ebe6e6",
 								textTransform: "none",
 							}}>
 							انتخاب تصویر
@@ -153,10 +173,35 @@ const AddRoomDialog = ({ open, handleClose, handleAddRoom }) => {
 					</Box>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose}>لغو</Button>
+					<Button
+						onClick={handleClose}
+
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
+						}}>
+
+						لغو</Button>
 					<Button
 						onClick={formik.handleSubmit}
-						color="primary">
+
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
+						}}>
+
 						افزودن
 					</Button>
 				</DialogActions>

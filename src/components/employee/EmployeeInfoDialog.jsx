@@ -11,6 +11,8 @@ import {
 	TextField,
 } from "@mui/material";
 
+import Images from "../../assets/images";
+
 const EmployeeInfoDialog = ({ open, handleClose, employeeData }) => {
 	const roles = {
 		m: "مدیر کل",
@@ -35,7 +37,7 @@ const EmployeeInfoDialog = ({ open, handleClose, employeeData }) => {
 						textAlign="start">
 						<Avatar
 							alt="Employee Avatar"
-							src={"https://hotelback.iran.liara.run" + employeeData.image}
+							src={Images.baseUrl + employeeData.image}
 							sx={{ width: 80, height: 80, mb: 2 }}
 						/>
 						<Typography
@@ -68,7 +70,20 @@ const EmployeeInfoDialog = ({ open, handleClose, employeeData }) => {
 					</Box>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose}>بستن</Button>
+					<Button
+						onClick={handleClose}
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
+						}}>
+						بستن
+					</Button>
 				</DialogActions>
 			</Box>
 		</Dialog>

@@ -16,6 +16,28 @@ class Room {
 		return axios.get(url, config);
 	};
 
+	static reserve = ({ data, authToken }) => {
+		const url = `${baseUrl}/reservation/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.post(url, data, config);
+	};
+
+	static getReservedDays = ({ uid, authToken }) => {
+		const url = `${baseUrl}/reservation/days/${uid}/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.get(url, config);
+	};
+
 	// @Desc get Room info with id
 	static getUserRoom = ({ authToken }) => {
 		const url = `${baseUrl}/reservation/user/`;
@@ -29,15 +51,18 @@ class Room {
 	};
 
 	// @Desc upload user image
-	static uploadImage = ({ uid, data, authToken }) => {
-		const url = `${baseUrl}/upload/${uid}/`;
+	static uploadImage = ({ uid, file, authToken }) => {
+		const formData = new FormData();
+		formData.append("image", file);
+
+		const url = `${baseUrl}/type/update/image/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "multipart/form-data",
 				Authorization: `Bearer ${authToken}`,
 			},
 		};
-		return axios.post(url, data, config);
+		return axios.put(url, formData, config);
 	};
 
 	// @Desc get Reservation All Reservation Room
@@ -101,7 +126,7 @@ class Room {
 
 	// @Desc create Room
 	static create = ({ data, authToken }) => {
-		const url = `${baseUrl}/create/`;
+		const url = `${baseUrl}/type/create/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",

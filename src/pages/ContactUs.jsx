@@ -10,6 +10,7 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import Images from "../assets/images";
 
 const validationSchema = Yup.object({
 	name: Yup.string().required("نام خود را وارد کنید"),
@@ -62,7 +63,7 @@ const ContactUs = () => {
 				ارتباط با ما
 			</Typography>
 			<img
-				src="/src/assets/pic.jpg"
+				src={Images.pic}
 				alt="Contact Us"
 				style={{
 					marginTop: "2rem",

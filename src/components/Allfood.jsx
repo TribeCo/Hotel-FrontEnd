@@ -2,17 +2,15 @@ import React, { useEffect, useState } from "react";
 import Loading from "./utils/Loading";
 import "./allfood.css";
 import "./tailwind.css";
-import popup from "../assets/allfood_popup.png";
 import { Fab, Typography } from "@mui/material";
 import { AddCircle } from "@mui/icons-material";
-import AddRoomDialog from "./employee/AddRoomDialog";
 import Food from "../services/food";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import AddFoodDialog from "./employee/AddFoodDialog";
 
 const Allfood = () => {
-	const [openAddDialog, setOpenAddDialog] = useState(false); // Ceate
+	const [openAddDialog, setOpenAddDialog] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [cardData, setCardData] = useState([]);
 	const { accessToken } = useAuth();
@@ -43,11 +41,18 @@ const Allfood = () => {
 
 	const handleAddFood = async (data) => {
 		try {
+			const resFood = await Food.create({
+				data: data.info,
+				authToken: accessToken,
+			});
+			await Food.uploadImage({
+				uid: resFood.data.data.id,
+				file: data.image.file,
+				authToken: accessToken,
+			});
 			setLoading(true);
-			const res = await Food.create({ data: data, authToken: accessToken });
-			const d = await Food.getAll({ authToken: accessToken });
-			console.log(res);
-			setCardData(d.data);
+			const res = await Food.getAll({ authToken: accessToken });
+			setCardData(res.data);
 			setLoading(false);
 		} catch (error) {
 			console.log(error);

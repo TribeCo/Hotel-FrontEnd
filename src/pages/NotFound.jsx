@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Typography, Button, Container, Grid } from "@mui/material";
+import Image from "../assets/404.png";
 
 const NotFound = () => {
 	return (
@@ -12,13 +13,15 @@ const NotFound = () => {
 				justifyContent="center"
 				alignItems="center"
 				style={{ minHeight: "100vh" }}>
-				<Grid item>
-					<Typography
-						variant="h1"
-						color="#FF0000">
-						404
-					</Typography>
-				</Grid>
+				<img
+					src={Image}
+					alt="Not Found"
+					style={{
+						width: "480px",
+						marginBottom: "2rem",
+					}}
+				/>
+
 				<Grid item>
 					<Typography
 						variant="h4"
@@ -39,8 +42,14 @@ const NotFound = () => {
 						component={Link}
 						to="/"
 						variant="contained"
-						color="primary">
-						بازگشت به خانه
+						sx={{
+							bgcolor: "#ff00cc",
+							color: "#fff",
+							"&:hover": {
+								bgcolor: "#ad018a",
+							},
+						}}>
+						<Typography>بازگشت به خانه</Typography>
 					</Button>
 				</Grid>
 			</Grid>

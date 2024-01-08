@@ -17,6 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import User from "../services/user.js";
 import Loading from "../components/utils/Loading.jsx";
+import Axios from "axios";
 
 const codeSchema = Yup.object().shape({
 	code: Yup.string()
@@ -42,12 +43,22 @@ const validationSchema = Yup.object().shape({
 	),
 });
 
-let userEmail = "";
 const Register = () => {
 	const Navigate = useNavigate();
 	const [isVerification, setIsVerification] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [email, setEmail] = useState(null);
 
+	const sendCodeAgain = async () => {
+		try {
+			const url = "/api/accounts/users/update/password/";
+			const data = { email: email };
+			await Axios.post(url, data);
+			alert("کد با موفقیت ارسال شد.");
+		} catch (error) {
+			alert(error);
+		}
+	};
 	const handleSubmit = async (values) => {
 		try {
 			setLoading(true);
@@ -58,7 +69,7 @@ const Register = () => {
 				email: values.email,
 				password: values.password,
 			});
-			userEmail = values.email;
+			setEmail(values.email);
 			setLoading(false);
 			setIsVerification(true);
 			console.log(res);
@@ -72,7 +83,7 @@ const Register = () => {
 		try {
 			setLoading(true);
 			const res = await User.validationEmail({
-				email: userEmail,
+				email: email,
 				code: values.code,
 			});
 			console.log(res);
@@ -375,17 +386,17 @@ const Register = () => {
 													borderRadius: 15,
 													bgcolor: "secondary.main",
 												}}>
-												تائید ایمیل
+												<Typography variant="h6">تائید ایمیل</Typography>
 											</Button>
 											<Grid
 												container
 												justifyContent="flex-end">
 												<Grid item>
-													<Link to="/login">
-														<Button sx={{ color: "secondary.main" }}>
-															کد ارسال نشد؟ ارسال دوباره
-														</Button>
-													</Link>
+													<Button
+														onClick={() => sendCodeAgain()}
+														sx={{ color: "secondary.main" }}>
+														<Typography>کد ارسال نشد؟ ارسال دوباره</Typography>
+													</Button>
 												</Grid>
 											</Grid>
 										</Form>
