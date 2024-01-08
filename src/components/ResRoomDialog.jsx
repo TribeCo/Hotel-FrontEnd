@@ -82,11 +82,26 @@ const ResRoom = ({
 					/>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose}>
+					<Button
+						onClick={handleClose}
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
+						}}
+					>
 						<Typography>لغو</Typography>
 					</Button>
 					<Button
 						onClick={() => {
+
+
+
 							if (values) {
 								const check_in = moment(
 									`${values[0].year}/${values[0].month.number}/${values[0].day}`,
@@ -100,6 +115,16 @@ const ResRoom = ({
 							} else {
 								alert("لطفا یک بازه معتبر را انتخاب نمایید.");
 							}
+						}}
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
 						}}
 						color="primary">
 						<Typography>رزرو</Typography>
