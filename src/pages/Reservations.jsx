@@ -79,7 +79,9 @@ const Reservations = () => {
 							<Table aria-label="caption table">
 								<TableHead>
 									<TableRow>
-										<TableCell variant="h6">وضعیت تحویل</TableCell>
+										<TableCell align="center">
+											<Typography variant="h6">وضعیت تحویل</Typography>
+										</TableCell>
 										<TableCell align="center">
 											<Typography variant="h6">سفارش دهنده</Typography>
 										</TableCell>

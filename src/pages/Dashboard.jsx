@@ -15,6 +15,7 @@ import Loading from "../components/utils/Loading";
 import Room from "../services/room";
 import Food from "../services/food";
 import Images from "../assets/images";
+import ReservationList from "../components/dashboard/ReservationList";
 
 const DashboardPage = ({ user, payment, setPayment }) => {
 	const [room, setRoom] = useState([]);
@@ -117,6 +118,12 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 							</Box>
 						</Paper>
 					</Grid>
+				</Grid>
+				<Grid>
+					<ReservationList 
+						roomList={ {} }                     //TODO: give room list to the component
+						foodList={ {} }                     //TODO: give food list to the component
+					/>
 				</Grid>
 			</Container>
 		);
