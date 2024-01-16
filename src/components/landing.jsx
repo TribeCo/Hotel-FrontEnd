@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./tailwind.css";
-import "./landing.css";
+// import "./landing.css";
 import { Group } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 
