@@ -33,6 +33,7 @@ import {
 	ChevronLeft,
 	Logout,
 } from "@mui/icons-material";
+import { useErrorBoundary } from "react-error-boundary";
 
 // Components
 import Loading from "../components/utils/Loading";
@@ -101,6 +102,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const DashboardLayout = () => {
+	const { showBoundary } = useErrorBoundary();
 	const { accessToken } = useAuth();
 	const Navigate = useNavigate();
 
@@ -119,21 +121,24 @@ const DashboardLayout = () => {
 	};
 
 	useEffect(() => {
-		const checkLoginStatus = async (access) => {
-			if (!access) {
-				Navigate("/login");
-			}
-		};
-
 		const fetchData = async () => {
 			if (accessToken) {
 				try {
 					const response = await User.getOne({ accessToken: accessToken });
 					setUser(response.data);
 				} catch (error) {
-					alert("شما به محتوا درخواست شده دسترسی ندارید لطفا ابتدا وارد شوید.");
-					Navigate("/");
+					const e = new Error();
+					e.message =
+						"شما به محتوا درخواست شده دسترسی ندارید لطفا ابتدا وارد شوید.";
+					e.name = "خطای احراز هویت";
+					showBoundary(e);
 				}
+			} else {
+				const e = new Error();
+				e.message =
+					"شما به محتوا درخواست شده دسترسی ندارید لطفا ابتدا وارد شوید.";
+				e.name = "خطای احراز هویت";
+				showBoundary(e);
 			}
 		};
 

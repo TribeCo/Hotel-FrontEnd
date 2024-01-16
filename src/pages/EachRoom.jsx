@@ -75,7 +75,7 @@ const Eachroom = () => {
 						uid: id,
 						authToken: accessToken,
 					});
-					console.log(roomResDays.data);
+					console.log(roomRes);
 					setReservedDays(roomResDays.data);
 					setUser(userRes.data);
 					setRoom(roomRes.data);
