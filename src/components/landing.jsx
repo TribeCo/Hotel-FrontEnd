@@ -212,8 +212,13 @@ function Landing() {
 						</Link>
 						<Link
 							to="/aboutus"
-							className="hover:text-gray-300">
+							className="hover:text-gray-300 ml-4 mb-2">
 							<Typography>درباره ما</Typography>
+						</Link>
+						<Link
+							to="/faq"
+							className="hover:text-gray-300">
+							<Typography> سوالات متداول </Typography>
 						</Link>
 					</div>
 					<div className="column-2">
