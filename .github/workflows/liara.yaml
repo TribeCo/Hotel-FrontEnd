@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - Config/Server
 jobs:
   deploy:
     runs-on: ubuntu-latest
