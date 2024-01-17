@@ -9,7 +9,6 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-
 import {
 	Button,
 	TextField,
@@ -42,7 +41,6 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
 			sendComment(values.comment);
-			// Clear the form or perform other actions if needed
 			formik.resetForm();
 		},
 	});
@@ -54,11 +52,9 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
 			sendComment(values.comment);
-			// Clear the form or perform other actions if needed
 			editFormik.resetForm();
 		},
 	});
-
 
 	const handleEditClick = (commentId) => {
 		setEditMoodComment(commentId);
@@ -91,19 +87,12 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 	const handleDeleteClick = (comment) => {
 		// Using the selectedCommentId to identify the comment to delete
 		if (comment !== null) {
-			// Open the delete confirmation dialog
 			setDeleteConfirmationOpen(true);
 		}
 		handleMenuClose();
 	};
 
 	const handleDeleteConfirm = () => {
-		// Handle delete logic for the selected comment
-		if (selectedCommentId !== null) {
-			// delete the comment with selectedCommentId
-			// handleDeleteComment(selectedCommentId);
-		}
-
 		// temporary solution: close the window!
 		setDeleteConfirmationOpen(false);
 	};
@@ -132,8 +121,7 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 					justifyContent: "space-between",
 					height: "100%",
 				},
-			}}
-		>
+			}}>
 			<List>
 				{comments.map((comment, index) => (
 					<React.Fragment key={index}>
@@ -163,8 +151,7 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 												<Grid
 													container
 													direction={"row"}
-													spacing={1}
-												>
+													spacing={1}>
 													<Grid
 														item
 														xs={6}>
@@ -177,8 +164,7 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 																mt: 1,
 																borderRadius: 3,
 																bgcolor: "#F8F8F2",
-															}}
-														>
+															}}>
 															ذخیره
 														</Button>
 													</Grid>
@@ -195,8 +181,7 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 																mb: 1,
 																borderRadius: 3,
 																bgcolor: "#F8F8F2",
-															}}
-														>
+															}}>
 															انصراف
 														</Button>
 													</Grid>
@@ -208,7 +193,8 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 							) : (
 								<>
 									<ListItemText primary={comment.text} />
-									<IconButton onClick={(event) => handleMenuClick(event, index, comment)}>
+									<IconButton
+										onClick={(event) => handleMenuClick(event, index, comment)}>
 										<MoreVertIcon />
 									</IconButton>
 								</>
@@ -223,23 +209,30 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 				anchorEl={anchorEl}
 				open={Boolean(anchorEl)}
 				onClose={handleMenuClose}>
-				<MenuItem onClick={() => handleEdit(comments[selectedIndex])}>ویرایش کامنت</MenuItem>
-				<MenuItem onClick={() => handleDeleteClick(comments[selectedIndex])}>حذف کامنت</MenuItem>
+				<MenuItem onClick={() => handleEdit(comments[selectedIndex])}>
+					ویرایش کامنت
+				</MenuItem>
+				<MenuItem onClick={() => handleDeleteClick(comments[selectedIndex])}>
+					حذف کامنت
+				</MenuItem>
 			</Menu>
 
 			<Dialog
 				open={deleteConfirmationOpen}
 				onClose={handleDeleteCancel}
-				aria-labelledby="delete-comment-dialog-title"
-			>
+				aria-labelledby="delete-comment-dialog-title">
 				<DialogTitle id="delete-comment-dialog-title">
 					از حذف این کامنت اطمینان دارید؟
 				</DialogTitle>
 				<DialogActions>
-					<Button onClick={handleDeleteCancel} color="primary">
+					<Button
+						onClick={handleDeleteCancel}
+						color="primary">
 						انصراف
 					</Button>
-					<Button onClick={handleDeleteConfirm} color="error">
+					<Button
+						onClick={handleDeleteConfirm}
+						color="error">
 						حذف
 					</Button>
 				</DialogActions>
@@ -293,8 +286,7 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 							mb: 1,
 							borderRadius: 3,
 							bgcolor: "#F8F8F2",
-						}}
-					>
+						}}>
 						<SendIcon sx={{ mr: 1 }} />
 						<Typography variant="h6">ارسال کامنت</Typography>
 					</Button>

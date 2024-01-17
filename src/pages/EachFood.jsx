@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
 import Axios from "axios";
-// import bk from "../assets/eachfood.png";
 import User from "../services/user";
 import Food from "../services/food";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import {
 	Button,
 	CssBaseline,
@@ -29,7 +28,6 @@ const validationSchema = Yup.object({
 	price: Yup.number()
 		.required("قیمت را وارد کنید")
 		.positive("قیمت باید عدد مثبت باشد"),
-	// meal: Yup.string().required("وعده غذایی را وارد کنید"),
 	type: Yup.string().required("توضیحات را وارد کنید"),
 });
 
@@ -64,7 +62,6 @@ const Eachfood = () => {
 				} catch (error) {
 					alert("خطایی رخ داد لطفا دوباره تلاش کنید");
 					setLoading(false);
-					// Navigate("/dashboard");
 				}
 			}
 		};
@@ -196,37 +193,6 @@ const Eachfood = () => {
 											defaultValue={food.price} //TODO: default value for food??
 										/>
 									</Grid>
-									{/* <Grid
-										item
-										container
-										direction={"row"}
-										spacing={1}>
-										<Grid
-											item
-											mb={2}
-											xs={6}>
-											<TextField
-												disabled
-												fullWidth
-												label="وعده غذایی"
-												defaultValue={MealConverter(food.meal)} //TODO: default value for food??
-											/>
-										</Grid>
-										<Grid
-											item
-											mb={2}
-											xs={6}>
-											<FormControl fullWidth>
-												<InputLabel>تاریخ رزرو غذا</InputLabel>
-												<Select
-													label="تاریخ رزرو غذا"
-													value={date}
-													onChange={handleChange}>
-													<MenuItem value={1}>{food.date}</MenuItem>
-												</Select>
-											</FormControl>
-										</Grid>
-									</Grid> */}
 									<Grid
 										item
 										mb={2}
@@ -399,13 +365,3 @@ const Eachfood = () => {
 };
 
 export default Eachfood;
-
-// const MealConverter = (meal) => {
-// 	if (meal === "b") {
-// 		return "صبحانه";
-// 	} else if (meal === "l") {
-// 		return "ناهار";
-// 	} else if (meal === "d") {
-// 		return "شام";
-// 	}
-// };

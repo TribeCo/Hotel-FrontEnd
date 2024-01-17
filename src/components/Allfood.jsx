@@ -117,18 +117,6 @@ const Allfood = () => {
 								</Link>
 							))}
 						</div>
-						{/* <button
-							className="absolute top-24 right-2 -mt-3 -mr-3  "
-							id="calendarButton"
-							onClick={handleCalendarButtonClick}>
-							<img
-								src={popup}
-								alt="Circle Image"
-								width="40px"
-								height="40px"
-								className="allfooditem-bg   p-2"
-							/>
-						</button> */}
 					</div>
 
 					{isCalendarOpen && (

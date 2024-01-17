@@ -24,7 +24,10 @@ export const AuthProvider = ({ children }) => {
 
 	const login = async (data) => {
 		try {
-			let response = await axios.post("api/accounts/token/", data);
+			let response = await axios.post(
+				"https://hotelt.liara.run/api/accounts/token/",
+				data,
+			);
 			let accessToken = response.data.access;
 			let refreshToken = response.data.refresh;
 
@@ -55,9 +58,12 @@ export const AuthProvider = ({ children }) => {
 
 	const refreshTokenFunc = async () => {
 		try {
-			const response = await axios.post("api/token/refresh/", {
-				refreshToken,
-			});
+			const response = await axios.post(
+				"https://hotelt.liara.run/api/token/refresh/",
+				{
+					refreshToken,
+				},
+			);
 
 			// Update the access token in localStorage
 			const newAccessToken = response.data.accessToken;

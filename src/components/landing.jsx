@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./tailwind.css";
-// import "./landing.css";
+import "./landing.css";
 import { Group } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 
@@ -24,13 +24,6 @@ function Landing() {
 					<h1 className="text-2xl font-bold">Transylvania</h1>
 					<nav>
 						<ul className="flex space-x-4">
-							{/* <li>
-								<Link
-									to="news"
-									className="hover:text-gray-300">
-									<Typography>اخبار</Typography>
-								</Link>
-							</li> */}
 							<li className="landingbtn-link">
 								<Link to="/login">
 									<Typography>ورود</Typography>

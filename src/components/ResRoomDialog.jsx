@@ -74,16 +74,13 @@ const ResRoom = ({ open, handleClose, handleReserve }) => {
 											range[1]?.format?.() === end,
 									),
 							);
-
 							if (!isClickedOutsideUnAvailbleDates) return false;
-
 							setValues(ranges);
 						}}
 						mapDays={({ date }) => {
 							let className;
 							const strDate = date.format();
 							className = "un-availble";
-
 							if (className) return { className };
 						}}
 					/>

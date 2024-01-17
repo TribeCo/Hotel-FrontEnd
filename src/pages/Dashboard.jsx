@@ -15,7 +15,7 @@ import Loading from "../components/utils/Loading";
 import Room from "../services/room";
 import Food from "../services/food";
 
-const baseUrl = "https://hotelback.iran.liara.run";
+const baseUrl = "https://hotelt.liara.run";
 
 const DashboardPage = ({ user, payment, setPayment }) => {
 	const [room, setRoom] = useState([]);

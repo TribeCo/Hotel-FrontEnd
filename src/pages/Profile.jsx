@@ -20,7 +20,7 @@ import { ArrowBack } from "@mui/icons-material";
 import { useAuth } from "../context/AuthContext";
 import Loading from "../components/utils/Loading";
 import Images from "../assets/images";
-const baseUrl = "https://hotelback.iran.liara.run";
+const baseUrl = "https://hotelt.liara.run";
 
 const validationSchema = Yup.object().shape({
 	firstName: Yup.string(),
