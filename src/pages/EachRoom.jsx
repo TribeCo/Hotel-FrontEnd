@@ -25,8 +25,6 @@ import CommentList from "../components/commentList";
 import Loading from "../components/utils/Loading";
 import ResRoomDialog from "../components/ResRoomDialog";
 
-import { Formik, Form } from "formik";
-import * as Yup from "yup";
 // form validation
 const validationSchema = Yup.object({
 	code: Yup.string().required("لطفاً کد اتاق را وارد کنید"),

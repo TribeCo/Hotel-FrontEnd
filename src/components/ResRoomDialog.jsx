@@ -65,7 +65,6 @@ const ResRoom = ({
 						range
 						rangeHover
 						value={values}
-						// onChange={setValues}
 						onChange={(ranges) => {
 							const isClickedOutsideUnAvailbleDates = reserved.every(
 								([start, end]) =>
@@ -78,12 +77,6 @@ const ResRoom = ({
 							if (!isClickedOutsideUnAvailbleDates) return false;
 							setValues(ranges);
 						}}
-						mapDays={({ date }) => {
-							let className;
-							const strDate = date.format();
-							className = "un-availble";
-							if (className) return { className };
-						onChange={setValues}
 						mapDays={({ date }) => {
 							const strDate = moment(
 								`${date.year}/${date.month.number}/${date.day}`,
@@ -111,15 +104,11 @@ const ResRoom = ({
 							borderRadius: 2,
 							bgcolor: "#ebe6e6",
 							textTransform: "none",
-						}}
-					>
+						}}>
 						<Typography>لغو</Typography>
 					</Button>
 					<Button
 						onClick={() => {
-
-
-
 							if (values) {
 								const check_in = moment(
 									`${values[0].year}/${values[0].month.number}/${values[0].day}`,

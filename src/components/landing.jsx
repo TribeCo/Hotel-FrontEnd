@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./tailwind.css";
-// import "./landing.css";
 import { Group } from "@mui/icons-material";
 import { Avatar, Button, Typography } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import User from "../services/user";
+import "./landing.css";
 
 import Images from "../assets/images";
 const mainpicture = Images.mainPicture;
@@ -14,7 +14,7 @@ const pic2 = Images.pic2;
 const pic3 = Images.pic3;
 const des = Images.des;
 
-function Landing() {
+const Landing = () => {
 	const [user, setUser] = useState(null);
 	const { accessToken } = useAuth();
 
@@ -28,7 +28,6 @@ function Landing() {
 				} catch (error) {}
 			}
 		};
-
 		fetchData();
 	}, [accessToken]);
 
@@ -43,15 +42,6 @@ function Landing() {
 					<h1 className="text-2xl font-bold">Transylvania</h1>
 					<nav>
 						<ul className="flex space-x-4">
-
-							<li className="landingbtn-link">
-								<Link to="/login">
-									<Typography>ورود</Typography>
-								</Link>
-							</li>
-							<li className="landingbtn-link">
-								<Link to="/register">
-									<Typography>ثبت نام</Typography>
 							{user ? (
 								<Link to="/dashboard">
 									<Button
@@ -62,7 +52,6 @@ function Landing() {
 											"&:hover": { backgroundColor: "#ebebeb" },
 										}}>
 										<Typography>ورود به داشبورد </Typography>
-
 										<Avatar
 											src={`https://hotelt.liara.run${user.image}`}
 											sx={{
@@ -71,7 +60,6 @@ function Landing() {
 												width: 28,
 											}}></Avatar>
 									</Button>
-
 								</Link>
 							) : (
 								<>
@@ -154,7 +142,6 @@ function Landing() {
 						</p>
 					</div>
 				</div>
-
 				{/* Card 3 */}
 				<div className=" relative landingcard max-w-md landingcard shadow-lg rounded-lg overflow-hidden">
 					<img
@@ -208,7 +195,6 @@ function Landing() {
 					</p>
 				</div>
 			</div>
-			
 			<footer
 				className="landingfooter-color items-center text-white py-4 w-full mt-8"
 				dir="rtl">
@@ -301,6 +287,6 @@ function Landing() {
 			</footer>
 		</div>
 	);
-}
+};
 
 export default Landing;

@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import Axios from "axios";
-import User from "../services/user";
-import Food from "../services/food";
-import { useParams } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import {
 	Button,

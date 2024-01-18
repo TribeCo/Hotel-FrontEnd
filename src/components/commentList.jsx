@@ -56,43 +56,6 @@ const CommentList = ({
 			formik.resetForm();
 		},
 	});
-
-	const editFormik = useFormik({
-		initialValues: {
-			comment: "",
-		},
-		validationSchema: validationSchema,
-		onSubmit: (values) => {
-			sendComment(values.comment);
-			editFormik.resetForm();
-		},
-	});
-
-	const handleEditClick = (commentId) => {
-		setEditMoodComment(commentId);
-	};
-
-	const handleSaveClick = () => {
-		setEditMoodComment(null);
-	};
-
-	const handleMenuClick = (event, index, comment) => {
-		setAnchorEl(event.currentTarget);
-		setSelectedIndex(index);
-		setSelectedCommentId(comment.id); // Store the selected comment ID
-	};
-
-	const handleMenuClose = () => {
-		setAnchorEl(null);
-		setSelectedIndex(null);
-		setSelectedCommentId(null); // Reset selected comment ID when the menu closes
-	};
-
-	const handleEdit = (comment) => {
-		// Using the selectedCommentId to identify the comment to edit
-		if (comment !== null) {
-			handleEditClick(comment.id);
-		}
 	const handleEditClick = (comment) => {
 		handleMenuClose();
 		setEditMoodComment(comment.id);
@@ -105,10 +68,7 @@ const CommentList = ({
 		}
 		handleMenuClose();
 	};
-	const handleDeleteConfirm = () => {
-		// temporary solution: close the window!
-		setDeleteConfirmationOpen(false);
-	};
+
 	const handleDeleteCancel = () => {
 		setDeleteConfirmationOpen(false);
 	};
