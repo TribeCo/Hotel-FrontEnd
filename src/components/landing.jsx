@@ -5,7 +5,7 @@ import { Group } from "@mui/icons-material";
 import { Avatar, Button, Typography } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import User from "../services/user";
-import "./landing.css";
+import "/src/components/Landing.css";
 
 import Images from "../assets/images";
 const mainpicture = Images.mainPicture;
