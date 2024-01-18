@@ -28,9 +28,14 @@
 	flex-direction: column;
 	justify-content: center;
 	justify-items: center;
-	min-height: 100vh;
+	min-height: calc(100vh - 64px);
 	z-index: -1;
 	overflow: hidden;
+}
+@media (max-width: 600px) {
+	#mainc {
+	  min-height: calc(100vh - 56px);
+	}
 }
 .allroomtext {
 	color: #0f0d0d;

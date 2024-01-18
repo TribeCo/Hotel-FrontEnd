@@ -112,19 +112,19 @@ function AllRoom() {
 							id="allroomcardContainer">
 							{cardData.map((cardInfo, index) => (
 								<Link to={`/room/${cardInfo.id}`}>
-									<div
-										key={index}
-										className="  m-4 allroomcard p-2">
+									<div key={index} className="m-4 allroomcard p-2">
 										<img
 											src={cardInfo.image}
 											className="w-full h-32 object-cover mb-4 allroomimage"
 											alt={`Image for Card ${index + 1}`}
 										/>
 										<div>
-											<h5 className=" font-semibold mb-2 allroomcard-header-text">{` ${
-												cardInfo.price_one_night
-											} : ${index + 1} قیمت اتاق`}</h5>
-											<p className=" allroomcard-text">توضیحات</p>
+											<h5 className="font-semibold mb-2 allroomcard-header-text">
+												شماره اتاق: {cardInfo.code}
+											</h5>
+											<p className="allroomcard-text">
+												قیمت اتاق: {cardInfo.price_one_night} تومان
+											</p>
 										</div>
 									</div>
 								</Link>

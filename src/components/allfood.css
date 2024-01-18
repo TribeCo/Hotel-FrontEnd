@@ -37,9 +37,15 @@
 	flex-direction: column;
 	justify-content: center;
 	justify-items: center;
-	min-height: 100vh;
+	min-height: calc(100vh - 64px);
 	z-index: -1;
 }
+@media (max-width: 600px) {
+	.allfoodbody {
+	  min-height: calc(100vh - 56px);
+	}
+}
+
 .allfoodtext {
 	color: #0f0d0d;
 	text-align: center;
