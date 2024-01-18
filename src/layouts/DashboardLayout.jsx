@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import {
 	CssBaseline,
 	Box,
@@ -18,6 +19,7 @@ import {
 	Menu,
 	MenuItem,
 	Tooltip,
+	Grid,
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -31,8 +33,8 @@ import {
 	ShoppingCart,
 	Dashboard as DashboardIcon,
 	ChevronLeft,
-	Logout,
 } from "@mui/icons-material";
+import { useErrorBoundary } from "react-error-boundary";
 
 // Components
 import Loading from "../components/utils/Loading";
@@ -54,6 +56,7 @@ import { useAuth } from "../context/AuthContext";
 
 // Services
 import User from "../services/user";
+const baseUrl = "https://hotelt.liara.run";
 import Images from "../assets/images";
 
 const drawerWidth = 240;
@@ -101,6 +104,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const DashboardLayout = () => {
+	const { showBoundary } = useErrorBoundary();
 	const { accessToken } = useAuth();
 	const Navigate = useNavigate();
 
@@ -119,21 +123,24 @@ const DashboardLayout = () => {
 	};
 
 	useEffect(() => {
-		const checkLoginStatus = async (access) => {
-			if (!access) {
-				Navigate("/login");
-			}
-		};
-
 		const fetchData = async () => {
 			if (accessToken) {
 				try {
 					const response = await User.getOne({ accessToken: accessToken });
 					setUser(response.data);
 				} catch (error) {
-					alert("شما به محتوا درخواست شده دسترسی ندارید لطفا ابتدا وارد شوید.");
-					Navigate("/");
+					const e = new Error();
+					e.message =
+						"شما به محتوا درخواست شده دسترسی ندارید لطفا ابتدا وارد شوید.";
+					e.name = "خطای احراز هویت";
+					showBoundary(e);
 				}
+			} else {
+				const e = new Error();
+				e.message =
+					"شما به محتوا درخواست شده دسترسی ندارید لطفا ابتدا وارد شوید.";
+				e.name = "خطای احراز هویت";
+				showBoundary(e);
 			}
 		};
 
@@ -226,91 +233,102 @@ const DashboardLayout = () => {
 							</IconButton>
 						</Toolbar>
 						<Divider />
-						<List component="nav">
-							{/* main item list(evry user)*/}
-							<ListItemButton onClick={() => togglePage(0)}>
-								<ListItemIcon>
-									<DashboardIcon />
-								</ListItemIcon>
-								<ListItemText primary="داشبورد" />
-							</ListItemButton>
-							<ListItemButton onClick={() => togglePage(1)}>
-								<ListItemIcon>
-									<RoomPreferences />
-								</ListItemIcon>
-								<ListItemText primary="رزرو اتاق" />
-							</ListItemButton>
-							<ListItemButton onClick={() => togglePage(2)}>
-								<ListItemIcon>
-									<RoomService />
-								</ListItemIcon>
-								<ListItemText primary="رزرو غذا" />
-							</ListItemButton>
-							<ListItemButton onClick={() => togglePage(3)}>
-								<ListItemIcon>
-									<ShoppingCart />
-								</ListItemIcon>
-								<ListItemText primary="تسویه حساب" />
-							</ListItemButton>
-							{user.role && (
-								<>
-									{(user.role === "a" ||
-										user.role === "m" ||
-										user.role === "d") && (
-										<>
-											<Divider sx={{ my: 1 }} />
-											<ListSubheader
-												component="div"
-												inset>
-												گزارش های ادمین
-											</ListSubheader>
-											<ListItemButton onClick={() => togglePage(4)}>
-												<ListItemIcon>
-													<People />
-												</ListItemIcon>
-												<ListItemText primary="پذیرش" />
-											</ListItemButton>
-											<ListItemButton onClick={() => togglePage(5)}>
-												<ListItemIcon>
-													<People />
-												</ListItemIcon>
-												<ListItemText primary="لیست کارمندان" />
-											</ListItemButton>
-											<ListItemButton onClick={() => togglePage(6)}>
-												<ListItemIcon>
-													<Assignment />
-												</ListItemIcon>
-												<ListItemText primary="گزارش کل" />
-											</ListItemButton>
-										</>
-									)}
-									{(user.role === "r" ||
-										user.role === "m" ||
-										user.role === "d") && (
-										<>
-											<Divider sx={{ my: 1 }} />
-											<ListSubheader
-												component="div"
-												inset>
-												گزارش های رستوران
-											</ListSubheader>
-											<ListItemButton onClick={() => togglePage(7)}>
-												<ListItemIcon>
-													<FoodBank />
-												</ListItemIcon>
-												<ListItemText primary="لیست رزرو ها" />
-											</ListItemButton>
-											<ListItemButton onClick={() => togglePage(8)}>
-												<ListItemIcon>
-													<Assignment />
-												</ListItemIcon>
-												<ListItemText primary="گزارش رستوران" />
-											</ListItemButton>
-										</>
-									)}
-								</>
-							)}
-						</List>
+						<Grid>
+							<List component="nav">
+								{/* main item list(evry user)*/}
+								<ListItemButton onClick={() => togglePage(0)}>
+									<ListItemIcon>
+										<DashboardIcon />
+									</ListItemIcon>
+									<ListItemText primary="داشبورد" />
+								</ListItemButton>
+								<ListItemButton onClick={() => togglePage(1)}>
+									<ListItemIcon>
+										<RoomPreferences />
+									</ListItemIcon>
+									<ListItemText primary="رزرو اتاق" />
+								</ListItemButton>
+								<ListItemButton onClick={() => togglePage(2)}>
+									<ListItemIcon>
+										<RoomService />
+									</ListItemIcon>
+									<ListItemText primary="رزرو غذا" />
+								</ListItemButton>
+								<ListItemButton onClick={() => togglePage(3)}>
+									<ListItemIcon>
+										<ShoppingCart />
+									</ListItemIcon>
+									<ListItemText primary="تسویه حساب" />
+								</ListItemButton>
+								{user.role && (
+									<>
+										{(user.role === "a" ||
+											user.role === "m" ||
+											user.role === "d") && (
+											<>
+												<Divider sx={{ my: 1 }} />
+												<ListSubheader
+													component="div"
+													inset>
+													گزارش های ادمین
+												</ListSubheader>
+												<ListItemButton onClick={() => togglePage(4)}>
+													<ListItemIcon>
+														<People />
+													</ListItemIcon>
+													<ListItemText primary="پذیرش" />
+												</ListItemButton>
+												<ListItemButton onClick={() => togglePage(5)}>
+													<ListItemIcon>
+														<People />
+													</ListItemIcon>
+													<ListItemText primary="لیست کارمندان" />
+												</ListItemButton>
+												<ListItemButton onClick={() => togglePage(6)}>
+													<ListItemIcon>
+														<Assignment />
+													</ListItemIcon>
+													<ListItemText primary="گزارش کل" />
+												</ListItemButton>
+											</>
+										)}
+										{(user.role === "r" ||
+											user.role === "m" ||
+											user.role === "d") && (
+											<>
+												<Divider sx={{ my: 1 }} />
+												<ListSubheader
+													component="div"
+													inset>
+													گزارش های رستوران
+												</ListSubheader>
+												<ListItemButton onClick={() => togglePage(7)}>
+													<ListItemIcon>
+														<FoodBank />
+													</ListItemIcon>
+													<ListItemText primary="لیست رزرو ها" />
+												</ListItemButton>
+												<ListItemButton onClick={() => togglePage(8)}>
+													<ListItemIcon>
+														<Assignment />
+													</ListItemIcon>
+													<ListItemText primary="گزارش رستوران" />
+												</ListItemButton>
+											</>
+										)}
+									</>
+								)}
+							</List>
+						</Grid>
+													
+						{/* <ListItemButton
+							onClick={() => Navigate("/faq")}>
+							<ListItemIcon>
+								<HelpOutlineIcon />
+							</ListItemIcon>
+							<ListItemText primary="سوالات متداول" />
+						</ListItemButton> */}
+
 					</Drawer>
 					<Box
 						component="main"

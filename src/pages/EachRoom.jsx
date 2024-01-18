@@ -12,10 +12,6 @@ import {
 	Container,
 	Fab,
 	Typography,
-	Select,
-	MenuItem,
-	FormControl,
-	InputLabel,
 } from "@mui/material";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 
@@ -75,7 +71,7 @@ const Eachroom = () => {
 						uid: id,
 						authToken: accessToken,
 					});
-					console.log(roomResDays.data);
+					console.log(roomRes);
 					setReservedDays(roomResDays.data);
 					setUser(userRes.data);
 					setRoom(roomRes.data);

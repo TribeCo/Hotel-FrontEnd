@@ -111,10 +111,10 @@ function AllRoom() {
 							className=" rounded-lg  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 b-5 p-2"
 							id="allroomcardContainer">
 							{cardData.map((cardInfo, index) => (
-								<Link to={`/room/${cardInfo.id}`}>
-									<div
-										key={index}
-										className="  m-4 allroomcard p-2">
+								<div
+									key={index}
+									className="  m-4 allroomcard p-2">
+									<Link to={`/room/${cardInfo.id}`}>
 										<img
 											src={cardInfo.image}
 											className="w-full h-32 object-cover mb-4 allroomimage"
@@ -126,8 +126,8 @@ function AllRoom() {
 											} : ${index + 1} قیمت اتاق`}</h5>
 											<p className=" allroomcard-text">توضیحات</p>
 										</div>
-									</div>
-								</Link>
+									</Link>
+								</div>
 							))}
 						</div>
 						<button
@@ -209,23 +209,6 @@ function AllRoom() {
 										بدون فیلتر
 									</label>
 								</div>
-								{/* <div class="small-card right-card px-4">
-									<div class="card-text">قیمت</div>
-									<input
-										type="range"
-										min="0"
-										max="5000000"
-										step="100000"
-										class="slider w-full active "
-										id="priceSlider"
-										onChange={slide}
-									/>
-									<div
-										id="sliderValue"
-										class="slider text-center mt-2">
-										تومان 1500000
-									</div>
-								</div> */}
 								<button
 									id="applyButton"
 									class="custom-button "

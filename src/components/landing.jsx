@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./tailwind.css";
-import "./landing.css";
 import { Group } from "@mui/icons-material";
 import { Avatar, Button, Typography } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import User from "../services/user";
+import "./landing.css";
 
 import Images from "../assets/images";
 const mainpicture = Images.mainPicture;
@@ -14,7 +14,7 @@ const pic2 = Images.pic2;
 const pic3 = Images.pic3;
 const des = Images.des;
 
-function Landing() {
+const Landing = () => {
 	const [user, setUser] = useState(null);
 	const { accessToken } = useAuth();
 
@@ -28,7 +28,6 @@ function Landing() {
 				} catch (error) {}
 			}
 		};
-
 		fetchData();
 	}, [accessToken]);
 
@@ -53,7 +52,6 @@ function Landing() {
 											"&:hover": { backgroundColor: "#ebebeb" },
 										}}>
 										<Typography>ورود به داشبورد </Typography>
-
 										<Avatar
 											src={`https://hotelt.liara.run${user.image}`}
 											sx={{
@@ -144,7 +142,6 @@ function Landing() {
 						</p>
 					</div>
 				</div>
-
 				{/* Card 3 */}
 				<div className=" relative landingcard max-w-md landingcard shadow-lg rounded-lg overflow-hidden">
 					<img
@@ -212,8 +209,13 @@ function Landing() {
 						</Link>
 						<Link
 							to="/aboutus"
-							className="hover:text-gray-300">
+							className="hover:text-gray-300 ml-4 mb-2">
 							<Typography>درباره ما</Typography>
+						</Link>
+						<Link
+							to="/faq"
+							className="hover:text-gray-300">
+							<Typography> سوالات متداول </Typography>
 						</Link>
 					</div>
 					<div className="column-2">
@@ -285,6 +287,6 @@ function Landing() {
 			</footer>
 		</div>
 	);
-}
+};
 
 export default Landing;

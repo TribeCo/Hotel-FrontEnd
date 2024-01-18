@@ -1,29 +1,9 @@
 import { useState } from "react";
-import {
-	IconButton,
-	Box,
-	Divider,
-	Grid,
-	Typography,
-	Button,
-	Paper,
-	TableRow,
-	TableHead,
-	TableContainer,
-	TableCell,
-	TableBody,
-	Table,
-	Fab,
-	Container,
-	Collapse,
-} from "@mui/material";
-
-import { KeyboardArrowUp, KeyboardArrowDown } from "@mui/icons-material";
+import { Typography, Button, TableRow, TableCell } from "@mui/material";
 
 function ListRow(props) {
 	const { emp, handleInfoBtnClick, handleEditBtnClick, handleDeleteBtnClick } =
 		props;
-	const [open, setOpen] = useState(false);
 	return (
 		<>
 			<TableRow key={emp.id}>

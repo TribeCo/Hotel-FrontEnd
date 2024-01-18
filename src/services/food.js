@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "/api/food";
+const baseUrl = "https://hotelt.liara.run/api/food";
 
 //? Food Api
 class Food {
