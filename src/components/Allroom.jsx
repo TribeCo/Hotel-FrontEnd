@@ -209,23 +209,6 @@ function AllRoom() {
 										بدون فیلتر
 									</label>
 								</div>
-								{/* <div class="small-card right-card px-4">
-									<div class="card-text">قیمت</div>
-									<input
-										type="range"
-										min="0"
-										max="5000000"
-										step="100000"
-										class="slider w-full active "
-										id="priceSlider"
-										onChange={slide}
-									/>
-									<div
-										id="sliderValue"
-										class="slider text-center mt-2">
-										تومان 1500000
-									</div>
-								</div> */}
 								<button
 									id="applyButton"
 									class="custom-button "

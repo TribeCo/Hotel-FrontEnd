@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import moment from "moment-jalaali";
 import {
 	Box,
@@ -128,15 +128,6 @@ const PaymentPage = ({ payment }) => {
 						<Typography>رستوران : </Typography>
 						<Typography> {Sum(payment.food)} تومان</Typography>
 					</Box>
-					{/* <Box
-						sx={{
-							display: "none",
-							justifyContent: "space-between",
-							p: 2,
-						}}>
-						<Typography>تخفیف : </Typography>
-						<Typography> {"20000"} تومان</Typography>
-					</Box> */}
 					<Divider />
 					<Box
 						sx={{

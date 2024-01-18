@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import Axios from "axios";
+import User from "../services/user";
+import Food from "../services/food";
+import { useParams } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import {
 	Button,
@@ -73,7 +79,6 @@ const Eachfood = () => {
 				} catch (error) {
 					alert("خطایی رخ داد لطفا دوباره تلاش کنید");
 					setLoading(false);
-					// Navigate("/dashboard");
 				}
 			}
 		};
@@ -442,13 +447,3 @@ const Eachfood = () => {
 };
 
 export default Eachfood;
-
-// const MealConverter = (meal) => {
-// 	if (meal === "b") {
-// 		return "صبحانه";
-// 	} else if (meal === "l") {
-// 		return "ناهار";
-// 	} else if (meal === "d") {
-// 		return "شام";
-// 	}
-// };

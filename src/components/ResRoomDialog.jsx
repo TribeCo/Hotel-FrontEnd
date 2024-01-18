@@ -65,6 +65,24 @@ const ResRoom = ({
 						range
 						rangeHover
 						value={values}
+						// onChange={setValues}
+						onChange={(ranges) => {
+							const isClickedOutsideUnAvailbleDates = reserved.every(
+								([start, end]) =>
+									ranges.some(
+										(range) =>
+											range[0]?.format?.() === start &&
+											range[1]?.format?.() === end,
+									),
+							);
+							if (!isClickedOutsideUnAvailbleDates) return false;
+							setValues(ranges);
+						}}
+						mapDays={({ date }) => {
+							let className;
+							const strDate = date.format();
+							className = "un-availble";
+							if (className) return { className };
 						onChange={setValues}
 						mapDays={({ date }) => {
 							const strDate = moment(

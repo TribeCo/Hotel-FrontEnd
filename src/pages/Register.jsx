@@ -1,6 +1,7 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
+import Axios from "axios";
 import {
 	Avatar,
 	Button,
@@ -17,7 +18,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 import User from "../services/user.js";
 import Loading from "../components/utils/Loading.jsx";
-import Axios from "axios";
 
 const codeSchema = Yup.object().shape({
 	code: Yup.string()
@@ -51,7 +51,8 @@ const Register = () => {
 
 	const sendCodeAgain = async () => {
 		try {
-			const url = "/api/accounts/users/update/password/";
+			const url =
+				"https://hotelt.liara.run/api/accounts/users/update/password/";
 			const data = { email: email };
 			await Axios.post(url, data);
 			alert("کد با موفقیت ارسال شد.");

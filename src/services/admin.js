@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "/api/accounts/employees";
+const baseUrl = "https://hotelt.liara.run/api/accounts/employees";
 
 //? Admin Api
 class Admin {

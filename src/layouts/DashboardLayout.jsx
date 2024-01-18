@@ -33,7 +33,6 @@ import {
 	ShoppingCart,
 	Dashboard as DashboardIcon,
 	ChevronLeft,
-	Logout,
 } from "@mui/icons-material";
 import { useErrorBoundary } from "react-error-boundary";
 
@@ -57,6 +56,7 @@ import { useAuth } from "../context/AuthContext";
 
 // Services
 import User from "../services/user";
+const baseUrl = "https://hotelt.liara.run";
 import Images from "../assets/images";
 
 const drawerWidth = 240;

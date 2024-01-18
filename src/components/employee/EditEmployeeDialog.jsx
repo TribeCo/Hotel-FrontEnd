@@ -5,7 +5,6 @@ import {
 	DialogTitle,
 	DialogContent,
 	DialogActions,
-	TextField,
 	Select,
 	MenuItem,
 	InputLabel,
@@ -49,40 +48,6 @@ const EditEmployeeDialog = ({
 			<Box sx={{ m: 2, minWidth: 300 }}>
 				<DialogTitle align="center">ویرایش مقام کارمند</DialogTitle>
 				<DialogContent>
-					{/* <TextField
-						label="نام"
-						name="firstName"
-						value={formik.values.firstName}
-						onChange={formik.handleChange}
-						fullWidth
-						margin="normal"
-						error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-						helperText={formik.touched.firstName && formik.errors.firstName}
-					/>
-					<TextField
-						label="نام خانوادگی"
-						name="lastName"
-						value={formik.values.lastName}
-						onChange={formik.handleChange}
-						fullWidth
-						margin="normal"
-						error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-						helperText={formik.touched.lastName && formik.errors.lastName}
-					/>
-					<TextField
-						label="کد ملی"
-						name="nationalCode"
-						value={formik.values.nationalCode}
-						onChange={formik.handleChange}
-						fullWidth
-						margin="normal"
-						error={
-							formik.touched.nationalCode && Boolean(formik.errors.nationalCode)
-						}
-						helperText={
-							formik.touched.nationalCode && formik.errors.nationalCode
-						}
-					/> */}
 					<InputLabel id="role-label">مقام</InputLabel>
 					<Select
 						label="مقام"
@@ -101,16 +66,6 @@ const EditEmployeeDialog = ({
 							</MenuItem>
 						))}
 					</Select>
-					{/* <TextField
-						label="ایمیل"
-						name="email"
-						value={formik.values.email}
-						onChange={formik.handleChange}
-						fullWidth
-						margin="normal"
-						error={formik.touched.email && Boolean(formik.errors.email)}
-						helperText={formik.touched.email && formik.errors.email}
-					/> */}
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose}

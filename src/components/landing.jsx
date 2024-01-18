@@ -43,6 +43,15 @@ function Landing() {
 					<h1 className="text-2xl font-bold">Transylvania</h1>
 					<nav>
 						<ul className="flex space-x-4">
+
+							<li className="landingbtn-link">
+								<Link to="/login">
+									<Typography>ورود</Typography>
+								</Link>
+							</li>
+							<li className="landingbtn-link">
+								<Link to="/register">
+									<Typography>ثبت نام</Typography>
 							{user ? (
 								<Link to="/dashboard">
 									<Button
@@ -62,6 +71,7 @@ function Landing() {
 												width: 28,
 											}}></Avatar>
 									</Button>
+
 								</Link>
 							) : (
 								<>

@@ -1,12 +1,4 @@
-import { Email } from "@mui/icons-material";
-import {
-	Avatar,
-	Container,
-	Typography,
-	Paper,
-	Box,
-	Divider,
-} from "@mui/material";
+import { Avatar, Typography, Paper, Box, Divider } from "@mui/material";
 import React from "react";
 
 function AvatarCard({ fullname, Photo, role, email }) {
