@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./tailwind.css";
 // import "./landing.css";
 import { Group } from "@mui/icons-material";
-import { Typography } from "@mui/material";
+import { Avatar, Button, Typography } from "@mui/material";
+import { useAuth } from "../context/AuthContext";
+import User from "../services/user";
 
 import Images from "../assets/images";
 const mainpicture = Images.mainPicture;
@@ -13,6 +15,23 @@ const pic3 = Images.pic3;
 const des = Images.des;
 
 function Landing() {
+	const [user, setUser] = useState(null);
+	const { accessToken } = useAuth();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			if (accessToken) {
+				try {
+					const response = await User.getOne({ accessToken: accessToken });
+					console.log(response.data);
+					setUser(response.data);
+				} catch (error) {}
+			}
+		};
+
+		fetchData();
+	}, [accessToken]);
+
 	return (
 		<div
 			className="flex flex-col min-h-screen justify-center items-center"
@@ -24,6 +43,7 @@ function Landing() {
 					<h1 className="text-2xl font-bold">Transylvania</h1>
 					<nav>
 						<ul className="flex space-x-4">
+
 							<li className="landingbtn-link">
 								<Link to="/login">
 									<Typography>ورود</Typography>
@@ -32,8 +52,41 @@ function Landing() {
 							<li className="landingbtn-link">
 								<Link to="/register">
 									<Typography>ثبت نام</Typography>
+							{user ? (
+								<Link to="/dashboard">
+									<Button
+										variant="contained"
+										sx={{
+											bgcolor: "#b4b7b7",
+											borderRadius: 3,
+											"&:hover": { backgroundColor: "#ebebeb" },
+										}}>
+										<Typography>ورود به داشبورد </Typography>
+
+										<Avatar
+											src={`https://hotelt.liara.run${user.image}`}
+											sx={{
+												mr: 1,
+												height: 28,
+												width: 28,
+											}}></Avatar>
+									</Button>
+
 								</Link>
-							</li>
+							) : (
+								<>
+									<li className="landingbtn-link">
+										<Link to="/login">
+											<Typography>ورود</Typography>
+										</Link>
+									</li>
+									<li className="landingbtn-link">
+										<Link to="/register">
+											<Typography>ثبت نام</Typography>
+										</Link>
+									</li>
+								</>
+							)}
 						</ul>
 					</nav>
 				</div>
@@ -155,6 +208,7 @@ function Landing() {
 					</p>
 				</div>
 			</div>
+			
 			<footer
 				className="landingfooter-color items-center text-white py-4 w-full mt-8"
 				dir="rtl">
@@ -169,8 +223,13 @@ function Landing() {
 						</Link>
 						<Link
 							to="/aboutus"
-							className="hover:text-gray-300">
+							className="hover:text-gray-300 ml-4 mb-2">
 							<Typography>درباره ما</Typography>
+						</Link>
+						<Link
+							to="/faq"
+							className="hover:text-gray-300">
+							<Typography> سوالات متداول </Typography>
 						</Link>
 					</div>
 					<div className="column-2">

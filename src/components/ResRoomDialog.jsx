@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { DateObject, Calendar } from "react-multi-date-picker";
 import "react-multi-date-picker/styles/backgrounds/bg-dark.css";
-import "react-multi-date-picker/plugins/colors";
+import "react-multi-date-picker/styles/colors/teal.css";
 import fa from "react-date-object/locales/persian_fa";
 import jalali from "react-date-object/calendars/jalali";
+import moment from "moment-jalaali";
+
 import {
 	Button,
 	Dialog,
@@ -12,57 +14,56 @@ import {
 	DialogActions,
 	Box,
 	Typography,
+	Divider,
 } from "@mui/material";
+import Room from "../services/room";
 
-function isReserved(strDate) {
-	return reserved.some(([start, end]) => strDate >= start && strDate <= end);
-}
-
-const reserved = [
-	[
-		new DateObject({ calendar: jalali, locale: fa }).format(),
-		new DateObject({ calendar: jalali, locale: fa }).setDay(22).format(),
-	],
-];
-
-const ResRoom = ({ open, handleClose, handleReserve }) => {
-	const [values, setValues] = useState([]);
-	const handleSelect = (date) => {
-		handleClose();
-		console.log(date);
+const ResRoom = ({
+	open,
+	handleClose,
+	room_type_id,
+	reserved,
+	accessToken,
+}) => {
+	const [values, setValues] = useState(null);
+	const minDate = new DateObject({ calendar: jalali, locale: fa });
+	const maxDate = new DateObject({ calendar: jalali, locale: fa }).add(
+		1,
+		"month",
+	);
+	const isReserved = (strDate) => {
+		return reserved.some((reservedDate) => reservedDate === strDate);
 	};
-	const handle = () => {
-		const date = {
-			from: {
-				year: values[0].year,
-				month: values[0].month.number,
-				day: values[0].day,
-			},
-			to: {
-				year: values[1].year,
-				month: values[1].month.number,
-				day: values[1].day,
-			},
-		};
-		console.log(date);
+	const handleReserveRoom = async (data) => {
+		try {
+			const res = await Room.reserve({ data: data, authToken: accessToken });
+			console.log(res);
+		} catch (error) {
+			console.log(error);
+		}
 	};
-	const maxDate = new DateObject().add(1, "month");
-	const minDate = new DateObject();
 	return (
 		<Dialog
 			open={open}
 			onClose={handleClose}>
-			<Box sx={{ m: 2 }}>
-				<DialogTitle align="center">تاریخ رزرو</DialogTitle>
-				<DialogContent sx={{ minHeight: 400 }}>
+			<Box sx={{ mt: 1, mb: 1, mr: 5, ml: 5 }}>
+				<DialogTitle align="center">
+					<Typography variant="h5">رزرو اتاق</Typography>
+				</DialogTitle>
+				<DialogContent>
+					<Divider />
+					<Typography sx={{ mb: 4, mt: 2 }}>
+						لطفا یک بازه را جهت رزور انتخاب کنید.
+					</Typography>
 					<Calendar
-						className="bg-dark"
+						shadow={false}
+						className="bg-dark teal"
 						minDate={minDate}
 						maxDate={maxDate}
 						calendar={jalali}
 						locale={fa}
-						multiple
 						range
+						rangeHover
 						value={values}
 						// onChange={setValues}
 						onChange={(ranges) => {
@@ -82,15 +83,67 @@ const ResRoom = ({ open, handleClose, handleReserve }) => {
 							const strDate = date.format();
 							className = "un-availble";
 							if (className) return { className };
+						onChange={setValues}
+						mapDays={({ date }) => {
+							const strDate = moment(
+								`${date.year}/${date.month.number}/${date.day}`,
+								"jYYYY/jM/jD",
+							).format("YYYY-MM-DD");
+							if (isReserved(strDate)) {
+								return {
+									disabled: true,
+									style: { backgroundColor: "#256b70" },
+									onClick: () => alert("این تاریخ رزرو شده است"),
+								};
+							}
 						}}
 					/>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose}>
+					<Button
+						onClick={handleClose}
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
+						}}
+					>
 						<Typography>لغو</Typography>
 					</Button>
 					<Button
-						onClick={() => {}}
+						onClick={() => {
+
+
+
+							if (values) {
+								const check_in = moment(
+									`${values[0].year}/${values[0].month.number}/${values[0].day}`,
+									"jYYYY/jM/jD",
+								).format("YYYY-MM-DD hh:mm:ss");
+								const nights = values[1].toDays() - values[0].toDays() + 1;
+								const reserve = { check_in, nights, room_type_id };
+								console.log(reserve);
+								handleReserveRoom(reserve);
+								handleClose();
+							} else {
+								alert("لطفا یک بازه معتبر را انتخاب نمایید.");
+							}
+						}}
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
+						}}
 						color="primary">
 						<Typography>رزرو</Typography>
 					</Button>

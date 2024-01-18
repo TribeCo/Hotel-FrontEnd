@@ -1,9 +1,8 @@
 import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 import moment from "moment-jalaali";
-
 const baseUrl = "https://hotelt.liara.run";
-
+import Images from "../../assets/images";
 function RoomCard({ res }) {
 	if (res.room) {
 		console.log(res);
@@ -41,7 +40,7 @@ function RoomCard({ res }) {
 							sx={{
 								borderRadius: 2,
 							}}
-							src={baseUrl + res.room.type.image}></Box>
+							src={Images.baseUrl + res.room.type.image}></Box>
 					</Grid>
 				</Paper>
 			</>

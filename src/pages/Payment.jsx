@@ -21,6 +21,7 @@ const PaymentPage = ({ payment }) => {
 		alert("پرداخت با موفقیت انجام شد");
 		console.log("Payment success!");
 	};
+	console.log(payment);
 	return (
 		<Grid
 			sx={{

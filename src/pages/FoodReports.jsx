@@ -46,9 +46,11 @@ const FoodReports = () => {
 	if (!loading) {
 		return (
 			<Grid
+				sx={{
+					padding: 2,
+				}}
 				container
-				spacing={2}
-				mt={1}>
+				spacing={2}>
 				<Grid
 					item
 					xs={12}

@@ -11,6 +11,7 @@ import Eachroom from "../pages/EachRoom";
 import Eachfood from "../pages/EachFood";
 import Landing from "../components/landing";
 import ForgetPassword from "../pages/ForgetPassword";
+import FAQPage from "../components/Faqpage";
 
 const Router = () => {
 	return (
@@ -31,10 +32,10 @@ const Router = () => {
 				path="/login"
 				element={<Login />}
 			/>
-			{/* <Route
-				path="/logout"
-				element={<Login />}
-			/> */}
+			<Route
+				path="/faq"
+				element={<FAQPage />}
+			/>
 			<Route
 				path="/forget-password"
 				element={<ForgetPassword />}

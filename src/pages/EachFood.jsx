@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import Axios from "axios";
 import User from "../services/user";
@@ -17,18 +18,26 @@ import {
 	Fab,
 	Typography,
 } from "@mui/material";
-
-import CommentList from "../components/commentList";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 
+// services
+import { useAuth } from "../context/AuthContext";
+import User from "../services/user";
+import Food from "../services/food";
+import Comment from "../services/comment";
+
+// components
+import CommentList from "../components/commentList";
+import ReserveFoodDialog from "../components/ReserveFoodDialog";
 import Loading from "../components/utils/Loading";
 
+// form validation
 const validationSchema = Yup.object({
 	name: Yup.string().required("نام غذا را وارد کنید"),
 	price: Yup.number()
 		.required("قیمت را وارد کنید")
 		.positive("قیمت باید عدد مثبت باشد"),
-	type: Yup.string().required("توضیحات را وارد کنید"),
+	description: Yup.string().required("توضیحات را وارد کنید"),
 });
 
 const Eachfood = () => {
@@ -39,8 +48,16 @@ const Eachfood = () => {
 	const [user, setUser] = useState({});
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [isCommentListOpen, setCommentListOpen] = useState(false);
+	const [openReserveDialog, setOpenReserveDialog] = useState(false);
+	const [commentLoading, setCommentLoadig] = useState(false);
 	const Navigate = useNavigate();
 
+	const handleReserveBTN = () => {
+		setOpenReserveDialog(true);
+	};
+	const handleClose = () => {
+		setOpenReserveDialog(false);
+	};
 	const toggleCommentList = () => {
 		setCommentListOpen(!isCommentListOpen);
 	};
@@ -69,33 +86,67 @@ const Eachfood = () => {
 	}, [accessToken]);
 
 	const sendComment = async (comment) => {
+		setCommentLoadig(true);
 		try {
-			setLoading(true);
-			const url = "/api/accounts/comments/food/create/";
-			const config = {
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${accessToken}`,
-				},
-			};
 			const data = {
 				text: comment,
 				food_id: id,
 				user_id: user.id,
 				rating: 5,
 			};
-			console.log(data);
-			const res = await Axios.post(url, data, config);
+			const res = await Comment.addFood({ data: data, authToken: accessToken });
+			console.log(res);
 			const foodRes = await Food.getOne({
 				uid: id,
 				authToken: accessToken,
 			});
 			setFood(foodRes.data);
-			setLoading(false);
+		} catch (error) {
+			alert(error);
+		}
+		setCommentLoadig(false);
+	};
+	const editComment = async ({ comment_id, text }) => {
+		setCommentLoadig(true);
+		try {
+			const data = {
+				text: text,
+				rating: 5,
+			};
+			const res = await Comment.update({
+				uid: comment_id,
+				data: data,
+				authToken: accessToken,
+			});
 			console.log(res);
+			const foodRes = await Food.getOne({
+				uid: id,
+				authToken: accessToken,
+			});
+			setFood(foodRes.data);
 		} catch (error) {
 			console.log(error);
 		}
+		setCommentLoadig(false);
+	};
+
+	const deleteComment = async (comment_id) => {
+		setCommentLoadig(true);
+		try {
+			const res = await Comment.delete({
+				uid: comment_id,
+				authToken: accessToken,
+			});
+			console.log(res);
+			const foodRes = await Food.getOne({
+				uid: id,
+				authToken: accessToken,
+			});
+			setFood(foodRes.data);
+		} catch (error) {
+			console.log(error);
+		}
+		setCommentLoadig(false);
 	};
 
 	const handleUpdate = async (values) => {
@@ -110,7 +161,7 @@ const Eachfood = () => {
 				authToken: accessToken,
 				data: data,
 			});
-			console.log(res);
+			setFood(res.data);
 			setIsEditMode(false);
 		} catch (error) {
 			console.log(error);
@@ -136,9 +187,12 @@ const Eachfood = () => {
 					}}>
 					<CommentList
 						sendComment={sendComment}
+						editComment={editComment}
+						deleteComment={deleteComment}
 						comments={food.comments}
 						isOpen={isCommentListOpen}
 						onClose={toggleCommentList}
+						isLoading={commentLoading}
 					/>
 				</Grid>
 				{!isEditMode ? (
@@ -170,7 +224,7 @@ const Eachfood = () => {
 								}}>
 								<Grid
 									container
-									spacing={2}>
+									spacing={1}>
 									<Grid
 										item
 										mb={2}
@@ -203,16 +257,19 @@ const Eachfood = () => {
 											disabled
 											fullWidth
 											label="توضیحات"
-											defaultValue={food.type} //TODO: default value for desc??
+											defaultValue={food.description} //TODO: default value for desc??
 										/>
 									</Grid>
 								</Grid>
 								<Button
-									onClick={() => Navigate("/dashboard")} //TODO: save food order and Navigate to dashboard??
+									onClick={handleReserveBTN} //TODO: save food order and Navigate to dashboard??
 									fullWidth
 									variant="contained"
 									sx={{
-										mt: 3,
+										"&:hover": {
+											backgroundColor: "#b272b8",
+										},
+										mt: 2,
 										borderRadius: 15,
 										bgcolor: "secondary.main",
 									}}>
@@ -224,6 +281,9 @@ const Eachfood = () => {
 										fullWidth
 										variant="contained"
 										sx={{
+											"&:hover": {
+												backgroundColor: "#c98e4b",
+											},
 											mt: 2,
 											borderRadius: 15,
 											bgcolor: "#f7b060",
@@ -236,6 +296,9 @@ const Eachfood = () => {
 									fullWidth
 									variant="contained"
 									sx={{
+										"&:hover": {
+											backgroundColor: "#c74e4e",
+										},
 										mt: 2,
 										mb: 2,
 										borderRadius: 15,
@@ -245,6 +308,14 @@ const Eachfood = () => {
 								</Button>
 							</Box>
 						</Container>
+						{openReserveDialog && (
+							<ReserveFoodDialog
+								open={openReserveDialog}
+								handleClose={handleClose}
+								food_id={food.id}
+								accessToken={accessToken}
+							/>
+						)}
 					</Grid>
 				) : (
 					// Edit mood:
@@ -268,7 +339,7 @@ const Eachfood = () => {
 									initialValues={{
 										name: food.name || "",
 										price: food.price || "",
-										type: food.type || "",
+										description: food.description || "",
 										meal: food.meal || "d",
 									}}
 									validationSchema={validationSchema}
@@ -276,6 +347,7 @@ const Eachfood = () => {
 									{({ values, errors, touched, handleChange, handleBlur }) => (
 										<Form>
 											<Grid
+												item
 												container
 												spacing={2}>
 												<Grid
@@ -318,38 +390,48 @@ const Eachfood = () => {
 														rows={6}
 														fullWidth
 														label="توضیحات"
-														name="type"
-														value={values.type}
+														name="description"
+														value={values.description}
 														onChange={handleChange}
 														onBlur={handleBlur}
-														error={touched.type && Boolean(errors.type)}
-														helperText={touched.type && errors.type}
+														error={
+															touched.description && Boolean(errors.description)
+														}
+														helperText={
+															touched.description && errors.description
+														}
 													/>
 												</Grid>
-												<Button
-													type="submit"
-													fullWidth
-													variant="contained"
-													sx={{
-														mt: 3,
-														borderRadius: 15,
-														bgcolor: "#7ed695",
-													}}>
-													<Typography variant="h6">ذخیره تغییرات</Typography>
-												</Button>
-												<Button
-													onClick={() => setIsEditMode(false)}
-													fullWidth
-													variant="contained"
-													sx={{
-														mt: 3,
-														mb: 2,
-														borderRadius: 15,
-														bgcolor: "#f76d6d",
-													}}>
-													<Typography variant="h6">بازگشت</Typography>
-												</Button>
 											</Grid>
+											<Button
+												type="submit"
+												fullWidth
+												variant="contained"
+												sx={{
+													"&:hover": {
+														backgroundColor: "#5cab70",
+													},
+													mt: 3,
+													borderRadius: 15,
+													bgcolor: "#7ed695",
+												}}>
+												<Typography variant="h6">ذخیره تغییرات</Typography>
+											</Button>
+											<Button
+												onClick={() => setIsEditMode(false)}
+												fullWidth
+												variant="contained"
+												sx={{
+													"&:hover": {
+														backgroundColor: "#c74e4e",
+													},
+													mt: 2,
+													mb: 2,
+													borderRadius: 15,
+													bgcolor: "#f76d6d",
+												}}>
+												<Typography variant="h6">بازگشت</Typography>
+											</Button>
 										</Form>
 									)}
 								</Formik>

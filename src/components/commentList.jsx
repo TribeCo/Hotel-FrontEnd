@@ -21,17 +21,29 @@ import {
 	Dialog,
 	DialogTitle,
 	DialogActions,
+	LinearProgress,
 } from "@mui/material";
 
-const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
+const CommentList = ({
+	comments,
+	isOpen,
+	onClose,
+	sendComment,
+	editComment,
+	deleteComment,
+	isLoading,
+}) => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [selectedIndex, setSelectedIndex] = useState(null);
 	const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
 	const [editMoodComment, setEditMoodComment] = useState(null);
-	const [selectedCommentId, setSelectedCommentId] = useState(null);
+	const [selectedComment, setSelectedComment] = useState(null);
 
 	const validationSchema = Yup.object({
-		comment: Yup.string(),
+		comment: Yup.string().required("کامنت ارسالی نمی‌تواند خالی باشد"),
+	});
+	const editSchema = Yup.object({
+		text: Yup.string().required("ویرایش کامنت نمیتواند خالی باشد."),
 	});
 
 	const formik = useFormik({
@@ -81,29 +93,40 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 		if (comment !== null) {
 			handleEditClick(comment.id);
 		}
+	const handleEditClick = (comment) => {
 		handleMenuClose();
+		setEditMoodComment(comment.id);
 	};
-
 	const handleDeleteClick = (comment) => {
-		// Using the selectedCommentId to identify the comment to delete
+		console.log(comment);
 		if (comment !== null) {
+			setSelectedComment(comment);
 			setDeleteConfirmationOpen(true);
 		}
 		handleMenuClose();
 	};
-
 	const handleDeleteConfirm = () => {
 		// temporary solution: close the window!
 		setDeleteConfirmationOpen(false);
 	};
-
 	const handleDeleteCancel = () => {
-		// Close the delete confirmation dialog
 		setDeleteConfirmationOpen(false);
 	};
-
 	const handleCancelEdit = () => {
 		// Cancel the editing process
+		setEditMoodComment(null);
+	};
+
+	const handleMenuClick = (event, index) => {
+		setAnchorEl(event.currentTarget);
+		setSelectedIndex(index);
+	};
+	const handleMenuClose = () => {
+		setAnchorEl(null);
+		setSelectedIndex(null);
+	};
+	const handleEditSubmit = ({ text, comment_id }) => {
+		editComment({ text: text, comment_id: comment_id });
 		setEditMoodComment(null);
 	};
 
@@ -127,69 +150,74 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 					<React.Fragment key={index}>
 						<ListItem>
 							{editMoodComment === comment.id ? (
-								<Grid p={2}>
-									<Formik
-										initialValues={{
-											text: comment.text,
-										}}
-										validationSchema={validationSchema}
-										onSubmit={handleEdit}>
-										{({ errors, touched }) => (
-											<Form>
-												<Field
-													as={TextField}
-													margin="normal"
-													type="text"
-													required
-													fullWidth
-													id="text"
-													name="text"
-													autoComplete="text"
-													error={touched.text && Boolean(errors.text)}
-												/>
-												<ErrorMessage name="text" />
+								<Formik
+									initialValues={{
+										text: comment.text,
+										comment_id: comment.id,
+									}}
+									validationSchema={editSchema}
+									onSubmit={handleEditSubmit}>
+									{({ errors, touched }) => (
+										<Form>
+											<Field
+												as={TextField}
+												margin="normal"
+												type="text"
+												required
+												fullWidth
+												id="text"
+												name="text"
+												error={touched.text && Boolean(errors.text)}
+											/>
+											<ErrorMessage name="text" />
+											<Grid
+												container
+												direction="row"
+												spacing={1}>
 												<Grid
-													container
-													direction={"row"}
-													spacing={1}>
-													<Grid
-														item
-														xs={6}>
-														<Button
-															onClick={handleSaveClick}
-															type="submit"
-															fullWidth
-															variant="contained"
-															sx={{
-																mt: 1,
-																borderRadius: 3,
-																bgcolor: "#F8F8F2",
-															}}>
-															ذخیره
-														</Button>
-													</Grid>
-													<Grid
-														item
-														xs={6}>
-														<Button
-															onClick={handleCancelEdit}
-															type="submit"
-															fullWidth
-															variant="contained"
-															sx={{
-																mt: 1,
-																mb: 1,
-																borderRadius: 3,
-																bgcolor: "#F8F8F2",
-															}}>
-															انصراف
-														</Button>
-													</Grid>
+													item
+													xs={6}>
+													<Button
+														type="submit"
+														variant="contained"
+														fullWidth
+														sx={{
+															"&:hover": {
+																backgroundColor: "#ffffff",
+															},
+															borderRadius: 3,
+															m: 1,
+															bgcolor: "#ebe6e6",
+															textTransform: "none",
+														}}>
+														<Typography>ذخیره</Typography>
+													</Button>
 												</Grid>
-											</Form>
-										)}
-									</Formik>
-								</Grid>
+												<Grid
+													item
+													xs={6}>
+													<Button
+														onClick={handleCancelEdit}
+														type="button"
+														variant="contained"
+														fullWidth
+														component="label"
+														sx={{
+															"&:hover": {
+																backgroundColor: "#ffffff",
+															},
+															borderRadius: 3,
+															m: 1,
+															bgcolor: "#ebe6e6",
+															textTransform: "none",
+														}}>
+														<Typography>انصراف</Typography>
+													</Button>
+												</Grid>
+											</Grid>
+										</Form>
+									)}
+								</Formik>
 							) : (
 								<>
 									<ListItemText primary={comment.text} />
@@ -209,14 +237,13 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 				anchorEl={anchorEl}
 				open={Boolean(anchorEl)}
 				onClose={handleMenuClose}>
-				<MenuItem onClick={() => handleEdit(comments[selectedIndex])}>
+				<MenuItem onClick={() => handleEditClick(comments[selectedIndex])}>
 					ویرایش کامنت
 				</MenuItem>
 				<MenuItem onClick={() => handleDeleteClick(comments[selectedIndex])}>
 					حذف کامنت
 				</MenuItem>
 			</Menu>
-
 			<Dialog
 				open={deleteConfirmationOpen}
 				onClose={handleDeleteCancel}
@@ -226,19 +253,41 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 				</DialogTitle>
 				<DialogActions>
 					<Button
-						onClick={handleDeleteCancel}
-						color="primary">
+						onClick={() => handleDeleteCancel()}
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
+						}}>
 						انصراف
 					</Button>
 					<Button
-						onClick={handleDeleteConfirm}
-						color="error">
+						onClick={() => {
+							deleteComment(selectedComment.id);
+							setDeleteConfirmationOpen(false);
+						}}
+						variant="contained"
+						component="label"
+						sx={{
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
+							borderRadius: 2,
+							bgcolor: "#ebe6e6",
+							textTransform: "none",
+						}}>
 						حذف
 					</Button>
 				</DialogActions>
 			</Dialog>
 
 			<Grid p={1}>
+				{isLoading && <LinearProgress />}
 				<Divider />
 				<form onSubmit={formik.handleSubmit}>
 					{editMoodComment === null ? (
@@ -271,10 +320,6 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 							name="comment"
 							id="comment"
 							label="نظر شما"
-							value={formik.values.comment}
-							onChange={formik.handleChange}
-							error={formik.touched.comment && Boolean(formik.errors.comment)}
-							helperText={formik.touched.comment && formik.errors.comment}
 						/>
 					)}
 
@@ -283,9 +328,14 @@ const CommentList = ({ comments, isOpen, onClose, sendComment }) => {
 						fullWidth
 						variant="contained"
 						sx={{
-							mb: 1,
+							"&:hover": {
+								backgroundColor: "#ffffff",
+							},
 							borderRadius: 3,
-							bgcolor: "#F8F8F2",
+
+							bgcolor: "#ebe6e6",
+							mb: 1,
+							textTransform: "none",
 						}}>
 						<SendIcon sx={{ mr: 1 }} />
 						<Typography variant="h6">ارسال کامنت</Typography>
