@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
 import { Group } from "@mui/icons-material";
-import { Typography } from "@mui/material";
+import { Typography, Fab } from "@mui/material";
 import { Link } from "react-router-dom";
 import "./aboutus.css";
 import "./tailwind.css";
@@ -47,7 +48,6 @@ const styles = {
         margin: 0,
         display: 'none',
         lineHeight: 1.6,
-        color: '#F1FA8C',
     },
     faqAnswerShow: {
         display: 'block',
@@ -95,9 +95,21 @@ const FAQPage = ({ faqs = defaultFaqs }) => {
     const toggleFAQ = index => {
         setActiveIndex(activeIndex === index ? null : index);
     };
+    const Navigate = useNavigate();
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            <Fab
+                onClick={() => Navigate("/")}
+                variant="extended"
+                style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    margin: "16px",
+                }}>
+                <Typography>بازگشت به صفحه اصلی</Typography>
+            </Fab>
             <div style={styles.faqPage}>
                 <h1 style={styles.faqTitle}>پرسش‌های متداول</h1>
                 {faqs.map((faq, index) => (
@@ -121,7 +133,7 @@ const FAQPage = ({ faqs = defaultFaqs }) => {
                     <div className="column-1">
                         <Link
                             to="/contactus"
-                            className="hover:text-gray-300 ml-4">
+                            className="hover:text-gray-300 ml-4 mb-2">
                             <Typography>تماس با ما</Typography>
                         </Link>
                         <Link
@@ -129,11 +141,6 @@ const FAQPage = ({ faqs = defaultFaqs }) => {
                             className="hover:text-gray-300">
                             <Typography>درباره ما</Typography>
                         </Link>
-						<Link
-							to="/faq"
-							className="hover:text-gray-300">
-							<Typography> سوالات متداول </Typography>
-						</Link>
                     </div>
                     <div className="column-2">
                         <a href="https://github.com/Parsavazifeh">

@@ -1,53 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./aboutus.css";
 import "./tailwind.css";
 import Images from "../assets/images";
+// import pic from "../assets/pic.jpg";
 import icon from "../assets/icon.png";
 import { Link } from "react-router-dom";
 import { Group } from "@mui/icons-material";
-import { Typography } from "@mui/material";
+import User from "../services/user";
+import { useAuth } from "../context/AuthContext";
+import { Avatar, Button, Typography, Fab } from "@mui/material";
 
 const pic = Images.pic;
 
 function AboutUs() {
+
+	const [user, setUser] = useState(null);
+	const { accessToken } = useAuth();
+	const Navigate = useNavigate();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			if (accessToken) {
+				try {
+					const response = await User.getOne({ accessToken: accessToken });
+					console.log(response.data);
+					setUser(response.data);
+				} catch (error) {}
+			}
+		};
+
+		fetchData();
+	}, [accessToken]);
+
 	return (
 		<div
 			className="flex flex-col min-h-screen justify-center items-center"
-			dir="ltr">
-			<header className="nav-color text-white py-4 w-full">
-				<div className="container mx-auto flex items-center justify-between px-4">
-					<h1 className="text-2xl font-bold">
-						<Link to="/">Transylvania</Link>
-					</h1>
-					<nav>
-						<ul className="flex space-x-4">
-							<li>
-								<Link
-									to="/login"
-									className="btn-link">
-									ورود
-								</Link>
-							</li>
-							<li>
-								<Link
-									to="/register"
-									className="btn-link">
-									ثبت نام
-								</Link>
-							</li>
-							<li>
-								<Link
-									to="/"
-									className="hover:text-gray-300">
-									بازگشت به خانه
-								</Link>
-							</li>
-						</ul>
-					</nav>
-				</div>
-			</header>
+			dir="ltr" >
+			<Fab
+                onClick={() => Navigate("/")}
+                variant="extended"
+                style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    margin: "16px",
+                }}>
+                <Typography>بازگشت به صفحه اصلی</Typography>
+            </Fab>
 			<img
-				className="image mb-8 mt-8"
+				className="image mb-8 mt-4"
 				src={pic}
 				alt="Sample"
 			/>
@@ -114,11 +116,6 @@ function AboutUs() {
 							to="/contactus"
 							className="hover:text-gray-300 ml-4 mb-2">
 							<Typography>تماس با ما</Typography>
-						</Link>
-						<Link
-							to="/aboutus"
-							className="hover:text-gray-300 ml-4 mb-2">
-							<Typography>درباره ما</Typography>
 						</Link>
 						<Link
 							to="/faq"

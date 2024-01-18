@@ -82,22 +82,7 @@
 	right: 10%;
 }
 
-.landinground-pic::after {
-	content: "";
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 30%;
-	/* Adjust the width to control the fade amount */
-	height: 100%;
-	background: linear-gradient(to right,
-			transparent,
-			#353846);
-	/* Adjust the color as needed */
-	pointer-events: none;
-	mask-image: linear-gradient(to left, transparent 0%, #353846 10%);
-	/* For browser compatibility, you might need vendor prefixes for mask-image */
-}
+
 
 .landingcard:hover {
 	transform: scale(1.05);
