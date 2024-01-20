@@ -35,19 +35,65 @@ function AboutUs() {
 
 	return (
 		<div
-			className="flex flex-col min-h-screen justify-center items-center"
+			className="flex flex-col min-h-screen justify-center items-center pt-16"
 			dir="ltr" >
-			<Fab
-                onClick={() => Navigate("/")}
-                variant="extended"
-                style={{
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    margin: "16px",
-                }}>
-                <Typography>بازگشت به صفحه اصلی</Typography>
-            </Fab>
+			<header
+				className="landingnav-color text-white py-4 w-full fixed top-0"
+				style={{ zIndex: 1 }}>
+				<div className=" mx-auto flex items-center justify-between px-4">
+					<h1 className="text-2xl font-bold">Transylvania</h1>
+					<nav>
+						<ul className="flex space-x-4">
+							{user ? (
+								<Link to="/dashboard">
+									<Button
+										variant="contained"
+										sx={{
+											bgcolor: "#b4b7b7",
+											borderRadius: 3,
+											"&:hover": { backgroundColor: "#ebebeb" },
+										}}>
+										<Typography>ورود به داشبورد </Typography>
+										<Avatar
+											src={`https://hotelt.liara.run${user.image}`}
+											sx={{
+												mr: 1,
+												height: 28,
+												width: 28,
+											}}></Avatar>
+									</Button>
+								</Link>
+							) : (
+								<>
+									<li className="landingbtn-link">
+										<Link to="/login">
+											<Typography>ورود</Typography>
+										</Link>
+									</li>
+									<li className="landingbtn-link">
+										<Link to="/register">
+											<Typography>ثبت نام</Typography>
+										</Link>
+									</li>
+								</>
+							)}
+						</ul>
+					</nav>
+				</div>
+			</header>
+			//className="flex flex-col min-h-screen justify-center items-center"
+			//dir="ltr" >
+			//<Fab
+      //          onClick={() => Navigate("/")}
+      //          variant="extended"
+      //          style={{
+      //              position: "fixed",
+      //              top: 0,
+      //              left: 0,
+      //              margin: "16px",
+      //          }}>
+      //          <Typography>بازگشت به صفحه اصلی</Typography>
+      //      </Fab>
 			<img
 				className="image mb-8 mt-4"
 				src={pic}
