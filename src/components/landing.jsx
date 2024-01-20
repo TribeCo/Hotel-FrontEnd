@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./tailwind.css";
-import "./landing.css";
 import { Group } from "@mui/icons-material";
 import { Avatar, Button, Typography } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import User from "../services/user";
+import "/src/components/Landing.css";
 
 import Images from "../assets/images";
 const mainpicture = Images.mainPicture;
@@ -14,7 +14,7 @@ const pic2 = Images.pic2;
 const pic3 = Images.pic3;
 const des = Images.des;
 
-function Landing() {
+const Landing = () => {
 	const [user, setUser] = useState(null);
 	const { accessToken } = useAuth();
 
@@ -28,7 +28,6 @@ function Landing() {
 				} catch (error) {}
 			}
 		};
-
 		fetchData();
 	}, [accessToken]);
 
@@ -53,7 +52,6 @@ function Landing() {
 											"&:hover": { backgroundColor: "#ebebeb" },
 										}}>
 										<Typography>ورود به داشبورد </Typography>
-
 										<Avatar
 											src={`https://hotelt.liara.run${user.image}`}
 											sx={{
@@ -82,14 +80,14 @@ function Landing() {
 				</div>
 			</header>
 			<img
-				className="w-full h-full object-cover blur-sm landingblurry-image"
+				className="w-full h-full object-cover blur-sm landingblurry-image  invisible md:visible lg:visible"
 				src={mainpicture}
 				alt="Background Image"
 			/>
-			<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-centet">
+			<div className="absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center invisible lg:visible">
 				<Typography variant="h1">هتل ترانسیلوانیا</Typography>
 			</div>
-			<div className=" landingcard-container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+			<div className=" landingcard-container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16 justify-center ">
 				{/* Card 1 */}
 				<div className="relative landingcard max-w-md landingcard shadow-lg rounded-lg overflow-hidden">
 					<img
@@ -144,7 +142,6 @@ function Landing() {
 						</p>
 					</div>
 				</div>
-
 				{/* Card 3 */}
 				<div className=" relative landingcard max-w-md landingcard shadow-lg rounded-lg overflow-hidden">
 					<img
@@ -179,7 +176,7 @@ function Landing() {
 					<img
 						src={des}
 						alt="image"
-						className="object-cover w-full h-full"
+						className="object-cover w-full h-full invisible lg:visible md:visible"
 					/>
 				</div>
 				<div className="p-6">
@@ -290,6 +287,6 @@ function Landing() {
 			</footer>
 		</div>
 	);
-}
+};
 
 export default Landing;

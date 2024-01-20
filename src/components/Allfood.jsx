@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import Loading from "./utils/Loading";
 import "./allfood.css";
 import "./tailwind.css";
-import { Fab, Typography } from "@mui/material";
+import { Fab, Grid, Box, Typography } from "@mui/material";
 import { AddCircle } from "@mui/icons-material";
 import Food from "../services/food";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import { useErrorBoundary } from "react-error-boundary";
+
 import AddFoodDialog from "./employee/AddFoodDialog";
 
 const Allfood = () => {
+	const { showBoundary } = useErrorBoundary();
 	const [openAddDialog, setOpenAddDialog] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [cardData, setCardData] = useState([]);
@@ -24,7 +27,11 @@ const Allfood = () => {
 					setCardData(res.data);
 				}
 			} catch (error) {
-				console.log(error);
+				const e = new Error();
+				e.message =
+					"شما به محتوا درخواست شده دسترسی ندارید لطفا ابتدا وارد شوید.";
+				e.name = "خطای احراز هویت";
+				showBoundary(e);
 			}
 		};
 		fetchData();
@@ -55,7 +62,11 @@ const Allfood = () => {
 			setCardData(res.data);
 			setLoading(false);
 		} catch (error) {
-			console.log(error);
+			const e = new Error();
+			e.message =
+				"در هنگام افزودن غذا خطایی رخ داد لطفا دوباره تلاش کنید و در صورت تکرار خطا به پشتیبانی مراجعه کنید.";
+			e.name = "خطایی رخ داد | غذا اضافه نشد";
+			showBoundary(e);
 			setLoading(false);
 		}
 	};
@@ -90,47 +101,35 @@ const Allfood = () => {
 						handleAddFood={handleAddFood}
 					/>
 				)}
-
 				<div className=" bg-cover  flex flex-col justify-center items-center allfoodbody">
 					<div className="flex flex-col justify-center items-center relative">
 						<p className="allfoodtext mb-8">رزرو غذا</p>
 						<div
-							className="  grid grid-cols-1 lg:grid-cols-2 gap-4  p-6"
+							className="  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-6"
 							id="allfoodcardContainer">
 							{cardData.map((cardInfo, index) => (
-								<Link to={`/food/${cardInfo.id}`}>
+								<Link
+									key={index}
+									to={`/food/${cardInfo.id}`}>
 									<div
 										key={index}
-										className="allfoodcard  p-2 flex flex-row items-center">
+										className="allfoodcard  p-2 flex flex-col sm:flex-col lg:flex-row items-center">
 										<img
 											src={cardInfo.image}
-											className="allfoodimage object-cover  ml-1"
+											className="allfoodimage object-cover mb-3 lg:ml-1  sm:mb-4 lg:mb-0"
 											alt={`Image for Card ${index + 1}`}
 										/>
 										<div>
-											<p className="allfoodcard-text  mb-3 mr-2">
+											<p className="allfoodcard-text  mb-3 lg:mr-2 ">
 												{cardInfo.name}
 											</p>
-											<p className="allfoodcard-text  mr-2">{cardInfo.price}</p>
+											<p className="allfoodcard-text  lg:mr-2">{cardInfo.price}</p>
 										</div>
 									</div>
 								</Link>
 							))}
 						</div>
-						{/* <button
-							className="absolute top-24 right-2 -mt-3 -mr-3  "
-							id="calendarButton"
-							onClick={handleCalendarButtonClick}>
-							<img
-								src={popup}
-								alt="Circle Image"
-								width="40px"
-								height="40px"
-								className="allfooditem-bg   p-2"
-							/>
-						</button> */}
 					</div>
-
 					{isCalendarOpen && (
 						<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
 							<div className="relative p-4 rounded-lg shadow-xl w-72 allfoodpop-up flex flex-col items-center justify-center gap-4">

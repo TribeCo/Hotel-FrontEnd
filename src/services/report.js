@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "/api/reports";
+const baseUrl = "https://hotelt.liara.run/api/reports";
 
 class Report {
 	// @Desc get all reports

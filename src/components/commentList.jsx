@@ -56,7 +56,6 @@ const CommentList = ({
 			formik.resetForm();
 		},
 	});
-
 	const handleEditClick = (comment) => {
 		handleMenuClose();
 		setEditMoodComment(comment.id);
@@ -69,6 +68,7 @@ const CommentList = ({
 		}
 		handleMenuClose();
 	};
+
 	const handleDeleteCancel = () => {
 		setDeleteConfirmationOpen(false);
 	};
@@ -292,6 +292,7 @@ const CommentList = ({
 								backgroundColor: "#ffffff",
 							},
 							borderRadius: 3,
+
 							bgcolor: "#ebe6e6",
 							mb: 1,
 							textTransform: "none",

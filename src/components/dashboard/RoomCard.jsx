@@ -1,9 +1,8 @@
 import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 import moment from "moment-jalaali";
-
+const baseUrl = "https://hotelt.liara.run";
 import Images from "../../assets/images";
-
 function RoomCard({ res }) {
 	if (res.room) {
 		console.log(res);
@@ -32,10 +31,6 @@ function RoomCard({ res }) {
 								{moment(res.created, "YYYY-M-D")
 									.endOf("jMonth")
 									.format("jYYYY/jM/jD")}{" "}
-								{/* تا تاریخ */}
-								{/* {moment(res.check_out, "YYYY-M-D")
-									.endOf("jMonth")
-									.format("jYYYY/jM/jD")} */}
 								رزرو کرده اید .
 							</Typography>
 						</Container>
