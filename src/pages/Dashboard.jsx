@@ -17,9 +17,9 @@ import RoomCard from "../components/dashboard/RoomCard";
 import Loading from "../components/utils/Loading";
 import Room from "../services/room";
 import Food from "../services/food";
+const baseUrl = "https://hotelt.liara.run";
 import Images from "../assets/images";
 import ReservationList from "../components/dashboard/ReservationList";
-
 const DashboardPage = ({ user, payment, setPayment }) => {
 	const [room, setRoom] = useState([]);
 	const { accessToken } = useAuth();

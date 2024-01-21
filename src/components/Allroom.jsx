@@ -111,23 +111,23 @@ function AllRoom() {
 							className=" rounded-lg  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 b-5 p-2"
 							id="allroomcardContainer">
 							{cardData.map((cardInfo, index) => (
-								<div
-									key={index}
-									className="  m-4 allroomcard p-2">
-									<Link to={`/room/${cardInfo.id}`}>
+								<Link to={`/room/${cardInfo.id}`}>
+									<div key={index} className="m-4 allroomcard p-2">
 										<img
 											src={cardInfo.image}
 											className="w-full h-32 object-cover mb-4 allroomimage"
 											alt={`Image for Card ${index + 1}`}
 										/>
 										<div>
-											<h5 className=" font-semibold mb-2 allroomcard-header-text">{` ${
-												cardInfo.price_one_night
-											} : ${index + 1} قیمت اتاق`}</h5>
-											<p className=" allroomcard-text">توضیحات</p>
+											<h5 className="font-semibold mb-2 allroomcard-header-text">
+												شماره اتاق: {cardInfo.code}
+											</h5>
+											<p className="allroomcard-text">
+												قیمت اتاق: {cardInfo.price_one_night} تومان
+											</p>
 										</div>
-									</Link>
-								</div>
+									</div>
+								</Link>
 							))}
 						</div>
 						<button

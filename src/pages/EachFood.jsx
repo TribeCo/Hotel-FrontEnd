@@ -77,7 +77,6 @@ const Eachfood = () => {
 				} catch (error) {
 					alert("خطایی رخ داد لطفا دوباره تلاش کنید");
 					setLoading(false);
-					// Navigate("/dashboard");
 				}
 			}
 		};
@@ -477,13 +476,3 @@ const Eachfood = () => {
 };
 
 export default Eachfood;
-
-// const MealConverter = (meal) => {
-// 	if (meal === "b") {
-// 		return "صبحانه";
-// 	} else if (meal === "l") {
-// 		return "ناهار";
-// 	} else if (meal === "d") {
-// 		return "شام";
-// 	}
-// };

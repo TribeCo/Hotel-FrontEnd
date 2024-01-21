@@ -21,13 +21,6 @@ const AddFoodDialog = ({
 	handleAddFood,
 	handleUploadImage,
 }) => {
-	// const [image, setImage] = useState(null);
-	// const mealChoice = {
-	// 	m: "صبحانه",
-	// 	d: "ناهار",
-	// 	n: "شام",
-	// };
-
 	const validationSchema = Yup.object({
 		price: Yup.number()
 			.positive("ورودی باید یک عدد مثبت باشد")

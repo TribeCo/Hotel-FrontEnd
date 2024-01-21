@@ -42,7 +42,7 @@ const ContactUs = () => {
 		onSubmit: async (values) => {
 			try {
 				setShowSuccess(false);
-				const url = "api/accounts/contact/email/";
+				const url = "https://hotelt.liara.run/api/accounts/contact/email/";
 				await axios.post(url, values);
 				setShowSuccess(true);
 				formik.handleReset();

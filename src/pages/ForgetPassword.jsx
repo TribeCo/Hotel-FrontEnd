@@ -44,7 +44,8 @@ const ForgetPassword = () => {
 	const handleSubmit = async (values) => {
 		try {
 			setLoading(true);
-			const url = "api/accounts/users/change/password/";
+			const url =
+				"https://hotelt.liara.run/api/accounts/users/change/password/";
 			const data = {
 				email: email,
 				code: values.code,
@@ -61,9 +62,12 @@ const ForgetPassword = () => {
 	const handleSendEmail = async (values) => {
 		try {
 			setLoading(true);
-			await Axios.post("/api/accounts/users/update/password/", {
-				email: values.email,
-			});
+			await Axios.post(
+				"https://hotelt.liara.run/api/accounts/users/update/password/",
+				{
+					email: values.email,
+				},
+			);
 			setEmail(values.email);
 			setLoading(false);
 		} catch (error) {
@@ -205,7 +209,6 @@ const ForgetPassword = () => {
 												id="code"
 												error={touched.code && Boolean(errors.code)}
 											/>
-											{/* <ErrorMessage name="code" /> */}
 											<Field
 												as={TextField}
 												margin="normal"
@@ -218,7 +221,6 @@ const ForgetPassword = () => {
 												autoComplete="current-password"
 												error={touched.password && Boolean(errors.password)}
 											/>
-											{/* <ErrorMessage name="password" /> */}
 											<Field
 												as={TextField}
 												margin="normal"
@@ -234,7 +236,6 @@ const ForgetPassword = () => {
 													Boolean(errors.confirmPassword)
 												}
 											/>
-											{/* <ErrorMessage name="confirmPassword" /> */}
 											<Button
 												type="submit"
 												fullWidth

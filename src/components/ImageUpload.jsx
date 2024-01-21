@@ -12,7 +12,6 @@ const ImageUploadButton = ({ onFileChange }) => {
 	const handleFileChange = (event) => {
 		const file = event.target.files[0];
 		if (file) {
-			// You can perform additional actions with the selected file if needed
 			onFileChange(file);
 		}
 	};
