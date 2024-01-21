@@ -112,7 +112,9 @@ function AllRoom() {
 							id="allroomcardContainer">
 							{cardData.map((cardInfo, index) => (
 								<Link to={`/room/${cardInfo.id}`}>
-									<div key={index} className="m-4 allroomcard p-2">
+									<div
+										key={index}
+										className="m-4 allroomcard p-2">
 										<img
 											src={cardInfo.image}
 											className="w-full h-32 object-cover mb-4 allroomimage"
@@ -130,7 +132,7 @@ function AllRoom() {
 								</Link>
 							))}
 						</div>
-						<button
+						{/* <button
 							className="absolute top-24 -right-4 -mt-1 -mr-1"
 							id="filter"
 							onClick={handleFilterButtonClick}>
@@ -141,7 +143,7 @@ function AllRoom() {
 								height="38px"
 								className="rounded-full allroomitem-bg p-2"
 							/>
-						</button>
+						</button> */}
 					</div>
 					{isPopupVisible && (
 						<div

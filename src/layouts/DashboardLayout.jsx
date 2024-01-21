@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import {
 	CssBaseline,
 	Box,
@@ -78,10 +78,10 @@ const AppBar = styled(MuiAppBar, {
 	}),
 }));
 const Drawer = styled(MuiDrawer, {
-	shouldForwardProp: (prop) => prop !== "open",
+	// shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
 	"& .MuiDrawer-paper": {
-		position: "relative",
+		// position: "relative",
 		whiteSpace: "nowrap",
 		width: drawerWidth,
 		transition: theme.transitions.create("width", {
@@ -199,7 +199,7 @@ const DashboardLayout = () => {
 								color="inherit"
 								noWrap
 								sx={{ flexGrow: 1 }}>
-								داشبورد
+								{/* داشبورد */}
 							</Typography>
 							<Button
 								onClick={handleClick}
@@ -228,7 +228,7 @@ const DashboardLayout = () => {
 								justifyContent: "flex-end",
 								px: [1],
 							}}>
-							<IconButton onClick={toggleDrawer}>
+							<IconButton onClick={() => toggleDrawer()}>
 								<ChevronLeft />
 							</IconButton>
 						</Toolbar>
@@ -320,15 +320,13 @@ const DashboardLayout = () => {
 								)}
 							</List>
 						</Grid>
-													
-						{/* <ListItemButton
-							onClick={() => Navigate("/faq")}>
+
+						{/* <ListItemButton onClick={() => Navigate("/faq")}>
 							<ListItemIcon>
 								<HelpOutlineIcon />
 							</ListItemIcon>
 							<ListItemText primary="سوالات متداول" />
 						</ListItemButton> */}
-
 					</Drawer>
 					<Box
 						component="main"
@@ -340,6 +338,7 @@ const DashboardLayout = () => {
 							flexGrow: 1,
 							height: "100vh",
 							overflow: "auto",
+							paddingLeft: "3rem",
 						}}>
 						<Toolbar />
 						{pages[page]}

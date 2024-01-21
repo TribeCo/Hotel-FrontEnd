@@ -14,7 +14,6 @@ import { Avatar, Button, Typography, Fab } from "@mui/material";
 const pic = Images.pic;
 
 function AboutUs() {
-
 	const [user, setUser] = useState(null);
 	const { accessToken } = useAuth();
 	const Navigate = useNavigate();
@@ -36,7 +35,7 @@ function AboutUs() {
 	return (
 		<div
 			className="flex flex-col min-h-screen justify-center items-center pt-16"
-			dir="ltr" >
+			dir="ltr">
 			<header
 				className="landingnav-color text-white py-4 w-full fixed top-0"
 				style={{ zIndex: 1 }}>
@@ -81,19 +80,19 @@ function AboutUs() {
 					</nav>
 				</div>
 			</header>
-			//className="flex flex-col min-h-screen justify-center items-center"
-			//dir="ltr" >
-			//<Fab
-      //          onClick={() => Navigate("/")}
-      //          variant="extended"
-      //          style={{
-      //              position: "fixed",
-      //              top: 0,
-      //              left: 0,
-      //              margin: "16px",
-      //          }}>
-      //          <Typography>بازگشت به صفحه اصلی</Typography>
-      //      </Fab>
+			{/* <className="flex flex-col min-h-screen justify-center items-center"
+			dir="ltr" > */}
+			<Fab
+				onClick={() => Navigate("/")}
+				variant="extended"
+				style={{
+					position: "fixed",
+					top: 0,
+					left: 0,
+					margin: "16px",
+				}}>
+				<Typography>بازگشت به صفحه اصلی</Typography>
+			</Fab>
 			<img
 				className="image mb-8 mt-4"
 				src={pic}
@@ -108,6 +107,7 @@ function AboutUs() {
 								src={icon}
 								alt="Icon"
 							/>
+							q
 						</div>
 						<p className="mt-2 name">پورنوین</p>
 					</div>
@@ -158,7 +158,7 @@ function AboutUs() {
 					className="mx-auto flex items-center px-4"
 					style={{ justifyContent: "space-between" }}>
 					<div className="column-1">
-					<Link
+						<Link
 							to="/contactus"
 							className="hover:text-gray-300 ml-4 mb-2">
 							<Typography>تماس با ما</Typography>

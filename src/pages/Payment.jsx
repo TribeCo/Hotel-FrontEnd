@@ -13,6 +13,7 @@ import {
 	TableCell,
 	TableBody,
 	Table,
+	Container,
 } from "@mui/material";
 import { AttachMoneyOutlined, ListRounded } from "@mui/icons-material";
 
@@ -23,136 +24,137 @@ const PaymentPage = ({ payment }) => {
 	};
 	console.log(payment);
 	return (
-		<Grid
-			sx={{
-				padding: 2,
-			}}
-			container
-			spacing={2}>
+		<Container
+			maxWidth="lg"
+			sx={{ mt: 4, mb: 4 }}>
 			<Grid
-				item
-				xs={12}
-				md={8}>
-				<Paper
-					sx={{
-						padding: 2,
-					}}>
-					<Box
+				container
+				spacing={3}>
+				<Grid
+					item
+					xs={12}
+					md={8}>
+					<Paper
 						sx={{
-							display: "flex",
-							justifyContent: "center",
-							p: 2,
+							padding: 2,
 						}}>
-						<ListRounded />
-						<Typography>فاکتور</Typography>
-					</Box>
-					<Divider />
-					<TableContainer>
-						<Table aria-label="caption table">
-							<TableHead>
-								<TableRow>
-									<TableCell>نام محصول یا خدمات</TableCell>
-									<TableCell align="center">قیمت (تومان)</TableCell>
-									<TableCell align="center">تاریخ</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								{payment.room.map((row) => (
-									<TableRow key={row.room.number}>
-										<TableCell
-											component="th"
-											scope="row">
-											رزرو اتاق شماره : {row.room.number}
-										</TableCell>
-										<TableCell align="center">{row.total_price}</TableCell>
-										<TableCell align="center">
-											{moment(row.created, "YYYY-M-D")
-												.endOf("jMonth")
-												.format("jYYYY/jM/jD")}
-										</TableCell>
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "center",
+								p: 2,
+							}}>
+							<ListRounded />
+							<Typography>فاکتور</Typography>
+						</Box>
+						<Divider />
+						<TableContainer>
+							<Table aria-label="caption table">
+								<TableHead>
+									<TableRow>
+										<TableCell>نام محصول یا خدمات</TableCell>
+										<TableCell align="center">قیمت (تومان)</TableCell>
+										<TableCell align="center">تاریخ</TableCell>
 									</TableRow>
-								))}
-								{payment.food.map((row) => (
-									<TableRow key={row.food.name}>
-										<TableCell
-											component="th"
-											scope="row">
-											{row.food.name}
-										</TableCell>
-										<TableCell align="center">{row.food.price}</TableCell>
-										<TableCell align="center">
-											{moment(row.created, "YYYY-M-D")
-												.endOf("jMonth")
-												.format("jYYYY/jM/jD")}
-										</TableCell>
-									</TableRow>
-								))}
-							</TableBody>
-						</Table>
-					</TableContainer>
-				</Paper>
+								</TableHead>
+								<TableBody>
+									{payment.room.map((row) => (
+										<TableRow key={row.room.number}>
+											<TableCell
+												component="th"
+												scope="row">
+												رزرو اتاق شماره : {row.room.number}
+											</TableCell>
+											<TableCell align="center">{row.total_price}</TableCell>
+											<TableCell align="center">
+												{moment(row.created, "YYYY-M-D")
+													.endOf("jMonth")
+													.format("jYYYY/jM/jD")}
+											</TableCell>
+										</TableRow>
+									))}
+									{payment.food.map((row) => (
+										<TableRow key={row.food.name}>
+											<TableCell
+												component="th"
+												scope="row">
+												{row.food.name}
+											</TableCell>
+											<TableCell align="center">{row.food.price}</TableCell>
+											<TableCell align="center">
+												{moment(row.created, "YYYY-M-D")
+													.endOf("jMonth")
+													.format("jYYYY/jM/jD")}
+											</TableCell>
+										</TableRow>
+									))}
+								</TableBody>
+							</Table>
+						</TableContainer>
+					</Paper>
+				</Grid>
+				<Grid
+					item
+					xs={12}
+					md={4}>
+					<Paper
+						sx={{
+							padding: 2,
+						}}>
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "center",
+								p: 2,
+							}}>
+							<AttachMoneyOutlined />
+							<Typography>صورت حساب</Typography>
+						</Box>
+						<Divider />
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "space-between",
+								p: 2,
+							}}>
+							<Typography>رزرو اتاق : </Typography>
+							<Typography> {Sum(payment.room)} تومان</Typography>
+						</Box>
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "space-between",
+								p: 2,
+							}}>
+							<Typography>رستوران : </Typography>
+							<Typography> {Sum(payment.food)} تومان</Typography>
+						</Box>
+						<Divider />
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "space-between",
+								p: 2,
+							}}>
+							<Typography>{"مجموع مبلغ قابل پرداخت :"}</Typography>
+							<Typography> {Sum(payment.room) + Sum(payment.food)}</Typography>
+						</Box>
+						<Box
+							sx={{
+								p: 1,
+							}}>
+							<Button
+								color={"success"}
+								fullWidth
+								variant="contained"
+								onClick={() => handlePayment()}>
+								پرداخت
+							</Button>
+						</Box>
+					</Paper>
+				</Grid>
 			</Grid>
-			<Grid
-				item
-				xs={12}
-				md={4}>
-				<Paper
-					sx={{
-						padding: 2,
-					}}>
-					<Box
-						sx={{
-							display: "flex",
-							justifyContent: "center",
-							p: 2,
-						}}>
-						<AttachMoneyOutlined />
-						<Typography>صورت حساب</Typography>
-					</Box>
-					<Divider />
-					<Box
-						sx={{
-							display: "flex",
-							justifyContent: "space-between",
-							p: 2,
-						}}>
-						<Typography>رزرو اتاق : </Typography>
-						<Typography> {Sum(payment.room)} تومان</Typography>
-					</Box>
-					<Box
-						sx={{
-							display: "flex",
-							justifyContent: "space-between",
-							p: 2,
-						}}>
-						<Typography>رستوران : </Typography>
-						<Typography> {Sum(payment.food)} تومان</Typography>
-					</Box>
-					<Divider />
-					<Box
-						sx={{
-							display: "flex",
-							justifyContent: "space-between",
-							p: 2,
-						}}>
-						<Typography>{"مجموع مبلغ قابل پرداخت :"}</Typography>
-						<Typography> {Sum(payment.room) + Sum(payment.food)}</Typography>
-					</Box>
-					<Box
-						sx={{
-							p: 1,
-						}}>
-						<Button
-							color={"success"}
-							fullWidth
-							variant="contained"
-							onClick={() => handlePayment()}>
-							پرداخت
-						</Button>
-					</Box>
-				</Paper>
-			</Grid>
-		</Grid>
+		</Container>
 	);
 };
 
