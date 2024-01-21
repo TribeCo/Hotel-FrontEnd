@@ -8,6 +8,7 @@ import {
 	Button,
 	Paper,
 	TableRow,
+	Fab,
 	TableHead,
 	TableContainer,
 	TableCell,
@@ -15,8 +16,11 @@ import {
 	Table,
 } from "@mui/material";
 import { AttachMoneyOutlined, ListRounded } from "@mui/icons-material";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { useNavigate } from "react-router-dom";
 
 const PaymentPage = ({ payment }) => {
+	const Navigate = useNavigate();
 	const handlePayment = () => {
 		alert("پرداخت با موفقیت انجام شد");
 		console.log("Payment success!");
@@ -29,6 +33,19 @@ const PaymentPage = ({ payment }) => {
 			}}
 			container
 			spacing={2}>
+
+			<Fab
+				onClick={() => Navigate("/faq")}
+				variant="circular"
+				style={{
+					position: "fixed",
+					bottom: 16,
+					left: 16,
+					margin: "12px",
+				}}>
+				<HelpOutlineIcon fontSize="large"/>
+			</Fab>
+
 			<Grid
 				item
 				xs={12}
