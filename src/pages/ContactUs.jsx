@@ -67,16 +67,16 @@ const ContactUs = () => {
 				style={containerStyle}>
 
 				<Fab
-						onClick={() => Navigate("/")}
-						variant="extended"
-						style={{
-							position: "fixed",
-							top: 0,
-							left: 0,
-							margin: "16px",
-						}}>
-						<Typography>بازگشت به صفحه اصلی</Typography>
-					</Fab>
+					onClick={() => Navigate("/")}
+					variant="extended"
+					style={{
+						position: "fixed",
+						top: 0,
+						left: 0,
+						margin: "16px",
+					}}>
+					<Typography>بازگشت به صفحه اصلی</Typography>
+				</Fab>
 
 				<Typography
 					color="#FFFFFF"

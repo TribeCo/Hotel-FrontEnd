@@ -9,6 +9,7 @@ import {
 	List,
 	Typography,
 	Divider,
+	Fab,
 	IconButton,
 	Avatar,
 	ListItemButton,
@@ -218,6 +219,7 @@ const DashboardLayout = () => {
 							/>
 						</Toolbar>
 					</AppBar>
+
 					<Drawer
 						variant="permanent"
 						open={open}>
@@ -320,14 +322,8 @@ const DashboardLayout = () => {
 								)}
 							</List>
 						</Grid>
-
-						{/* <ListItemButton onClick={() => Navigate("/faq")}>
-							<ListItemIcon>
-								<HelpOutlineIcon />
-							</ListItemIcon>
-							<ListItemText primary="سوالات متداول" />
-						</ListItemButton> */}
 					</Drawer>
+
 					<Box
 						component="main"
 						sx={{
