@@ -222,48 +222,19 @@ const Eachfood = () => {
 								}}>
 								<Grid
 									container
-									spacing={1}>
+									spacing={1}
+									item>
 									<Grid
-										container
-										spacing={1}
-										item>
-										<Grid
-											item
-											xs={12}
-											mb={2}
-											sm={6}>
-											<TextField
-												disabled
-												fullWidth
-												label="نام غذا"
-												defaultValue={food.name}
-											/>
-										</Grid>
-
-										<Grid
-											item
-											mb={2}
-											xs={12}
-											sm={6}>
-											<FormControl fullWidth>
-												{" "}
-												{/* //TODO: send 'o' or 'v' for this field */}
-												<InputLabel>محل دریافت</InputLabel>
-												<Select
-													label="محل دریافت"
-													name="type"
-													// value={values.type}
-													// onChange={handleChange}
-													// onBlur={handleBlur}
-													// error={touched.type && Boolean(errors.type)}
-												>
-													<MenuItem value="o">تحویل در رستوران</MenuItem>
-													<MenuItem value="v">تحویل در اتاق</MenuItem>
-												</Select>
-											</FormControl>
-										</Grid>
+										item
+										xs={12}
+										mb={2}>
+										<TextField
+											disabled
+											fullWidth
+											label="نام غذا"
+											defaultValue={food.name}
+										/>
 									</Grid>
-
 									<Grid
 										item
 										mb={2}
@@ -272,7 +243,7 @@ const Eachfood = () => {
 											disabled
 											fullWidth
 											label="قیمت"
-											defaultValue={food.price}
+											defaultValue={food.price + " تومان"}
 										/>
 									</Grid>
 									<Grid
