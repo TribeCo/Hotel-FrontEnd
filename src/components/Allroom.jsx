@@ -122,7 +122,7 @@ function AllRoom() {
 										/>
 										<div>
 											<h5 className="font-semibold mb-2 allroomcard-header-text">
-												شماره اتاق: {cardInfo.code}
+												شماره اتاق: {cardInfo.number}
 											</h5>
 											<p className="allroomcard-text">
 												قیمت اتاق: {cardInfo.price_one_night} تومان

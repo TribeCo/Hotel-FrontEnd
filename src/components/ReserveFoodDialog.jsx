@@ -11,10 +11,12 @@ import {
 	ToggleButton,
 	Divider,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import Food from "../services/food";
 
 const ReserveFoodDialog = ({ open, handleClose, food_id, accessToken }) => {
+	const Navigate = useNavigate();
 	const [selected, setSelected] = useState(null);
 	const handleSelect = (e, select) => {
 		setSelected(select);
@@ -23,6 +25,7 @@ const ReserveFoodDialog = ({ open, handleClose, food_id, accessToken }) => {
 		try {
 			await Food.reserve({ data: data, authToken: accessToken });
 			alert("رزرو غذا با موفقیت انجام شد!");
+			Navigate("/dashboard");
 		} catch (error) {
 			alert("در ثبت سفارش خطایی رخ داد! لطفا دوباره تلاش کنید.");
 		}

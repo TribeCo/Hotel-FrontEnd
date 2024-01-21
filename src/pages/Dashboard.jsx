@@ -11,7 +11,7 @@ import {
 import { AttachMoneyOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import AvatarCard from "../components/dashboard/AvatarCard";
 import RoomCard from "../components/dashboard/RoomCard";
 import Loading from "../components/utils/Loading";
@@ -32,6 +32,8 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 			try {
 				const resRoom = await Room.getUserAll({ authToken: accessToken });
 				const resFood = await Food.getUserAll({ authToken: accessToken });
+				console.log(resRoom);
+				console.log(resFood);
 				setPayment({
 					room: resRoom.data.payments,
 					food: resFood.data.payments,
@@ -54,7 +56,6 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 			<Container
 				maxWidth="lg"
 				sx={{ mt: 4, mb: 4 }}>
-					
 				<Fab
 					onClick={() => Navigate("/faq")}
 					variant="circular"
@@ -64,7 +65,7 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 						left: 16,
 						margin: "12px",
 					}}>
-					<HelpOutlineIcon fontSize="large"/>
+					<HelpOutlineIcon fontSize="large" />
 				</Fab>
 
 				<Grid
@@ -137,9 +138,9 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 					</Grid>
 				</Grid>
 				<Grid>
-					<ReservationList 
-						roomList={ {} }                     //TODO: give room list to the component
-						foodList={ {} }                     //TODO: give food list to the component
+					<ReservationList
+						roomList={{}} //TODO: give room list to the component
+						foodList={{}} //TODO: give food list to the component
 					/>
 				</Grid>
 			</Container>

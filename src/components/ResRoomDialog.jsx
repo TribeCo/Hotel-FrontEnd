@@ -5,6 +5,7 @@ import "react-multi-date-picker/styles/colors/teal.css";
 import fa from "react-date-object/locales/persian_fa";
 import jalali from "react-date-object/calendars/jalali";
 import moment from "moment-jalaali";
+import { useNavigate } from "react-router-dom";
 
 import {
 	Button,
@@ -25,6 +26,7 @@ const ResRoom = ({
 	reserved,
 	accessToken,
 }) => {
+	const Navigate = useNavigate();
 	const [values, setValues] = useState(null);
 	const minDate = new DateObject({ calendar: jalali, locale: fa });
 	const maxDate = new DateObject({ calendar: jalali, locale: fa }).add(
@@ -36,8 +38,9 @@ const ResRoom = ({
 	};
 	const handleReserveRoom = async (data) => {
 		try {
-			const res = await Room.reserve({ data: data, authToken: accessToken });
-			console.log(res);
+			await Room.reserve({ data: data, authToken: accessToken });
+			alert("اتاق با موفقیت رزرو شد.");
+			Navigate("/dashboard");
 		} catch (error) {
 			console.log(error);
 		}
