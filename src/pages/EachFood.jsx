@@ -11,6 +11,10 @@ import {
 	Container,
 	Fab,
 	Typography,
+	FormControl,
+	InputLabel,
+	Select,
+	MenuItem,
 } from "@mui/material";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 
@@ -220,17 +224,48 @@ const Eachfood = () => {
 								<Grid
 									container
 									spacing={1}>
+
+
+								<Grid
+									container
+									spacing={1}
+									item>							
 									<Grid
 										item
+										xs={12}
 										mb={2}
-										xs={12}>
+										sm={6}>
 										<TextField
 											disabled
 											fullWidth
 											label="نام غذا"
-											defaultValue={food.name} //TODO: default value for food??
+											defaultValue={food.name}
 										/>
 									</Grid>
+									
+									<Grid
+										item
+										mb={2}
+										xs={12}
+										sm={6}>
+										<FormControl fullWidth>   {/* //TODO: send 'o' or 'v' for this field */}
+											<InputLabel>محل دریافت</InputLabel> 
+											<Select
+												label="محل دریافت"
+												name="type"
+												// value={values.type}
+												// onChange={handleChange}
+												// onBlur={handleBlur}
+												// error={touched.type && Boolean(errors.type)}
+												>
+												<MenuItem value="o">تحویل در رستوران</MenuItem>
+												<MenuItem value="v">تحویل در اتاق</MenuItem>
+											</Select>
+										</FormControl>
+									</Grid>
+
+								</Grid>
+
 									<Grid
 										item
 										mb={2}
@@ -239,7 +274,7 @@ const Eachfood = () => {
 											disabled
 											fullWidth
 											label="قیمت"
-											defaultValue={food.price} //TODO: default value for food??
+											defaultValue={food.price}
 										/>
 									</Grid>
 									<Grid
@@ -252,12 +287,12 @@ const Eachfood = () => {
 											disabled
 											fullWidth
 											label="توضیحات"
-											defaultValue={food.description} //TODO: default value for desc??
+											defaultValue={food.description}
 										/>
 									</Grid>
 								</Grid>
 								<Button
-									onClick={handleReserveBTN} //TODO: save food order and Navigate to dashboard??
+									onClick={handleReserveBTN}
 									fullWidth
 									variant="contained"
 									sx={{
@@ -287,7 +322,7 @@ const Eachfood = () => {
 									</Button>
 								)}
 								<Button
-									onClick={() => Navigate("/dashboard")} //TODO: Navigate to dashboard without ordering??
+									onClick={() => Navigate("/dashboard")}
 									fullWidth
 									variant="contained"
 									sx={{

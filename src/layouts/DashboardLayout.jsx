@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import {
 	CssBaseline,
 	Box,
@@ -9,6 +8,7 @@ import {
 	List,
 	Typography,
 	Divider,
+	Fab,
 	IconButton,
 	Avatar,
 	ListItemButton,
@@ -218,6 +218,7 @@ const DashboardLayout = () => {
 							/>
 						</Toolbar>
 					</AppBar>
+					
 					<Drawer
 						variant="permanent"
 						open={open}>
@@ -319,17 +320,9 @@ const DashboardLayout = () => {
 									</>
 								)}
 							</List>
-						</Grid>
-													
-						{/* <ListItemButton
-							onClick={() => Navigate("/faq")}>
-							<ListItemIcon>
-								<HelpOutlineIcon />
-							</ListItemIcon>
-							<ListItemText primary="سوالات متداول" />
-						</ListItemButton> */}
-
+						</Grid>										
 					</Drawer>
+
 					<Box
 						component="main"
 						sx={{

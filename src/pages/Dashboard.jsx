@@ -5,10 +5,13 @@ import {
 	Grid,
 	Typography,
 	Paper,
+	Fab,
 	Container,
 } from "@mui/material";
 import { AttachMoneyOutlined } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import AvatarCard from "../components/dashboard/AvatarCard";
 import RoomCard from "../components/dashboard/RoomCard";
 import Loading from "../components/utils/Loading";
@@ -20,6 +23,7 @@ import ReservationList from "../components/dashboard/ReservationList";
 const DashboardPage = ({ user, payment, setPayment }) => {
 	const [room, setRoom] = useState([]);
 	const { accessToken } = useAuth();
+	const Navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
@@ -50,6 +54,19 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 			<Container
 				maxWidth="lg"
 				sx={{ mt: 4, mb: 4 }}>
+					
+				<Fab
+					onClick={() => Navigate("/faq")}
+					variant="circular"
+					style={{
+						position: "fixed",
+						bottom: 16,
+						left: 16,
+						margin: "12px",
+					}}>
+					<HelpOutlineIcon fontSize="large"/>
+				</Fab>
+
 				<Grid
 					container
 					spacing={3}>
