@@ -11,6 +11,10 @@ import {
 	Container,
 	Fab,
 	Typography,
+	FormControl,
+	InputLabel,
+	Select,
+	MenuItem,
 } from "@mui/material";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 
@@ -218,16 +222,17 @@ const Eachfood = () => {
 								}}>
 								<Grid
 									container
-									spacing={1}>
+									spacing={1}
+									item>
 									<Grid
 										item
-										mb={2}
-										xs={12}>
+										xs={12}
+										mb={2}>
 										<TextField
 											disabled
 											fullWidth
 											label="نام غذا"
-											defaultValue={food.name} //TODO: default value for food??
+											defaultValue={food.name}
 										/>
 									</Grid>
 									<Grid
@@ -238,7 +243,7 @@ const Eachfood = () => {
 											disabled
 											fullWidth
 											label="قیمت"
-											defaultValue={food.price} //TODO: default value for food??
+											defaultValue={food.price + " تومان"}
 										/>
 									</Grid>
 									<Grid
@@ -251,12 +256,12 @@ const Eachfood = () => {
 											disabled
 											fullWidth
 											label="توضیحات"
-											defaultValue={food.description} //TODO: default value for desc??
+											defaultValue={food.description}
 										/>
 									</Grid>
 								</Grid>
 								<Button
-									onClick={handleReserveBTN} //TODO: save food order and Navigate to dashboard??
+									onClick={handleReserveBTN}
 									fullWidth
 									variant="contained"
 									sx={{
@@ -286,7 +291,7 @@ const Eachfood = () => {
 									</Button>
 								)}
 								<Button
-									onClick={() => Navigate("/dashboard")} //TODO: Navigate to dashboard without ordering??
+									onClick={() => Navigate("/dashboard")}
 									fullWidth
 									variant="contained"
 									sx={{
@@ -298,7 +303,7 @@ const Eachfood = () => {
 										borderRadius: 15,
 										bgcolor: "#f76d6d",
 									}}>
-									<Typography variant="h6">خروج</Typography>
+									<Typography variant="h6">بازگشت به داشبورد</Typography>
 								</Button>
 							</Box>
 						</Container>

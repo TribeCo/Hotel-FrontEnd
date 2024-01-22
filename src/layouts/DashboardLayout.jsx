@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import {
 	CssBaseline,
 	Box,
@@ -9,6 +9,7 @@ import {
 	List,
 	Typography,
 	Divider,
+	Fab,
 	IconButton,
 	Avatar,
 	ListItemButton,
@@ -78,10 +79,10 @@ const AppBar = styled(MuiAppBar, {
 	}),
 }));
 const Drawer = styled(MuiDrawer, {
-	shouldForwardProp: (prop) => prop !== "open",
+	// shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
 	"& .MuiDrawer-paper": {
-		position: "relative",
+		// position: "relative",
 		whiteSpace: "nowrap",
 		width: drawerWidth,
 		transition: theme.transitions.create("width", {
@@ -129,18 +130,8 @@ const DashboardLayout = () => {
 					const response = await User.getOne({ accessToken: accessToken });
 					setUser(response.data);
 				} catch (error) {
-					const e = new Error();
-					e.message =
-						"شما به محتوا درخواست شده دسترسی ندارید لطفا ابتدا وارد شوید.";
-					e.name = "خطای احراز هویت";
-					showBoundary(e);
+					showBoundary(error);
 				}
-			} else {
-				const e = new Error();
-				e.message =
-					"شما به محتوا درخواست شده دسترسی ندارید لطفا ابتدا وارد شوید.";
-				e.name = "خطای احراز هویت";
-				showBoundary(e);
 			}
 		};
 
@@ -199,7 +190,7 @@ const DashboardLayout = () => {
 								color="inherit"
 								noWrap
 								sx={{ flexGrow: 1 }}>
-								داشبورد
+								{/* داشبورد */}
 							</Typography>
 							<Button
 								onClick={handleClick}
@@ -218,6 +209,7 @@ const DashboardLayout = () => {
 							/>
 						</Toolbar>
 					</AppBar>
+
 					<Drawer
 						variant="permanent"
 						open={open}>
@@ -228,7 +220,7 @@ const DashboardLayout = () => {
 								justifyContent: "flex-end",
 								px: [1],
 							}}>
-							<IconButton onClick={toggleDrawer}>
+							<IconButton onClick={() => toggleDrawer()}>
 								<ChevronLeft />
 							</IconButton>
 						</Toolbar>
@@ -320,16 +312,8 @@ const DashboardLayout = () => {
 								)}
 							</List>
 						</Grid>
-													
-						{/* <ListItemButton
-							onClick={() => Navigate("/faq")}>
-							<ListItemIcon>
-								<HelpOutlineIcon />
-							</ListItemIcon>
-							<ListItemText primary="سوالات متداول" />
-						</ListItemButton> */}
-
 					</Drawer>
+
 					<Box
 						component="main"
 						sx={{
@@ -340,6 +324,7 @@ const DashboardLayout = () => {
 							flexGrow: 1,
 							height: "100vh",
 							overflow: "auto",
+							paddingLeft: "3rem",
 						}}>
 						<Toolbar />
 						{pages[page]}

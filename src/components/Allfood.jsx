@@ -105,7 +105,7 @@ const Allfood = () => {
 					<div className="flex flex-col justify-center items-center relative">
 						<p className="allfoodtext mb-8">رزرو غذا</p>
 						<div
-							className="  grid grid-cols-1 lg:grid-cols-2 gap-4  p-6"
+							className="  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-6"
 							id="allfoodcardContainer">
 							{cardData.map((cardInfo, index) => (
 								<Link
@@ -113,17 +113,17 @@ const Allfood = () => {
 									to={`/food/${cardInfo.id}`}>
 									<div
 										key={index}
-										className="allfoodcard  p-2 flex flex-row items-center">
+										className="allfoodcard  p-2 flex flex-col sm:flex-col lg:flex-row items-center">
 										<img
 											src={cardInfo.image}
-											className="allfoodimage object-cover  ml-1"
+											className="allfoodimage object-cover mb-3 lg:ml-1  sm:mb-4 lg:mb-0"
 											alt={`Image for Card ${index + 1}`}
 										/>
 										<div>
-											<p className="allfoodcard-text  mb-3 mr-2">
+											<p className="allfoodcard-text  mb-3 lg:mr-2 ">
 												{cardInfo.name}
 											</p>
-											<p className="allfoodcard-text  mr-2">{cardInfo.price}</p>
+											<p className="allfoodcard-text  lg:mr-2">{cardInfo.price}</p>
 										</div>
 									</div>
 								</Link>

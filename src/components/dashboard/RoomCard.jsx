@@ -1,11 +1,10 @@
 import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 import moment from "moment-jalaali";
-const baseUrl = "https://hotelt.liara.run";
 import Images from "../../assets/images";
-function RoomCard({ res }) {
-	if (res.room) {
-		console.log(res);
+
+function RoomCard({ room }) {
+	if (room) {
 		return (
 			<>
 				<Paper
@@ -23,15 +22,15 @@ function RoomCard({ res }) {
 							<Typography
 								variant="h4"
 								mb={2}>
-								شماره اتاق {res.room.number}
+								شماره اتاق {room.room.number}
 							</Typography>
 
 							<Typography>
 								شما این اتاق را در تاریخ{" "}
-								{moment(res.created, "YYYY-M-D")
-									.endOf("jMonth")
-									.format("jYYYY/jM/jD")}{" "}
-								رزرو کرده اید .
+								{moment(room.created, "YYYY-MM-DD").format("jYYYY/jMM/jDD")}{" "}
+								برای {room.night_count} شب از تاریخ{" "}
+								{moment(room.check_in, "YYYY-MM-DD").format("jYYYY/jMM/jDD")}{" "}
+								رزرو کرده اید.
 							</Typography>
 						</Container>
 						<Box
@@ -40,7 +39,7 @@ function RoomCard({ res }) {
 							sx={{
 								borderRadius: 2,
 							}}
-							src={Images.baseUrl + res.room.type.image}></Box>
+							src={Images.baseUrl + room.room.type.image}></Box>
 					</Grid>
 				</Paper>
 			</>

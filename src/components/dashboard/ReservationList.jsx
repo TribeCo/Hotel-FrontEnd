@@ -1,87 +1,95 @@
 import React from "react";
 import {
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableBody,
-    TableContainer,
-    Grid,
-    Typography,
-    Paper,
+	Table,
+	TableHead,
+	TableRow,
+	TableCell,
+	TableBody,
+	TableContainer,
+	Grid,
+	Typography,
+	Paper,
 } from "@mui/material";
+import moment from "moment-jalaali";
 
 const ReservationList = ({ roomList, foodList }) => {
-    //TODO: use roomList and foodList instead of foodReservations and foomReservations 
-    const foodReservations = [
-        { id: 1, name: "چلو بادمجان", meal: "نهار" },
-        { id: 2, name: "چلو کباب", meal: "شام" }
-    ];
+	console.log(roomList);
+	return (
+		<Grid
+			display="flex"
+			flexDirection="column"
+			container
+			mt={2}>
+			<Paper sx={{ p: 2, background: "#1f1f1f" }}>
+				<Typography variant="h5">لیست تمام اتاق های رزرو شده</Typography>
+				<TableContainer>
+					<Table>
+						<TableHead>
+							<TableRow>
+								<TableCell>
+									<Typography>نام اتاق</Typography>
+								</TableCell>
+								<TableCell>
+									<Typography>تاریخ ورود</Typography>
+								</TableCell>
+								<TableCell>
+									<Typography>تاریخ خروج</Typography>
+								</TableCell>
+							</TableRow>
+						</TableHead>
 
-    const roomReservations = [
-        { id: 1, name: "101", checkIn: "1399/10/10", checkOut: "1399/10/12" },
-        { id: 2, name: "201", checkIn: "1399/10/15", checkOut: "1399/10/20" }
-    ];
+						<TableBody>
+							{roomList.map((row) => (
+								<TableRow key={row.id}>
+									<TableCell>{row.room.number}</TableCell>
+									<TableCell>
+										{moment(row.check_in, "YYYY-MM-DD").format("jYYYY/jMM/jDD")}
+									</TableCell>
+									<TableCell>
+										{moment(row.check_in, "YYYY-MM-DD")
+											.add(row.night_count, "days")
+											.format("jYYYY/jMM/jDD")}
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+				</TableContainer>
+			</Paper>
+			<Paper sx={{ mt: 2, p: 2, background: "#1f1f1f" }}>
+				<Typography variant="h5">لیست غذا های رزرو شده امروز</Typography>
+				<TableContainer>
+					<Table>
+						<TableHead>
+							<TableRow>
+								<TableCell>
+									<Typography>نام غذا</Typography>
+								</TableCell>
+								<TableCell>
+									<Typography>وعده غذایی</Typography>
+								</TableCell>
+								<TableCell>
+									<Typography>محل دریافت</Typography>
+								</TableCell>
+							</TableRow>
+						</TableHead>
 
-    return (
-        <Grid
-            container
-            spacing={2}
-        >
-            <Grid item xs={12} sm={7} mt={2}>
-                <Paper sx={{ p: 2, background: '#1f1f1f' }}>
-                    <Typography variant="h5">لیست رزرو اتاق</Typography>
-                    <TableContainer>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell><Typography>نام اتاق</Typography></TableCell>
-                                    <TableCell><Typography>تاریخ ورود</Typography></TableCell>
-                                    <TableCell><Typography>تاریخ خروج</Typography></TableCell>
-                                </TableRow>
-                            </TableHead>
-
-
-                            <TableBody>
-                                {roomReservations.map(row => (
-                                    <TableRow key={row.id}>
-                                        <TableCell>{row.name}</TableCell>
-                                        <TableCell>{row.checkIn}</TableCell>
-                                        <TableCell>{row.checkOut}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </Paper>
-            </Grid>
-            <Grid item xs={12} sm={5} mt={2}>
-                <Paper sx={{ p: 2, background: '#1f1f1f' }}>
-                    <Typography variant="h5">لیست رزرو غذا</Typography>
-                    <TableContainer>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell><Typography>نام غذا</Typography></TableCell>
-                                    <TableCell><Typography>وعده غذایی</Typography></TableCell>
-                                </TableRow>
-                            </TableHead>
-
-
-                            <TableBody>
-                                {foodReservations.map(row => (
-                                    <TableRow key={row.id}>
-                                        <TableCell>{row.name}</TableCell>
-                                        <TableCell>{row.meal}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </Paper>
-            </Grid>
-        </Grid>
-    );
+						<TableBody>
+							{foodList.map((row) => (
+								<TableRow key={row.id}>
+									<TableCell>{row.food.name}</TableCell>
+									<TableCell>{row.meal === "d" ? "ناهار" : "شام"}</TableCell>
+									<TableCell>
+										{row.place === "r" ? "در رستوران" : "در اتاق"}
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+				</TableContainer>
+			</Paper>
+		</Grid>
+	);
 };
 
 export default ReservationList;

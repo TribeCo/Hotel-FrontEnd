@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Box, Divider, Grid, Typography, Paper } from "@mui/material";
+import {
+	Box,
+	Divider,
+	Grid,
+	Typography,
+	Paper,
+	Container,
+} from "@mui/material";
 import { BarChart, LineChart } from "@mui/x-charts";
 
 import Report from "../services/report";
 import { useAuth } from "../context/AuthContext";
 import Loading from "../components/utils/Loading";
+import Chart from "../services/charts";
 
 const Reports = () => {
 	const { accessToken } = useAuth();
@@ -30,23 +38,6 @@ const Reports = () => {
 		},
 	});
 
-	const roomData_day = [
-		400, 300, 200, 278, 189, 239, 349, 400, 300, 200, 278, 189, 239, 349, 400,
-		300, 200, 278, 189, 239, 349, 400, 300, 200, 278, 189, 239, 349, 400, 300,
-	];
-	const foodData_day = [
-		240, 138, 980, 390, 480, 380, 430, 240, 138, 980, 390, 480, 380, 430, 240,
-		138, 980, 390, 480, 380, 430, 240, 138, 980, 390, 480, 380, 430, 120, 230,
-	];
-
-	const roomData_month = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
-	const foodData_month = [2400, 1398, 9800, 3908, 4800, 3800, 4300];
-
-	const roomData_year = [4000, 3000, 2000];
-	const foodData_year = [2400, 1398, 9800];
-
-	const xLabels_year = [1400, 1401, 1402];
-
 	const xLabels_month = [
 		"فروردین",
 		"اردیبهشت",
@@ -61,19 +52,47 @@ const Reports = () => {
 		"بهمن",
 		"اسفند",
 	];
-	const xLabels_day = [
-		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-		22, 23, 24, 25, 26, 27, 28, 29, 30,
-	];
 
 	const [loading, setLoading] = useState(false);
+	const [chartsData, setChartsData] = useState({
+		year: { labels: [], food: [], room: [] },
+		month: { labels: [], food: [], room: [] },
+		day: { labels: [], food: [], room: [] },
+	});
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				setLoading(true);
-				const res = await Report.getAllReports({ authToken: accessToken });
-				console.log(res);
+				let res;
+				const data = {
+					year: { labels: [], food: [], room: [] },
+					month: { labels: [], food: [], room: [] },
+					day: { labels: [], food: [], room: [] },
+				};
+
+				res = await Chart.getYearReport({ authToken: accessToken });
+				data.year = {
+					labels: Object.keys(res.data.room),
+					room: Object.values(res.data.room),
+					food: Object.values(res.data.food),
+				};
+				res = await Chart.getMonthReport({ authToken: accessToken });
+				data.month = {
+					labels: Object.keys(res.data.room),
+					room: Object.values(res.data.room),
+					food: Object.values(res.data.food),
+				};
+				res = await Chart.getDayReport({ authToken: accessToken });
+				data.day = {
+					labels: Object.keys(res.data.room),
+					room: Object.values(res.data.room),
+					food: Object.values(res.data.food),
+				};
+
+				res = await Report.getAllReports({ authToken: accessToken });
+
+				setChartsData(data);
 				setReport(res.data);
 				setLoading(false);
 			} catch (error) {
@@ -85,7 +104,9 @@ const Reports = () => {
 	}, [accessToken]);
 	if (!loading) {
 		return (
-			<>
+			<Container
+				maxWidth="lg"
+				sx={{ mt: 4, mb: 4 }}>
 				<Grid
 					sx={{
 						padding: 2,
@@ -178,17 +199,17 @@ const Reports = () => {
 								height={378}
 								series={[
 									{
-										data: foodData_year,
-										label: "درآمد رستوران",
-										stack: "stack1",
-									},
-									{
-										data: roomData_year,
+										data: chartsData.year.room,
 										label: "درآمد رزرو اتاق",
 										stack: "stack1",
 									},
+									{
+										data: chartsData.year.food,
+										label: "درآمد رستوران",
+										stack: "stack1",
+									},
 								]}
-								xAxis={[{ data: xLabels_year, scaleType: "band" }]}
+								xAxis={[{ data: chartsData.year.labels, scaleType: "band" }]}
 							/>
 						</Paper>
 					</Grid>
@@ -287,19 +308,38 @@ const Reports = () => {
 									direction: "rtl",
 								}}
 								height={348}
+								layout="horizontal"
 								series={[
 									{
-										data: roomData_month,
-										label: "درآمد رستوران",
-										stack: "stack1",
-									},
-									{
-										data: foodData_month,
+										data: chartsData.month.room,
 										label: "درآمد رزرو اتاق",
 										stack: "stack1",
 									},
+									{
+										data: chartsData.month.food,
+										label: "درآمد رستوران",
+										stack: "stack1",
+									},
 								]}
-								xAxis={[{ data: xLabels_month, scaleType: "band" }]}
+								yAxis={[
+									{
+										data: [
+											"فروردین",
+											"اردیبهشت",
+											"خرداد",
+											"تیر",
+											"مرداد",
+											"شهریور",
+											"مهر",
+											"آبان",
+											"آذر",
+											"دی",
+											"بهمن",
+											"اسفند",
+										],
+										scaleType: "band",
+									},
+								]}
 							/>
 						</Paper>
 					</Grid>
@@ -402,22 +442,22 @@ const Reports = () => {
 								height={348}
 								series={[
 									{
-										data: roomData_day,
+										data: chartsData.day.food,
 										label: "درآمد رستوران",
 										stack: "stack1",
 									},
 									{
-										data: foodData_day,
+										data: chartsData.day.room,
 										label: "درآمد رزرو اتاق",
 										stack: "stack1",
 									},
 								]}
-								xAxis={[{ data: xLabels_day, scaleType: "band" }]}
+								xAxis={[{ data: chartsData.day.labels, scaleType: "band" }]}
 							/>
 						</Paper>
 					</Grid>
 				</Grid>
-			</>
+			</Container>
 		);
 	} else {
 		return <Loading />;

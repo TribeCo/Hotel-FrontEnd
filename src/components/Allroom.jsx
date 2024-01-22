@@ -111,26 +111,28 @@ function AllRoom() {
 							className=" rounded-lg  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 b-5 p-2"
 							id="allroomcardContainer">
 							{cardData.map((cardInfo, index) => (
-								<div
-									key={index}
-									className="  m-4 allroomcard p-2">
-									<Link to={`/room/${cardInfo.id}`}>
+								<Link to={`/room/${cardInfo.id}`}>
+									<div
+										key={index}
+										className="m-4 allroomcard p-2">
 										<img
 											src={cardInfo.image}
 											className="w-full h-32 object-cover mb-4 allroomimage"
 											alt={`Image for Card ${index + 1}`}
 										/>
 										<div>
-											<h5 className=" font-semibold mb-2 allroomcard-header-text">{` ${
-												cardInfo.price_one_night
-											} : ${index + 1} قیمت اتاق`}</h5>
-											<p className=" allroomcard-text">توضیحات</p>
+											<h5 className="font-semibold mb-2 allroomcard-header-text">
+												شماره اتاق: {cardInfo.number}
+											</h5>
+											<p className="allroomcard-text">
+												قیمت اتاق: {cardInfo.price_one_night} تومان
+											</p>
 										</div>
-									</Link>
-								</div>
+									</div>
+								</Link>
 							))}
 						</div>
-						<button
+						{/* <button
 							className="absolute top-24 -right-4 -mt-1 -mr-1"
 							id="filter"
 							onClick={handleFilterButtonClick}>
@@ -141,7 +143,7 @@ function AllRoom() {
 								height="38px"
 								className="rounded-full allroomitem-bg p-2"
 							/>
-						</button>
+						</button> */}
 					</div>
 					{isPopupVisible && (
 						<div
@@ -209,6 +211,23 @@ function AllRoom() {
 										بدون فیلتر
 									</label>
 								</div>
+								{/* <div class="small-card right-card px-4">
+									<div class="card-text">قیمت</div>
+									<input
+										type="range"
+										min="0"
+										max="5000000"
+										step="100000"
+										class="slider w-full active "
+										id="priceSlider"
+										onChange={slide}
+									/>
+									<div
+										id="sliderValue"
+										class="slider text-center mt-2">
+										تومان 1500000
+									</div>
+								</div> */}
 								<button
 									id="applyButton"
 									class="custom-button "

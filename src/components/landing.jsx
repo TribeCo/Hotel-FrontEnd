@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./tailwind.css";
+import "./landing.css";
 import { Group } from "@mui/icons-material";
 import { Avatar, Button, Typography } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
@@ -80,14 +81,14 @@ const Landing = () => {
 				</div>
 			</header>
 			<img
-				className="w-full h-full object-cover blur-sm landingblurry-image"
+				className="w-full h-full object-cover blur-sm landingblurry-image  invisible md:visible lg:visible"
 				src={mainpicture}
 				alt="Background Image"
 			/>
-			<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-centet">
+			<div className="absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center invisible lg:visible">
 				<Typography variant="h1">هتل ترانسیلوانیا</Typography>
 			</div>
-			<div className=" landingcard-container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+			<div className=" landingcard-container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16 justify-center ">
 				{/* Card 1 */}
 				<div className="relative landingcard max-w-md landingcard shadow-lg rounded-lg overflow-hidden">
 					<img
@@ -176,7 +177,7 @@ const Landing = () => {
 					<img
 						src={des}
 						alt="image"
-						className="object-cover w-full h-full"
+						className="object-cover w-full h-full invisible lg:visible md:visible"
 					/>
 				</div>
 				<div className="p-6">

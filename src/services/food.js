@@ -124,6 +124,17 @@ class Food {
 		};
 		return axios.post(url, data, config);
 	};
+
+	static todayResFoods = ({ authToken }) => {
+		const url = `${baseUrl}/reservation/user/today/`;
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${authToken}`,
+			},
+		};
+		return axios.get(url, config);
+	};
 }
 
 export default Food;

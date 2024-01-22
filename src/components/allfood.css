@@ -17,7 +17,7 @@
 	height: 70px;
 }
 #allfoodcardContainer {
-	max-height: 600px;
+	max-height: 600px ;
 	overflow-y: auto;
 	scrollbar-width: none; /* Enable vertical scrolling */
 	border-color: #271c15;
@@ -37,9 +37,15 @@
 	flex-direction: column;
 	justify-content: center;
 	justify-items: center;
-	min-height: 100vh;
+	min-height: calc(100vh - 64px);
 	z-index: -1;
 }
+@media (max-width: 600px) {
+	.allfoodbody {
+	  min-height: calc(100vh - 56px);
+	}
+}
+
 .allfoodtext {
 	color: #0f0d0d;
 	text-align: center;
@@ -52,9 +58,9 @@
 }
 .allfoodcard {
 	border-radius: 25px;
-	background: #1b0000;
-	width: 438px;
-	height: 198px;
+	background: #1B0000;
+	width: 438px auto;
+	height: 198px auto;
 }
 .allfoodcard-header-text {
 	color: #bebebe;
@@ -68,9 +74,10 @@
 }
 .allfooditem-bg {
 	background-color: rgba(0, 0, 0, 0.25);
+	
 }
 .allfoodimage {
-	width: 185px;
+	width: 185px ;
 	height: 170px;
 	border-radius: 25px;
 	border: 8px solid #352d2d;
@@ -112,4 +119,8 @@
 	font-weight: 400;
 	line-height: normal;
 	text-transform: capitalize;
+}
+
+.contactusfooter-color {
+	background: #2d2d2e
 }
