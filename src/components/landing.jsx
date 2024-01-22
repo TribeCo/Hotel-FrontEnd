@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./tailwind.css";
-import "./landing.css";
 import { Group } from "@mui/icons-material";
 import { Avatar, Button, Typography } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
