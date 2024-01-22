@@ -130,18 +130,8 @@ const DashboardLayout = () => {
 					const response = await User.getOne({ accessToken: accessToken });
 					setUser(response.data);
 				} catch (error) {
-					const e = new Error();
-					e.message =
-						"شما به محتوا درخواست شده دسترسی ندارید لطفا ابتدا وارد شوید.";
-					e.name = "خطای احراز هویت";
-					showBoundary(e);
+					showBoundary(error);
 				}
-			} else {
-				const e = new Error();
-				e.message =
-					"شما به محتوا درخواست شده دسترسی ندارید لطفا ابتدا وارد شوید.";
-				e.name = "خطای احراز هویت";
-				showBoundary(e);
 			}
 		};
 

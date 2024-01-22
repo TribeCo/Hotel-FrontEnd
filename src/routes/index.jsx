@@ -11,11 +11,16 @@ import Eachroom from "../pages/EachRoom";
 import Eachfood from "../pages/EachFood";
 import Landing from "../components/landing";
 import ForgetPassword from "../pages/ForgetPassword";
+import PaymentSuccess from "../pages/PaymentSuccess";
 import FAQPage from "../components/Faqpage";
 
 const Router = () => {
 	return (
 		<Routes>
+			<Route
+				path="/payment"
+				element={<PaymentSuccess />}
+			/>
 			<Route
 				path="/"
 				element={<Landing />}

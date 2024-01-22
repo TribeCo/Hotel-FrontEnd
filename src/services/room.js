@@ -40,7 +40,7 @@ class Room {
 
 	// @Desc get Room info with id
 	static getUserRoom = ({ authToken }) => {
-		const url = `${baseUrl}/reservation/user/`;
+		const url = `${baseUrl}/reservation/user/dashboard/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",

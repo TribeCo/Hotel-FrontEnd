@@ -19,24 +19,34 @@ import {
 import { AttachMoneyOutlined, ListRounded } from "@mui/icons-material";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import { useAuth } from "../context/AuthContext";
 
 const PaymentPage = ({ payment }) => {
 	const Navigate = useNavigate();
-	const handlePayment = () => {
-		alert("پرداخت با موفقیت انجام شد");
-		console.log("Payment success!");
+	const { accessToken } = useAuth();
+	const handlePayment = async () => {
+		try {
+			const url = `https://hotelt.liara.run/api/payment`;
+			const config = {
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${accessToken}`,
+				},
+			};
+			const res = await axios.get(url, config);
+			console.log(res);
+			window.location.replace(res.data.redirect_url);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	console.log(payment);
 	return (
 		<Container
 			maxWidth="lg"
 			sx={{ mt: 4, mb: 4 }}>
-			{/* <Grid
-			sx={{
-				padding: 2,
-			}}
-			container
-			spacing={2}> */}
 			<Fab
 				onClick={() => Navigate("/faq")}
 				variant="circular"
@@ -95,7 +105,7 @@ const PaymentPage = ({ payment }) => {
 										</TableRow>
 									))}
 									{payment.food.map((row) => (
-										<TableRow key={row.food.name}>
+										<TableRow key={row.food.created}>
 											<TableCell
 												component="th"
 												scope="row">
@@ -164,13 +174,24 @@ const PaymentPage = ({ payment }) => {
 							sx={{
 								p: 1,
 							}}>
-							<Button
-								color={"success"}
-								fullWidth
-								variant="contained"
-								onClick={() => handlePayment()}>
-								پرداخت
-							</Button>
+							{Sum(payment.room) + Sum(payment.food) === 0 ? (
+								<Button
+									color={"inherit"}
+									disabled
+									fullWidth
+									variant="contained"
+									onClick={() => handlePayment()}>
+									پرداخت
+								</Button>
+							) : (
+								<Button
+									color={"success"}
+									fullWidth
+									variant="contained"
+									onClick={() => handlePayment()}>
+									پرداخت
+								</Button>
+							)}
 						</Box>
 					</Paper>
 				</Grid>

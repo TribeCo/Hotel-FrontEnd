@@ -17,14 +17,18 @@ import RoomCard from "../components/dashboard/RoomCard";
 import Loading from "../components/utils/Loading";
 import Room from "../services/room";
 import Food from "../services/food";
-const baseUrl = "https://hotelt.liara.run";
 import Images from "../assets/images";
 import ReservationList from "../components/dashboard/ReservationList";
+
 const DashboardPage = ({ user, payment, setPayment }) => {
-	const [room, setRoom] = useState([]);
+	const [room, setRoom] = useState(null);
 	const { accessToken } = useAuth();
 	const Navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
+	const [reserve, setReserve] = useState({
+		food: [],
+		room: [],
+	});
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -32,18 +36,20 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 			try {
 				const resRoom = await Room.getUserAll({ authToken: accessToken });
 				const resFood = await Food.getUserAll({ authToken: accessToken });
-				console.log(resRoom);
-				console.log(resFood);
+				const todayFoods = await Food.todayResFoods({ authToken: accessToken });
+				const res = await Room.getUserRoom({ authToken: accessToken });
+				console.log(todayFoods);
 				setPayment({
 					room: resRoom.data.payments,
 					food: resFood.data.payments,
 				});
-			} catch (error) {
-				alert(error);
-			}
-			try {
-				const res = await Room.getUserRoom({ authToken: accessToken });
-				setRoom(res.data.payments[0]);
+				setReserve({
+					food: todayFoods.data.payments,
+					room: res.data.payments,
+				});
+				if (res.data.payments[0]) {
+					setRoom(res.data.payments[0]);
+				}
 			} catch (error) {
 				alert(error);
 			}
@@ -76,7 +82,11 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 						xs={12}
 						md={8}
 						lg={8}>
-						<RoomCard res={room} />
+						<RoomCard room={room} />
+						<ReservationList
+							roomList={reserve.room}
+							foodList={reserve.food}
+						/>
 					</Grid>
 					<Grid
 						item
@@ -137,12 +147,6 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 						</Paper>
 					</Grid>
 				</Grid>
-				<Grid>
-					<ReservationList
-						roomList={{}} //TODO: give room list to the component
-						foodList={{}} //TODO: give food list to the component
-					/>
-				</Grid>
 			</Container>
 		);
 	} else {
@@ -154,9 +158,10 @@ export default DashboardPage;
 
 const Sum = (array) => {
 	let sum = 0;
-	array.map((value) => {
-		sum += value.remain_paid;
-	});
-
+	if (array != null) {
+		array.map((value) => {
+			sum += value.remain_paid;
+		});
+	}
 	return sum;
 };
