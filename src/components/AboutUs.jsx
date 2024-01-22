@@ -151,6 +151,8 @@ function AboutUs() {
 					</div>
 				</div>
 			</div>
+			
+
 			<footer
 				className="landingfooter-color items-center text-white py-4 w-full mt-8"
 				dir="rtl">
