@@ -68,18 +68,7 @@ const ResRoom = ({
 						range
 						rangeHover
 						value={values}
-						onChange={(ranges) => {
-							const isClickedOutsideUnAvailbleDates = reserved.every(
-								([start, end]) =>
-									ranges.some(
-										(range) =>
-											range[0]?.format?.() === start &&
-											range[1]?.format?.() === end,
-									),
-							);
-							if (!isClickedOutsideUnAvailbleDates) return false;
-							setValues(ranges);
-						}}
+						onChange={setValues}
 						mapDays={({ date }) => {
 							const strDate = moment(
 								`${date.year}/${date.month.number}/${date.day}`,

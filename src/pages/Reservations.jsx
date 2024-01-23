@@ -50,6 +50,7 @@ const Reservations = () => {
 			try {
 				const res = await Food.getAll({ authToken: accessToken });
 				setFoodList(res.data);
+				console.log(res.data);
 			} catch (error) {
 				alert(error);
 			}
@@ -71,7 +72,7 @@ const Reservations = () => {
 								bgcolor: "#303030",
 								p: 2,
 							}}>
-							<Typography variant="h5">غذا های رزرو شده</Typography>
+							<Typography variant="h5">غذا های رزرو شده روز</Typography>
 						</Box>
 						{deliveryLoading && <LinearProgress />}
 						<Divider />
@@ -92,7 +93,10 @@ const Reservations = () => {
 											<Typography variant="h6">قیمت غذا</Typography>
 										</TableCell>
 										<TableCell align="center">
-											<Typography variant="h6">عملیات</Typography>
+											<Typography variant="h6">محل تحویل</Typography>
+										</TableCell>
+										<TableCell align="center">
+											<Typography variant="h6">تحویل</Typography>
 										</TableCell>
 									</TableRow>
 								</TableHead>
@@ -112,6 +116,9 @@ const Reservations = () => {
 											</TableCell>
 											<TableCell align="center">{food.food.name}</TableCell>
 											<TableCell align="center">{food.food.price}</TableCell>
+											<TableCell align="center">
+												{food.place === "r" ? "رستوران" : `اتاق`}
+											</TableCell>
 											<TableCell align="center">
 												<Button
 													variant="contained"
