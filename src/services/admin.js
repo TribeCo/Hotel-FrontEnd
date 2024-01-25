@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const baseUrl = "https://hotelt.liara.run/api/accounts/employees";
+const baseUrl = "https://hotelt.liara.run/api/accounts";
 
 //? Admin Api
 class Admin {
 	// @Desc get Admin with id
 	static getOne = ({ uid, authToken }) => {
-		const url = `${baseUrl}/${uid}/`;
+		const url = `${baseUrl}/employees/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
@@ -18,7 +18,7 @@ class Admin {
 
 	// @Desc get All Admins
 	static getAll = ({ authToken }) => {
-		const url = `${baseUrl}/`;
+		const url = `${baseUrl}/employees/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
@@ -30,7 +30,7 @@ class Admin {
 
 	// @Desc edit user info with id
 	static edit = ({ uid, data, authToken }) => {
-		const url = `/api/accounts/users/role/update/${uid}/`;
+		const url = `${baseUrl}/users/role/update/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
@@ -42,7 +42,7 @@ class Admin {
 
 	// @Desc create user account
 	static create = ({ data, authToken }) => {
-		const url = `${baseUrl}/create/`;
+		const url = `${baseUrl}/employees/create/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",

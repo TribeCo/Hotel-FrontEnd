@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "/api/accounts/comments";
+const baseUrl = "https://hotelt.liara.run/api/accounts/comments";
 
 class Comment {
 	static addRoom = ({ data, authToken }) => {

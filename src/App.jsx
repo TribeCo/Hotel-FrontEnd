@@ -26,7 +26,7 @@ const App = () => {
 				<ErrorBoundary
 					FallbackComponent={ErrorFallback}
 					onReset={() => {
-						// reset the state of your app so the error doesn't happen again
+						window.location.replace("https://hoteltransylvania.ir/");
 					}}>
 					<HelmetProvider>
 						<Helmet>
