@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
@@ -35,9 +35,11 @@ const validationSchema = Yup.object({
 });
 
 const Eachfood = () => {
+	const fileInputRef = useRef(null);
 	const { id } = useParams();
 	const [food, setFood] = useState([]);
 	const { accessToken } = useAuth();
+	const [image, setImage] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [user, setUser] = useState({});
 	const [isEditMode, setIsEditMode] = useState(false);
@@ -45,6 +47,26 @@ const Eachfood = () => {
 	const [openReserveDialog, setOpenReserveDialog] = useState(false);
 	const [commentLoading, setCommentLoadig] = useState(false);
 	const Navigate = useNavigate();
+
+	const handleImageClick = () => {
+		fileInputRef.current.click();
+	};
+	const handleFileChange = async (event) => {
+		const file = event.target.files[0];
+		if (file) {
+			try {
+				const res = await Food.uploadImage({
+					uid: food.id,
+					file: file,
+					authToken: accessToken,
+				});
+				console.log(res);
+				setImage(res.data.data);
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	};
 
 	const handleReserveBTN = () => {
 		setOpenReserveDialog(true);
@@ -66,9 +88,10 @@ const Eachfood = () => {
 						uid: id,
 						authToken: accessToken,
 					});
-					console.log(foodRes.data, userRes.data);
 					setUser(userRes.data);
 					setFood(foodRes.data);
+					console.log(food);
+					setImage(foodRes.data.image);
 					setLoading(false);
 				} catch (error) {
 					alert("خطایی رخ داد لطفا دوباره تلاش کنید");
@@ -175,7 +198,7 @@ const Eachfood = () => {
 					sm={4}
 					md={7}
 					sx={{
-						backgroundImage: `url(${food.image})`,
+						backgroundImage: `url(${image})`,
 						backgroundSize: "cover",
 						backgroundPosition: "center",
 					}}>
@@ -323,6 +346,7 @@ const Eachfood = () => {
 						square>
 						<Container maxWidth="xs">
 							<CssBaseline />
+
 							<Box
 								sx={{
 									marginTop: 19,
@@ -330,6 +354,29 @@ const Eachfood = () => {
 									flexDirection: "column",
 									alignItems: "center",
 								}}>
+								<Grid>
+									<input
+										type="file"
+										accept="image/*"
+										style={{ display: "none" }}
+										ref={fileInputRef}
+										onChange={handleFileChange}
+									/>
+									<Button
+										variant="contained"
+										sx={{
+											"&:hover": {
+												backgroundColor: "#ffffff",
+											},
+											borderRadius: 3,
+											bgcolor: "#ebe6e6",
+											mb: 3,
+											textTransform: "none",
+										}}
+										onClick={handleImageClick}>
+										<Typography variant="h6">ویرایش تصویر</Typography>
+									</Button>
+								</Grid>
 								<Formik
 									initialValues={{
 										name: food.name || "",
