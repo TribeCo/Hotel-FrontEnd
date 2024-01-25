@@ -27,7 +27,7 @@ const styles = {
         color: '#F8F8F2', // Light color for visibility
         fontSize: '28px', // Larger font size
         textAlign: 'center',
-        marginBottom: '20px'
+        margin: '60px',
     },
     faqQuestion: {
         padding: '15px',
@@ -57,17 +57,17 @@ const styles = {
 // Define responsive styles
 const responsiveStyles = {
     faqPage: {
-        '@media screen and (max-width: 600px)': {
+        '@media screen and (maxWidth: 600px)': {
             padding: '10px',
         },
     },
     faqQuestion: {
-        '@media screen and (max-width: 600px)': {
+        '@media screen and (maxWidth: 600px)': {
             fontSize: '14px',
         },
     },
     faqAnswer: {
-        '@media screen and (max-width: 600px)': {
+        '@media screen and (maxWidth: 600px)': {
             fontSize: '14px',
         },
     }
@@ -91,14 +91,13 @@ const defaultFaqs = [
 
 const FAQPage = ({ faqs = defaultFaqs }) => {
     const [activeIndex, setActiveIndex] = useState(null);
-
     const toggleFAQ = index => {
         setActiveIndex(activeIndex === index ? null : index);
     };
     const Navigate = useNavigate();
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <div className="flex flex-col min-h-screen">
             <Fab
                 onClick={() => Navigate("/")}
                 variant="extended"
@@ -110,22 +109,29 @@ const FAQPage = ({ faqs = defaultFaqs }) => {
                 }}>
                 <Typography>بازگشت به صفحه اصلی</Typography>
             </Fab>
-            <div style={styles.faqPage}>
+            <div style={styles.faqPage} className="responsive-faqPage">
                 <h1 style={styles.faqTitle}>پرسش‌های متداول</h1>
                 {faqs.map((faq, index) => (
                     <div key={index} style={styles.faqItem}>
-                        <div style={styles.faqQuestion} onClick={() => toggleFAQ(index)}>
+                        <div
+                            style={styles.faqQuestion}
+                            onClick={() => toggleFAQ(index)}
+                            className="responsive-faqQuestion"
+                        >
                             <AddIcon style={styles.icon} />
                             {faq.question}
                         </div>
-                        <div style={activeIndex === index ? { ...styles.faqAnswer, ...styles.faqAnswerShow } : styles.faqAnswer}>
+                        <div
+                            style={activeIndex === index ? { ...styles.faqAnswer, ...styles.faqAnswerShow } : styles.faqAnswer}
+                            className="responsive-faqAnswer"
+                        >
                             {faq.answer}
                         </div>
                     </div>
                 ))}
             </div>
             <footer
-                className="landingfooter-color items-center text-white py-4 w-full mt-8"
+                className="footer-color items-center text-white py-4 w-full mt-8"
                 dir="rtl">
                 <div
                     className="mx-auto flex items-center px-4"

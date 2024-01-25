@@ -175,7 +175,7 @@ const ContactUs = () => {
 
 
 			<footer
-				className="contactusfooter-color items-center text-white py-4 w-full mt-8"
+				className="footer-color items-center text-white py-4 w-full mt-8"
 				dir="rtl">
 				<div
 					className="mx-auto flex items-center px-4"
