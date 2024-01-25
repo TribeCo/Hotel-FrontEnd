@@ -270,12 +270,16 @@ const DashboardLayout = () => {
 													</ListItemIcon>
 													<ListItemText primary="پذیرش" />
 												</ListItemButton>
-												<ListItemButton onClick={() => togglePage(5)}>
-													<ListItemIcon>
-														<People />
-													</ListItemIcon>
-													<ListItemText primary="لیست کارمندان" />
-												</ListItemButton>
+												{user.role === "m" ? (
+													<ListItemButton onClick={() => togglePage(5)}>
+														<ListItemIcon>
+															<People />
+														</ListItemIcon>
+														<ListItemText primary="لیست کارمندان" />
+													</ListItemButton>
+												) : (
+													""
+												)}
 												<ListItemButton onClick={() => togglePage(6)}>
 													<ListItemIcon>
 														<Assignment />
