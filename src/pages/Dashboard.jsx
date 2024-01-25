@@ -29,7 +29,6 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 		food: [],
 		room: [],
 	});
-
 	useEffect(() => {
 		const fetchData = async () => {
 			setLoading(true);

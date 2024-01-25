@@ -3,7 +3,6 @@ import { Typography, Button, Container, Grid } from "@mui/material";
 import Image from "../../assets/error.png";
 
 const ErrorFallback = ({ error, resetErrorBoundary }) => {
-	console.log(error);
 	return (
 		<Container>
 			<Grid
