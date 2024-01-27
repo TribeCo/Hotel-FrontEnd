@@ -75,9 +75,9 @@ const Register = () => {
 			setIsVerification(true);
 			console.log(res);
 		} catch (error) {
+			console.log(error);
 			alert("خطایی رخ داد لطفا دوباره تلاش کنید.");
 			setLoading(false);
-			console.log(error);
 		}
 	};
 	const handleSubmitCode = async (values) => {

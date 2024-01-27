@@ -444,12 +444,12 @@ const Reports = () => {
 									{
 										data: chartsData.day.food,
 										label: "درآمد رستوران",
-										stack: "stack1",
+										// stack: "stack1",
 									},
 									{
 										data: chartsData.day.room,
 										label: "درآمد رزرو اتاق",
-										stack: "stack1",
+										// stack: "stack1",
 									},
 								]}
 								xAxis={[{ data: chartsData.day.labels, scaleType: "band" }]}

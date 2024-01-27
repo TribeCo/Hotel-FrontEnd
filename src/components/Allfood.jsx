@@ -58,7 +58,7 @@ const Allfood = () => {
 				authToken: accessToken,
 			});
 			setLoading(true);
-			const res = await Food.getAll({ authToken: accessToken });
+			const res = await Food.getAllFood({ authToken: accessToken });
 			setCardData(res.data);
 			setLoading(false);
 		} catch (error) {
@@ -123,7 +123,9 @@ const Allfood = () => {
 											<p className="allfoodcard-text  mb-3 lg:mr-2 ">
 												{cardInfo.name}
 											</p>
-											<p className="allfoodcard-text  lg:mr-2">{cardInfo.price}</p>
+											<p className="allfoodcard-text  lg:mr-2">
+												{cardInfo.price}
+											</p>
 										</div>
 									</div>
 								</Link>

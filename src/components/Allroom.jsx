@@ -56,6 +56,7 @@ function AllRoom() {
 				data: data.info,
 				authToken: accessToken,
 			});
+			console.log(resRoom);
 			await Room.uploadImage({
 				file: data.image.file,
 				authToken: accessToken,
