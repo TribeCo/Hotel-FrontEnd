@@ -13,6 +13,7 @@ import Landing from "../components/landing";
 import ForgetPassword from "../pages/ForgetPassword";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import FAQPage from "../components/Faqpage";
+import { UserProvider } from "../context/UserContext";
 
 const Router = () => {
 	return (

@@ -1,6 +1,5 @@
 import "./allroom.css";
 import "./tailwind.css";
-import filter from "../assets/filter.png";
 import Room from "../services/room";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
@@ -9,12 +8,14 @@ import Loading from "../components/utils/Loading";
 import { Fab, Typography } from "@mui/material";
 import { AddCircle } from "@mui/icons-material";
 import AddRoomDialog from "./employee/AddRoomDialog";
+import { useGetUser } from "../context/UserContext";
 
 function AllRoom() {
 	const [openAddDialog, setOpenAddDialog] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [cardData, setCardData] = useState([]);
 	const { accessToken } = useAuth();
+	const { user } = useGetUser();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -30,6 +31,7 @@ function AllRoom() {
 			}
 			setLoading(false);
 		};
+		console.log(user);
 		fetchData();
 	}, [accessToken]);
 
@@ -56,11 +58,13 @@ function AllRoom() {
 				data: data.info,
 				authToken: accessToken,
 			});
-			await Room.uploadImage({
+			console.log(resRoom);
+			const d = await Room.uploadImage({
 				file: data.image.file,
 				authToken: accessToken,
-				uid: resRoom.data.data.id,
+				uid: resRoom.data.id,
 			});
+			console.log(d);
 			const res = await Room.getAll({ authToken: accessToken });
 			setCardData(res.data);
 			setLoading(false);
@@ -81,18 +85,23 @@ function AllRoom() {
 	if (!loading) {
 		return (
 			<div>
-				<Fab
-					onClick={handleAddBtnClick}
-					variant="extended"
-					style={{
-						position: "fixed",
-						bottom: 0,
-						left: 0,
-						margin: "16px",
-					}}>
-					<AddCircle sx={{ mr: 1 }} />
-					<Typography>افزودن اتاق</Typography>
-				</Fab>
+				{user.role !== "u" ? (
+					<Fab
+						onClick={handleAddBtnClick}
+						variant="extended"
+						style={{
+							position: "fixed",
+							bottom: 0,
+							left: 0,
+							margin: "16px",
+						}}>
+						<AddCircle sx={{ mr: 1 }} />
+						<Typography>افزودن اتاق</Typography>
+					</Fab>
+				) : (
+					""
+				)}
+
 				{openAddDialog && (
 					<AddRoomDialog
 						open={openAddDialog}

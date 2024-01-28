@@ -195,6 +195,7 @@ const Reports = () => {
 							<BarChart
 								sx={{
 									direction: "rtl",
+									margin: 2,
 								}}
 								height={378}
 								series={[
@@ -299,15 +300,13 @@ const Reports = () => {
 						item
 						xs={12}
 						md={8}>
-						<Paper
-							sx={{
-								padding: 2,
-							}}>
+						<Paper>
 							<BarChart
 								sx={{
 									direction: "rtl",
+									margin: 2,
 								}}
-								height={348}
+								height={378}
 								layout="horizontal"
 								series={[
 									{
@@ -431,25 +430,21 @@ const Reports = () => {
 						item
 						xs={12}
 						md={8}>
-						<Paper
-							sx={{
-								padding: 2,
-							}}>
+						<Paper>
 							<LineChart
 								sx={{
 									direction: "rtl",
+									margin: 2,
 								}}
-								height={348}
+								height={378}
 								series={[
 									{
 										data: chartsData.day.food,
 										label: "درآمد رستوران",
-										stack: "stack1",
 									},
 									{
 										data: chartsData.day.room,
 										label: "درآمد رزرو اتاق",
-										stack: "stack1",
 									},
 								]}
 								xAxis={[{ data: chartsData.day.labels, scaleType: "band" }]}

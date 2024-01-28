@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import { UserProvider } from "../context/UserContext";
 import {
 	CssBaseline,
 	Box,
@@ -302,13 +302,13 @@ const DashboardLayout = () => {
 													<ListItemIcon>
 														<FoodBank />
 													</ListItemIcon>
-													<ListItemText primary="لیست رزرو ها" />
+													<ListItemText primary="رزرو های امروز" />
 												</ListItemButton>
 												<ListItemButton onClick={() => togglePage(8)}>
 													<ListItemIcon>
 														<Assignment />
 													</ListItemIcon>
-													<ListItemText primary="گزارش رستوران" />
+													<ListItemText primary="گزارش های رستوران" />
 												</ListItemButton>
 											</>
 										)}
@@ -331,7 +331,7 @@ const DashboardLayout = () => {
 							paddingLeft: "3rem",
 						}}>
 						<Toolbar />
-						{pages[page]}
+						<UserProvider>{pages[page]}</UserProvider>
 					</Box>
 				</Box>
 			</>

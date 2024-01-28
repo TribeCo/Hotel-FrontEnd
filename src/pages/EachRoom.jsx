@@ -28,6 +28,7 @@ import Comment from "../services/comment";
 import CommentList from "../components/commentList";
 import Loading from "../components/utils/Loading";
 import ResRoomDialog from "../components/ResRoomDialog";
+import DeleteDialog from "../components/DeleteDialog";
 
 // form validation
 const validationSchema = Yup.object({
@@ -61,6 +62,7 @@ const Eachroom = () => {
 	const [isCommentListOpen, setCommentListOpen] = useState(false);
 	const [openResDialog, setOpenResDialog] = useState(false);
 	const [commentLoading, setCommentLoadig] = useState(false);
+	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
 	const handleImageClick = () => {
 		fileInputRef.current.click();
@@ -95,7 +97,7 @@ const Eachroom = () => {
 					});
 					console.log(roomRes);
 					const roomResDays = await Room.getReservedDays({
-						uid: id,
+						uid: roomRes.data.number,
 						authToken: accessToken,
 					});
 					console.log(roomRes);
@@ -119,6 +121,7 @@ const Eachroom = () => {
 	};
 	const handleClose = () => {
 		setOpenResDialog(false);
+		setOpenDeleteDialog(false);
 	};
 	const toggleCommentList = () => {
 		setCommentListOpen(!isCommentListOpen);
@@ -204,6 +207,16 @@ const Eachroom = () => {
 			setIsEditMode(false);
 		} catch (error) {
 			console.log(error);
+		}
+	};
+
+	const handleDelete = async () => {
+		try {
+			await Room.delete({ uid: id, authToken: accessToken });
+			alert("حذف با موفقیت انجام شد.");
+			Navigate("/dashboard");
+		} catch (error) {
+			alert(error.message);
 		}
 	};
 
@@ -349,21 +362,39 @@ const Eachroom = () => {
 									}}>
 									<Typography variant="h6">سفارش اتاق</Typography>
 								</Button>
-								{user.role && (
-									<Button
-										onClick={() => setIsEditMode(true)}
-										fullWidth
-										variant="contained"
-										sx={{
-											"&:hover": {
-												backgroundColor: "#c98e4b",
-											},
-											mt: 2,
-											borderRadius: 15,
-											bgcolor: "#f7b060",
-										}}>
-										<Typography variant="h6">ویرایش اطلاعات</Typography>
-									</Button>
+								{user.role !== "u" && (
+									<>
+										<Button
+											onClick={() => setIsEditMode(true)}
+											fullWidth
+											variant="contained"
+											sx={{
+												"&:hover": {
+													backgroundColor: "#c98e4b",
+												},
+												mt: 2,
+												borderRadius: 15,
+												bgcolor: "#f7b060",
+											}}>
+											<Typography variant="h6">ویرایش اطلاعات</Typography>
+										</Button>
+										<Button
+											onClick={() => {
+												setOpenDeleteDialog(true);
+											}}
+											fullWidth
+											variant="contained"
+											sx={{
+												"&:hover": {
+													backgroundColor: "#c74e4e",
+												},
+												mt: 2,
+												borderRadius: 15,
+												bgcolor: "#f76d6d",
+											}}>
+											<Typography variant="h6">حذف اتاق</Typography>
+										</Button>
+									</>
 								)}
 								<Button
 									onClick={() => Navigate("/dashboard")} //TODO: Navigate to dashboard without ordering??
@@ -371,14 +402,14 @@ const Eachroom = () => {
 									variant="contained"
 									sx={{
 										"&:hover": {
-											backgroundColor: "#c74e4e",
+											backgroundColor: "#5981a8",
 										},
 										mt: 2,
 										mb: 2,
 										borderRadius: 15,
-										bgcolor: "#f76d6d",
+										bgcolor: "#78abde",
 									}}>
-									<Typography variant="h6">خروج</Typography>
+									<Typography variant="h6">بازگشت به داشبورد</Typography>
 								</Button>
 							</Box>
 						</Container>
@@ -389,6 +420,14 @@ const Eachroom = () => {
 								room_type_id={room.id}
 								reserved={reservedDays}
 								accessToken={accessToken}
+							/>
+						)}
+						{openDeleteDialog && (
+							<DeleteDialog
+								handleClose={handleClose}
+								title={`اتاق ${room.code}`}
+								handleDelete={handleDelete}
+								open={openDeleteDialog}
 							/>
 						)}
 					</Grid>

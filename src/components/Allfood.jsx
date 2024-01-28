@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useErrorBoundary } from "react-error-boundary";
 
 import AddFoodDialog from "./employee/AddFoodDialog";
+import { useGetUser } from "../context/UserContext";
 
 const Allfood = () => {
 	const { showBoundary } = useErrorBoundary();
@@ -17,10 +18,12 @@ const Allfood = () => {
 	const [loading, setLoading] = useState(false);
 	const [cardData, setCardData] = useState([]);
 	const { accessToken } = useAuth();
+	const { user } = useGetUser();
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
+				console.log(user);
 				const res = await Food.getAllFood({ authToken: accessToken });
 				console.log(res);
 				if (res.status === 200) {
@@ -58,7 +61,7 @@ const Allfood = () => {
 				authToken: accessToken,
 			});
 			setLoading(true);
-			const res = await Food.getAll({ authToken: accessToken });
+			const res = await Food.getAllFood({ authToken: accessToken });
 			setCardData(res.data);
 			setLoading(false);
 		} catch (error) {
@@ -82,18 +85,23 @@ const Allfood = () => {
 	if (cardData.length > 0) {
 		return (
 			<div>
-				<Fab
-					onClick={handleAddBtnClick}
-					variant="extended"
-					style={{
-						position: "fixed",
-						bottom: 0,
-						left: 0,
-						margin: "16px",
-					}}>
-					<AddCircle sx={{ mr: 1 }} />
-					<Typography>افزودن غذا</Typography>
-				</Fab>
+				{user.role !== "u" ? (
+					<Fab
+						onClick={handleAddBtnClick}
+						variant="extended"
+						style={{
+							position: "fixed",
+							bottom: 0,
+							left: 0,
+							margin: "16px",
+						}}>
+						<AddCircle sx={{ mr: 1 }} />
+						<Typography>افزودن غذا</Typography>
+					</Fab>
+				) : (
+					""
+				)}
+
 				{openAddDialog && (
 					<AddFoodDialog
 						open={openAddDialog}
@@ -123,7 +131,9 @@ const Allfood = () => {
 											<p className="allfoodcard-text  mb-3 lg:mr-2 ">
 												{cardInfo.name}
 											</p>
-											<p className="allfoodcard-text  lg:mr-2">{cardInfo.price}</p>
+											<p className="allfoodcard-text  lg:mr-2">
+												{cardInfo.price}
+											</p>
 										</div>
 									</div>
 								</Link>
