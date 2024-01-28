@@ -85,7 +85,7 @@ const Landing = () => {
 				alt="Background Image"
 			/>
 			<div className="lg:absolute w-full mb-64 lg:top-1/2 lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 text-center flex justify-center align-center lg:visible">
-				<Typography variant="h1" className="landingmaintext">هتل ترانسیلوانیا</Typography>
+			<p  className="landingmaintext ">هتل ترانسیلوانیا</p>
 			</div>
 			<div className="landingcard-container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-24 justify-center">
 				{/* Card 1 */}
