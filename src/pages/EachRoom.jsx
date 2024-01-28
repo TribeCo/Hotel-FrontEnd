@@ -377,7 +377,7 @@ const Eachroom = () => {
 												borderRadius: 15,
 												bgcolor: "#f76d6d",
 											}}>
-											<Typography variant="h6">حذف</Typography>
+											<Typography variant="h6">حذف اتاق</Typography>
 										</Button>
 									</>
 								)}
@@ -387,14 +387,14 @@ const Eachroom = () => {
 									variant="contained"
 									sx={{
 										"&:hover": {
-											backgroundColor: "#c74e4e",
+											backgroundColor: "#5981a8",
 										},
 										mt: 2,
 										mb: 2,
 										borderRadius: 15,
-										bgcolor: "#f76d6d",
+										bgcolor: "#78abde",
 									}}>
-									<Typography variant="h6">خروج</Typography>
+									<Typography variant="h6">بازگشت به داشبورد</Typography>
 								</Button>
 							</Box>
 						</Container>
