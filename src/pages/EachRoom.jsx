@@ -97,7 +97,7 @@ const Eachroom = () => {
 					});
 					console.log(roomRes);
 					const roomResDays = await Room.getReservedDays({
-						uid: id,
+						uid: roomRes.data.number,
 						authToken: accessToken,
 					});
 					console.log(roomRes);

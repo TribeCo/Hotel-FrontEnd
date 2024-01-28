@@ -1,13 +1,12 @@
 import "./allroom.css";
 import "./tailwind.css";
-import filter from "../assets/filter.png";
 import Room from "../services/room";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import Loading from "../components/utils/Loading";
 import { Fab, Typography } from "@mui/material";
-import { AddCircle, Alarm } from "@mui/icons-material";
+import { AddCircle } from "@mui/icons-material";
 import AddRoomDialog from "./employee/AddRoomDialog";
 import { useGetUser } from "../context/UserContext";
 
@@ -63,7 +62,7 @@ function AllRoom() {
 			const d = await Room.uploadImage({
 				file: data.image.file,
 				authToken: accessToken,
-				uid: resRoom.data.data.id,
+				uid: resRoom.data.id,
 			});
 			console.log(d);
 			const res = await Room.getAll({ authToken: accessToken });
