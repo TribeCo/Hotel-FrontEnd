@@ -59,6 +59,8 @@
 
 .landingcard {
 	background-color: #353846;
+	width :auto;
+	height: auto;
 }
 
 .landingcontent {
@@ -82,7 +84,16 @@
 	right: 10%;
 }
 
-
+.landingmaintext
+{
+	color: #FFF;
+	text-align: center;
+	font-size: 45px ;
+	font-style: normal;
+	font-weight: 900;
+	line-height: normal;
+	text-transform: capitalize;
+}
 
 .landingcard:hover {
 	transform: scale(1.05);
