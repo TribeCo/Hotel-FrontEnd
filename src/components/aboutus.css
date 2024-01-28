@@ -57,3 +57,42 @@ body {
         font-size: 14px;
     }
 }
+
+.aboutusmaintext
+{
+	color: #FFF;
+	text-align: center;
+	font-size: 36px ;
+}
+
+.aboutusdes {
+	width: 60%;
+	background-color: #2d2d2e;
+}
+
+.aboutustext-color {
+	color: #d8d8d8;
+}
+
+.aboutus-titlecontent 
+{
+	font-size: 24px;
+}
+
+.aboutus-textcontent 
+{
+	font-size: 20px;
+}
+
+.aboutussmallmainext 
+{
+	color: #FFF;
+	text-align: center;
+	font-size: 30px;	
+}
+
+.img-responsive {
+	max-width: 100%;
+	height: auto;
+  }
+  
