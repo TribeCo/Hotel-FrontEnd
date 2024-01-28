@@ -302,13 +302,13 @@ const DashboardLayout = () => {
 													<ListItemIcon>
 														<FoodBank />
 													</ListItemIcon>
-													<ListItemText primary="لیست رزرو ها" />
+													<ListItemText primary="رزرو های امروز" />
 												</ListItemButton>
 												<ListItemButton onClick={() => togglePage(8)}>
 													<ListItemIcon>
 														<Assignment />
 													</ListItemIcon>
-													<ListItemText primary="گزارش رستوران" />
+													<ListItemText primary="گزارش های رستوران" />
 												</ListItemButton>
 											</>
 										)}
