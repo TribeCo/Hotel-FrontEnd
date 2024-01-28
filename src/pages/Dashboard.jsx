@@ -82,10 +82,6 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 						md={8}
 						lg={8}>
 						<RoomCard room={room} />
-						<ReservationList
-							roomList={reserve.room}
-							foodList={reserve.food}
-						/>
 					</Grid>
 					<Grid
 						item
@@ -145,6 +141,19 @@ const DashboardPage = ({ user, payment, setPayment }) => {
 							</Box>
 						</Paper>
 					</Grid>
+
+					<Grid
+						item
+						xs={12}
+						md={8}
+						lg={8}
+						>
+						<ReservationList
+							roomList={reserve.room}
+							foodList={reserve.food}
+						/>	
+					</Grid>
+
 				</Grid>
 			</Container>
 		);
