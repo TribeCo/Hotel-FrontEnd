@@ -102,7 +102,7 @@ class Room {
 
 	// @Desc delete a Room with id
 	static delete = ({ uid, authToken }) => {
-		const url = `${baseUrl}/delete/${uid}/`;
+		const url = `${baseUrl}/type/delete/${uid}/`;
 		const config = {
 			headers: {
 				"Content-Type": "application/json",

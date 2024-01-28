@@ -28,6 +28,7 @@ import Comment from "../services/comment";
 import CommentList from "../components/commentList";
 import Loading from "../components/utils/Loading";
 import ResRoomDialog from "../components/ResRoomDialog";
+import DeleteDialog from "../components/DeleteDialog";
 
 // form validation
 const validationSchema = Yup.object({
@@ -61,6 +62,7 @@ const Eachroom = () => {
 	const [isCommentListOpen, setCommentListOpen] = useState(false);
 	const [openResDialog, setOpenResDialog] = useState(false);
 	const [commentLoading, setCommentLoadig] = useState(false);
+	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
 	const handleImageClick = () => {
 		fileInputRef.current.click();
@@ -119,6 +121,7 @@ const Eachroom = () => {
 	};
 	const handleClose = () => {
 		setOpenResDialog(false);
+		setOpenDeleteDialog(false);
 	};
 	const toggleCommentList = () => {
 		setCommentListOpen(!isCommentListOpen);
@@ -204,6 +207,16 @@ const Eachroom = () => {
 			setIsEditMode(false);
 		} catch (error) {
 			console.log(error);
+		}
+	};
+
+	const handleDelete = async () => {
+		try {
+			await Room.delete({ uid: id, authToken: accessToken });
+			alert("حذف با موفقیت انجام شد.");
+			Navigate("/dashboard");
+		} catch (error) {
+			alert(error.message);
 		}
 	};
 
@@ -366,7 +379,9 @@ const Eachroom = () => {
 											<Typography variant="h6">ویرایش اطلاعات</Typography>
 										</Button>
 										<Button
-											onClick={() => {}}
+											onClick={() => {
+												setOpenDeleteDialog(true);
+											}}
 											fullWidth
 											variant="contained"
 											sx={{
@@ -405,6 +420,14 @@ const Eachroom = () => {
 								room_type_id={room.id}
 								reserved={reservedDays}
 								accessToken={accessToken}
+							/>
+						)}
+						{openDeleteDialog && (
+							<DeleteDialog
+								handleClose={handleClose}
+								title={`اتاق ${room.code}`}
+								handleDelete={handleDelete}
+								open={openDeleteDialog}
 							/>
 						)}
 					</Grid>

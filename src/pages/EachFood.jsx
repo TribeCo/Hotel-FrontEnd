@@ -24,6 +24,7 @@ import Comment from "../services/comment";
 import CommentList from "../components/commentList";
 import ReserveFoodDialog from "../components/ReserveFoodDialog";
 import Loading from "../components/utils/Loading";
+import DeleteDialog from "../components/DeleteDialog";
 
 // form validation
 const validationSchema = Yup.object({
@@ -46,6 +47,8 @@ const Eachfood = () => {
 	const [isCommentListOpen, setCommentListOpen] = useState(false);
 	const [openReserveDialog, setOpenReserveDialog] = useState(false);
 	const [commentLoading, setCommentLoadig] = useState(false);
+	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
 	const Navigate = useNavigate();
 
 	const handleImageClick = () => {
@@ -73,6 +76,7 @@ const Eachfood = () => {
 	};
 	const handleClose = () => {
 		setOpenReserveDialog(false);
+		setOpenDeleteDialog(false);
 	};
 	const toggleCommentList = () => {
 		setCommentListOpen(!isCommentListOpen);
@@ -182,6 +186,16 @@ const Eachfood = () => {
 			setIsEditMode(false);
 		} catch (error) {
 			console.log(error);
+		}
+	};
+
+	const handleDelete = async () => {
+		try {
+			await Food.delete({ uid: id, authToken: accessToken });
+			alert("حذف با موفقیت انجام شد.");
+			Navigate("/dashboard");
+		} catch (error) {
+			alert(error.message);
 		}
 	};
 
@@ -310,7 +324,9 @@ const Eachfood = () => {
 											<Typography variant="h6">ویرایش اطلاعات</Typography>
 										</Button>
 										<Button
-											onClick={() => {}}
+											onClick={() => {
+												setOpenDeleteDialog(true);
+											}}
 											fullWidth
 											variant="contained"
 											sx={{
@@ -348,6 +364,14 @@ const Eachfood = () => {
 								handleClose={handleClose}
 								food_id={food.id}
 								accessToken={accessToken}
+							/>
+						)}
+						{openDeleteDialog && (
+							<DeleteDialog
+								handleClose={handleClose}
+								title={`${food.name}`}
+								handleDelete={handleDelete}
+								open={openDeleteDialog}
 							/>
 						)}
 					</Grid>
