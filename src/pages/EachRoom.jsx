@@ -349,21 +349,37 @@ const Eachroom = () => {
 									}}>
 									<Typography variant="h6">سفارش اتاق</Typography>
 								</Button>
-								{user.role && (
-									<Button
-										onClick={() => setIsEditMode(true)}
-										fullWidth
-										variant="contained"
-										sx={{
-											"&:hover": {
-												backgroundColor: "#c98e4b",
-											},
-											mt: 2,
-											borderRadius: 15,
-											bgcolor: "#f7b060",
-										}}>
-										<Typography variant="h6">ویرایش اطلاعات</Typography>
-									</Button>
+								{user.role !== "u" && (
+									<>
+										<Button
+											onClick={() => setIsEditMode(true)}
+											fullWidth
+											variant="contained"
+											sx={{
+												"&:hover": {
+													backgroundColor: "#c98e4b",
+												},
+												mt: 2,
+												borderRadius: 15,
+												bgcolor: "#f7b060",
+											}}>
+											<Typography variant="h6">ویرایش اطلاعات</Typography>
+										</Button>
+										<Button
+											onClick={() => {}}
+											fullWidth
+											variant="contained"
+											sx={{
+												"&:hover": {
+													backgroundColor: "#c74e4e",
+												},
+												mt: 2,
+												borderRadius: 15,
+												bgcolor: "#f76d6d",
+											}}>
+											<Typography variant="h6">حذف</Typography>
+										</Button>
+									</>
 								)}
 								<Button
 									onClick={() => Navigate("/dashboard")} //TODO: Navigate to dashboard without ordering??
