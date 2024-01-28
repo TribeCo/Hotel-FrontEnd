@@ -39,8 +39,8 @@ const ReservationList = ({ roomList, foodList }) => {
 						</TableHead>
 
 						<TableBody>
-							{roomList.map((row) => (
-								<TableRow key={row.id}>
+							{roomList.map((row, index) => (
+								<TableRow key={index}>
 									<TableCell>{row.room.number}</TableCell>
 									<TableCell>
 										{moment(row.check_in, "YYYY-MM-DD").format("jYYYY/jMM/jDD")}
@@ -75,8 +75,8 @@ const ReservationList = ({ roomList, foodList }) => {
 						</TableHead>
 
 						<TableBody>
-							{foodList.map((row) => (
-								<TableRow key={row.id}>
+							{foodList.map((row, index) => (
+								<TableRow key={index}>
 									<TableCell>{row.food.name}</TableCell>
 									<TableCell>{row.meal === "d" ? "ناهار" : "شام"}</TableCell>
 									<TableCell>

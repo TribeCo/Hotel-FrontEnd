@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import { UserProvider } from "../context/UserContext";
 import {
 	CssBaseline,
 	Box,
@@ -331,7 +331,7 @@ const DashboardLayout = () => {
 							paddingLeft: "3rem",
 						}}>
 						<Toolbar />
-						{pages[page]}
+						<UserProvider>{pages[page]}</UserProvider>
 					</Box>
 				</Box>
 			</>
